@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
         final String mPassword = mPasswordView.getText().toString();
 
         //Reference to Firebase data
-        final Firebase myFirebaseRef = new Firebase("https://brilliant-fire-9755.firebaseio.com/");
+        final Firebase myFirebaseRef = new Firebase(getString(R.string.firebase_url));
         // Create a handler to handle the result of the authentication
         final Firebase.AuthResultHandler authResultHandler = new Firebase.AuthResultHandler() {
             @Override
@@ -153,11 +153,11 @@ public class LoginActivity extends AppCompatActivity {
         final String mPassword = mPasswordView.getText().toString();
 
         //Reference to Firebase data
-        final Firebase myFirebaseRef = new Firebase("https://brilliant-fire-9755.firebaseio.com/");
+        final Firebase myFirebaseRef = new Firebase(getString(R.string.firebase_url));
         myFirebaseRef.createUser(mEmail, mPassword, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
-                Toast.makeText(getApplicationContext(), "Successfully created", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.on_success_registration), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -175,7 +175,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     /**

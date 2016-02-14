@@ -14,4 +14,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="on_success_registration">Successfully registered</string>
+    <!-- Qi's Firebase -->
+    <string name="firebase_url">https://brilliant-fire-9755.firebaseio.com/</string>
 </resources>
