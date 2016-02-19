@@ -17,4 +17,6 @@
     <string name="on_success_registration">Successfully registered</string>
     <!-- Qi's Firebase -->
     <string name="firebase_url">https://brilliant-fire-9755.firebaseio.com/</string>
+    <string name="welcome">Welcome</string>
+    <string name="action_logout">Logout</string>
 </resources>

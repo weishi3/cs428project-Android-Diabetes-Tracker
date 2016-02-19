@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEmailView;
     private EditText mPasswordView;
 
-    SessionManager session;
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +35,16 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Firebase.setAndroidContext(this);
         session = new SessionManager(getApplicationContext());
+        //if logged in, go to main screen.
+        if (session.isLoggedIn()) {
+            Intent main = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(main);
+            finish();
+        }
 
         // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.email);
-
         mPasswordView = (EditText) findViewById(R.id.password);
-
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         Button registerBtn = (Button) findViewById(R.id.registerBtn);
         //handle login
@@ -65,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      *
-     * @param isLoginPressed
+     * @param isLoginPressed A boolean value to check whether login or register is pressed.
      */
     private void attemptLoginOrRegister(Boolean isLoginPressed) {
         // Reset errors.
@@ -170,7 +174,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Check validity of email
      *
-     * @param email
+     * @param email user registration email
      * @return true is valid
      */
     private boolean isEmailValid(String email) {
@@ -181,7 +185,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Check strength of password
      *
-     * @param password
+     * @param password user password
      * @return true if satisfy strength requirement
      */
     private boolean isPasswordValid(String password) {
