@@ -14,14 +14,13 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
-
-// Tests for MainActivity
+// Tests for LoginActivity
 public class LoginActivityTest {
     private String mCorrectEmail1;
     private String mCorrectPassword1;
 
     @Before
-    public void initTest() {
+    public void setUp() {
         mCorrectEmail1 = "qizhang4@illinois.edu";
         mCorrectPassword1 = "123456";
     }
@@ -32,12 +31,65 @@ public class LoginActivityTest {
             new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void validateEditText() {
-        onView(withId(R.id.email)).perform(typeText("qizhang45"), closeSoftKeyboard());
-
-        onView(withId(R.id.email_sign_in_button)).perform(click());
-
-        onView(withId(R.id.email_sign_in_button)).check(matches(isDisplayed()));
+    public void signInButtonShownTest() {
+       onView(withId(R.id.email_sign_in_button))
+               .check(matches(isDisplayed()));
 
     }
+
+    @Test
+    public void registerButtonShownTest() {
+        onView(withId(R.id.registerBtn))
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void invalidEmailTest1() {
+        onView(withId(R.id.email))
+                .perform(typeText("123"), closeSoftKeyboard());
+        onView(withId(R.id.email_sign_in_button))
+                .perform(click());
+        String errorText = activityTestRule.getActivity().getResources().getString(R.string.error_invalid_email);
+        onView(withId(R.id.email))
+                .check(matches(ErrorMatcher.withError(errorText)));
+    }
+
+    @Test
+    public void invalidEmailTest2() {
+        onView(withId(R.id.email))
+                .perform(typeText("qi@"), closeSoftKeyboard());
+        onView(withId(R.id.email_sign_in_button))
+                .perform(click());
+        String errorText = activityTestRule.getActivity().getResources().getString(R.string.error_invalid_email);
+        onView(withId(R.id.email))
+                .check(matches(ErrorMatcher.withError(errorText)));
+    }
+
+    @Test
+    public void shortPasswordTest1() {
+        onView(withId(R.id.email))
+                .perform(typeText(mCorrectEmail1), closeSoftKeyboard());
+        onView(withId(R.id.password))
+                .perform(typeText("1234"), closeSoftKeyboard());
+        onView(withId(R.id.email_sign_in_button))
+                .perform(click());
+        String errorText = activityTestRule.getActivity().getResources().getString(R.string.error_invalid_password);
+        onView(withId(R.id.password))
+                .check(matches(ErrorMatcher.withError(errorText)));
+    }
+
+//    @Test
+//    public void SuccessfulLoginTest1() {
+//        onView(withId(R.id.email))
+//                .perform(typeText(mCorrectEmail1), closeSoftKeyboard());
+//        onView(withId(R.id.password))
+//                .perform(typeText(mCorrectPassword1), closeSoftKeyboard());
+//        onView(withId(R.id.email_sign_in_button))
+//                .perform(click());
+//
+//        onView(withId(R.id.welcomeTxt))
+//                .check(matches(withText(mCorrectEmail1)));
+//        onView(withId(R.id.logoutBtn))
+//                .perform(click());
+//    }
 }
