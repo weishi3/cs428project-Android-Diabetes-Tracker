@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.cs428.dit.diabetestracker.LoginActivity;
-import com.cs428.dit.diabetestracker.MainActivity;
 
 import java.util.HashMap;
 
