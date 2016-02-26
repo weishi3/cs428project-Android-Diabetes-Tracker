@@ -17,12 +17,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 // Tests for LoginActivity
 public class LoginActivityTest {
     private String mCorrectEmail1;
-    private String mCorrectPassword1;
 
     @Before
     public void setUp() {
         mCorrectEmail1 = "qizhang4@illinois.edu";
-        mCorrectPassword1 = "123456";
+        String mCorrectPassword1 = "123456";
     }
 
     // Preferred JUnit 4 mechanism of specifying the activity to be launched before each test
@@ -77,19 +76,4 @@ public class LoginActivityTest {
         onView(withId(R.id.password))
                 .check(matches(ErrorMatcher.withError(errorText)));
     }
-
-//    @Test
-//    public void SuccessfulLoginTest1() {
-//        onView(withId(R.id.email))
-//                .perform(typeText(mCorrectEmail1), closeSoftKeyboard());
-//        onView(withId(R.id.password))
-//                .perform(typeText(mCorrectPassword1), closeSoftKeyboard());
-//        onView(withId(R.id.email_sign_in_button))
-//                .perform(click());
-//
-//        onView(withId(R.id.welcomeTxt))
-//                .check(matches(withText(mCorrectEmail1)));
-//        onView(withId(R.id.logoutBtn))
-//                .perform(click());
-//    }
 }

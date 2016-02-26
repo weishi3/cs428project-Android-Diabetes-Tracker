@@ -1,13 +1,14 @@
 package com.cs428.dit.diabetestracker;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
@@ -15,18 +16,14 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
-import java.util.Map;
-
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
-    private final static Boolean loginPressed = true;
 
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
-
     private SessionManager session;
 
     @Override
@@ -45,33 +42,42 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
+        TextView mForgetPasswordLink = (TextView) findViewById(R.id.forgetPasswordLink);
+
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         Button registerBtn = (Button) findViewById(R.id.registerBtn);
         //handle login
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLoginOrRegister(loginPressed);
+                attemptLogin();
             }
         });
-        //handle register
+        //handle register, go to Registration Activity
         registerBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLoginOrRegister(!loginPressed);
+                Intent register = new Intent(getApplicationContext(), RegistrationActivity.class);
+                startActivity(register);
+            }
+        });
+        //handle forget password
+        mForgetPasswordLink.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent forgetPassword = new Intent(getApplicationContext(), ForgetPasswordActivity.class);
+                startActivity(forgetPassword);
             }
         });
 
     }
 
     /**
-     * Attempts to sign in or register the account specified by the login form.
+     * Attempts to sign in the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
-     *
-     * @param isLoginPressed A boolean value to check whether login or register is pressed.
      */
-    private void attemptLoginOrRegister(Boolean isLoginPressed) {
+    private void attemptLogin() {
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -106,11 +112,7 @@ public class LoginActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            if (isLoginPressed) {
-                login();
-            } else {
-                register();
-            }
+            login();
         }
     }
 
@@ -138,38 +140,19 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthenticationError(FirebaseError firebaseError) {
                 // Authenticated failed with error firebaseError
-                //TODO: fail to login.
                 session.eraseSharedPreference();
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                if (firebaseError.getCode() == FirebaseError.INVALID_PASSWORD) {
+                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    mPasswordView.requestFocus();
+                } else {
+                    Toast.makeText(getApplicationContext(), firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         };
 
         myFirebaseRef.authWithPassword(mEmail, mPassword, authResultHandler);
     }
 
-    /**
-     * Register a new account
-     */
-    private void register() {
-        //perform register attempt
-        final String mEmail = mEmailView.getText().toString();
-        final String mPassword = mPasswordView.getText().toString();
-
-        //Reference to Firebase data
-        final Firebase myFirebaseRef = new Firebase(getString(R.string.firebase_url));
-        myFirebaseRef.createUser(mEmail, mPassword, new Firebase.ValueResultHandler<Map<String, Object>>() {
-            @Override
-            public void onSuccess(Map<String, Object> result) {
-                Toast.makeText(getApplicationContext(), getString(R.string.on_success_registration), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(FirebaseError firebaseError) {
-                Toast.makeText(getApplicationContext(), firebaseError.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     /**
      * Check validity of email
@@ -178,7 +161,6 @@ public class LoginActivity extends AppCompatActivity {
      * @return true is valid
      */
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
@@ -189,7 +171,6 @@ public class LoginActivity extends AppCompatActivity {
      * @return true if satisfy strength requirement
      */
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 

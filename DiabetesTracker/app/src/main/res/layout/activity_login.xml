@@ -10,15 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cs428.dit.diabetestracker.LoginActivity">
 
-    <!-- Login progress -->
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
-
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
@@ -28,7 +19,8 @@
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -73,15 +65,28 @@
                 android:textStyle="bold" />
 
             <Button
-                style="?android:textAppearanceSmall"
                 android:id="@+id/registerBtn"
+                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="0.52"
                 android:text="@string/action_register"
-                android:textStyle="bold"
-                android:layout_gravity="center_horizontal" />
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/forgetPasswordLink"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.73"
+                android:clickable="true"
+                android:linksClickable="true"
+                android:text="@string/forget_password_link"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#2857d6" />
 
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

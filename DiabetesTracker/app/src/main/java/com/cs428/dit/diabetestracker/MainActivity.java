@@ -11,8 +11,6 @@ import com.cs428.dit.diabetestracker.helpers.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
     private SessionManager session;
-    private TextView welcomeTxt;
-    private Button logoutBtn;
 
     private static final String TAG = "MAIN_ACTIVITY";
 
@@ -22,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         session = new SessionManager(getApplicationContext());
-        logoutBtn = (Button) findViewById(R.id.logoutBtn);
+        Button logoutBtn = (Button) findViewById(R.id.logoutBtn);
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-        welcomeTxt = (TextView) findViewById(R.id.welcomeTxt);
+        TextView welcomeTxt = (TextView) findViewById(R.id.welcomeTxt);
         welcomeTxt.setText(session.getUserDetails().get(SessionManager.KEY_EMAIL));
         Log.d(TAG, "user is " + welcomeTxt.getText().toString());
 
