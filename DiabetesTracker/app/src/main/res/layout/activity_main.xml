@@ -9,28 +9,49 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cs428.dit.diabetestracker.MainActivity">
 
-    <TextView
+
+
+    <Button
+        android:id="@+id/logoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/welcome"
+        android:text="@string/action_logout"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
         android:id="@+id/welcomeTxt"
-        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/welcome"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50sp"
+        android:layout_above="@+id/logoutBtn"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profileAvatar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="116dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textSize="50sp" />
+        android:src="@drawable/cross"
+        android:background="#817474" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/action_logout"
-        android:id="@+id/logoutBtn"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:text="Diagnosis"
+        android:id="@+id/diagnosisBtn"
+        android:layout_below="@+id/profileAvatar"
+        android:layout_alignLeft="@+id/welcomeTxt"
+        android:layout_alignStart="@+id/welcomeTxt"
+        android:layout_marginTop="45dp"
         android:layout_alignRight="@+id/welcomeTxt"
         android:layout_alignEnd="@+id/welcomeTxt" />
+
+
 </RelativeLayout>
