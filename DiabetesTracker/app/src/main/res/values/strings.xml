@@ -32,4 +32,9 @@
     <string name="forget_password_link">Forget Password?</string>
     <string name="title_activity_registration">RegistrationActivity</string>
     <string name="reset_password_button_prompt">Reset password</string>
+
+    <!-- Home page strings -->
+    <string name="home_page_title">Home</string>
+    <string name="diagnosis_card_title">Diagnosis</string>
+    <string name="diagnosis_card_preview_text">recommendation</string>
 </resources>

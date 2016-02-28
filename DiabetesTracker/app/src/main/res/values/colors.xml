@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorTop">#FFFFFF</color>
     <color name="colorBackgroundSplash">#FFFFFF</color>
+    <color name="cardview_initial_background">#71C3DE</color>
 </resources>

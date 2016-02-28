@@ -33,6 +33,7 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.firebase:firebase-client-android:2.5.0+'
     compile 'com.google.guava:guava:18.0'
+    compile 'com.android.support:cardview-v7:23.1.0'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2') {
         // Necessary if your app targets Marshmallow (since Espresso
         // hasn't moved to Marshmallow yet)
