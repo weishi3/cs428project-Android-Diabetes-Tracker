@@ -35,8 +35,6 @@
                 android:id="@+id/welcomeTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_above="@+id/logoutBtn"
                 android:layout_centerHorizontal="true"
                 android:text="@string/welcome"
                 android:textAppearance="?android:attr/textAppearanceLarge"
