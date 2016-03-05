@@ -6,8 +6,10 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="1dp"
     tools:context="com.cs428.dit.diabetestracker.DiagnosisActivity">
+
+
 
     <Button
         android:layout_width="wrap_content"
@@ -16,7 +18,7 @@
         android:id="@+id/button"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp" />
+        android:layout_marginTop="1dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -26,4 +28,12 @@
         android:layout_below="@+id/button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="49dp"></LinearLayout>
+
+
+    <ExpandableListView
+        android:layout_marginTop="136dp"
+        android:id="@+id/lvExp"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+
 </RelativeLayout>
