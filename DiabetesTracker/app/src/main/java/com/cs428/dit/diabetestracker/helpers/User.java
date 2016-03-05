@@ -77,7 +77,7 @@ public class User {
         return result;
     }
 
-    private int getScoreBasedOnAge(){
+    public int getScoreBasedOnAge(){
         int score = 0;
         if(age <= 24){
             score = 0;
@@ -109,7 +109,7 @@ public class User {
         return score;
     }
 
-    private int getScoreBasedOnBMI(){
+    public int getScoreBasedOnBMI(){
         int score = 0;
         if(BMI < 22){
             score = 0;
@@ -121,12 +121,12 @@ public class User {
             score = 3;
         }
         else {
-            score = 15;
+            score = 5;
         }
         return score;
     }
 
-    private int getScoreBasedOnWaistlineMale(){
+    public int getScoreBasedOnWaistlineMale(){
         int score = 0;
         if(waistline < 75){
             score = 0;
@@ -149,7 +149,7 @@ public class User {
         return score;
     }
 
-    private int getScoreBasedOnWaistlineFemale(){
+    public int getScoreBasedOnWaistlineFemale(){
         int score = 0;
         if(waistline < 70){
             score = 0;
@@ -172,7 +172,7 @@ public class User {
         return score;
     }
 
-    private int getScoreBasedOnBloodPressure(){
+    public int getScoreBasedOnBloodPressure(){
         int score = 0;
         if(bloodPressure < 110){
             score = 0;
@@ -198,7 +198,7 @@ public class User {
         return score;
     }
 
-    private int getScoreBasedOnFamilyHistory(){
+    public int getScoreBasedOnFamilyHistory(){
         int score = 0;
         if(familyHistory){
             score = 6;
@@ -206,7 +206,7 @@ public class User {
         return score;
     }
 
-    private int getScoreBasedOnGender(){
+    public int getScoreBasedOnGender(){
         int score = 0;
         if(gender){
             score = 2;
@@ -214,7 +214,7 @@ public class User {
         return score;
     }
 
-    private int calcScore() {
+    public int calcScore() {
         int score = 0;
         if (gender){
             score += getScoreBasedOnWaistlineMale();

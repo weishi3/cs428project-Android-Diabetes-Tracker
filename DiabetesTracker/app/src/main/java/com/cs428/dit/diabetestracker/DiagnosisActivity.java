@@ -13,6 +13,8 @@ import com.cs428.dit.diabetestracker.helpers.User;
 
 public class DiagnosisActivity extends AppCompatActivity {
 
+    //float BMI, float waistline, int age, int bloodPressure, boolean gender, boolean familyHistory
+
     public float BMI = 25;
     public int waistline = 80;
     public int age = 22;
