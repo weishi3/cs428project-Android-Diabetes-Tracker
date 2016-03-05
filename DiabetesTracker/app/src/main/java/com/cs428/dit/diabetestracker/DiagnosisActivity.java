@@ -142,6 +142,7 @@ public class DiagnosisActivity extends AppCompatActivity {
     private View createNewTextView(String score) {
         final LayoutParams lparams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         final TextView textView = new TextView(this);
+        textView.setTextSize(50);
         textView.setLayoutParams(lparams);
         textView.setText("The score is: " + score);
         return textView;
