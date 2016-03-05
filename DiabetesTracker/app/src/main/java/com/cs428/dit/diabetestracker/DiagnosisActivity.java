@@ -54,6 +54,7 @@ public class DiagnosisActivity extends AppCompatActivity {
             public void onClick(View v) {
                 User u= new User(BMI,waistline,age,bloodPressure,familyHistory,gender);
                 String score = String.valueOf(u.getScore());
+                mLayout.removeAllViews();
                 mLayout.addView(createNewTextView(score));
 
             }
