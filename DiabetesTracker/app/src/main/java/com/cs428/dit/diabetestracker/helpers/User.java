@@ -77,6 +77,9 @@ public class User {
         return result;
     }
 
+    
+
+
     public int getScoreBasedOnAge(){
         int score = 0;
         if(age <= 24){

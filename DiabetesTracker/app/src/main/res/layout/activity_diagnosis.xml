@@ -27,11 +27,12 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="49dp"></LinearLayout>
+        
+        android:layout_marginTop="12dp"></LinearLayout>
 
 
     <ExpandableListView
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="120dp"
         android:id="@+id/lvExp"
         android:layout_height="match_parent"
         android:layout_width="match_parent"/>
