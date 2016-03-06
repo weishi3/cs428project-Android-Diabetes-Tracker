@@ -1,43 +1,62 @@
 package com.cs428.dit.diabetestracker.helpers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Yuchen on 3/4/16.
+ * Edited by Weishi on 3/5/16
  */
 public class User {
 
-    private float BMI;
-    private float waistline;
+    private Double BMI;
+    private Double waistline;
     private int age;
     private int bloodPressure;
     private boolean familyHistory;
     private boolean gender;
+    private List<String> suggestions=new ArrayList<String>();
+    private String sugD="";
+
+
+    private boolean isElder=false;
+
+
+    private boolean sedentaryJob =false;
+    private int exerciseT =30;
+    private boolean diagnosedD=false;
+    private boolean GDM=false;
+    private int weightB=0;
+    private Double HDL_C=0.92;
+    private Double TG = 2.21;
 
     private int score = 0;
 
 
 
-    public User(float BMI, float waistline, int age, int bloodPressure, boolean gender, boolean familyHistory) {
+    public User(Double BMI, Double waistline, int age, int bloodPressure, boolean gender, boolean familyHistory) {
         this.BMI = BMI;
         this.waistline = waistline;
         this.age = age;
         this.bloodPressure = bloodPressure;
         this.gender = gender;
         this.familyHistory = familyHistory;
+        this.isElder= (age>=40)?true:false;
     }
 
-    public float getBMI() {
+    public Double getBMI() {
         return BMI;
     }
 
-    public void setBMI(float BMI) {
+    public void setBMI(Double BMI) {
         this.BMI = BMI;
     }
 
-    public float getWaistline() {
+    public Double getWaistline() {
         return waistline;
     }
 
-    public void setWaistline(float waistline) {
+    public void setWaistline(Double waistline) {
         this.waistline = waistline;
     }
 
@@ -73,22 +92,38 @@ public class User {
         this.gender = gender;
     }
 
-    public String getScore() {
-        calcScore();
-        String result = String.valueOf(score);
-        return result;
-    }
+
+
+
 
     public String generateSuggestionD(){
-        String ret = "";
-        if (score > 25) ret+="I would suggest you to avoid consuming high-GI food.";
-        if (score > 30) ret+="\nAnd you should mostly focus on the recommended low-GI food with a proper amount suggested by doctor.";
-        if (score<=25 && score > 20)  ret+="you should intentionally take food from list one and list two to avoid possible risk of diabetes. ";
-        if (score <= 20 ) ret+="you are fine! But the first two lists below are still a good choice for you to keep fit in the long run.";
-        return ret;
+
+        if (score > 25) sugD+="I would suggest you to avoid consuming high-GI food.";
+        if (score > 30) sugD+="\nAnd you should mostly focus on the recommended low-GI food with a proper amount suggested by doctor.";
+        if (score<=25 && score > 20)  sugD+="you should intentionally take food from list one and list two to avoid possible risk of diabetes. ";
+        if (score <= 20 ) sugD+="you are fine! But the first two lists below are still a good choice for you to keep fit in the long run.";
+        return sugD;
+    }
+
+    //setter and getter of suggestion
+    public List<String> generateSuggestion(){
+
+        if (isElder) suggestions.add("When you are elder than 40, you've got a higher risk of diabetes and cardiovascular disease.");
+        if ((sedentaryJob && exerciseT <60) || (!sedentaryJob && exerciseT<30) ) suggestions.add("Your lifestyle can be classified as sedentary, do more exercise!");
+        if (weightB>=4 ) suggestions.add("Giant infant symptom could add risk of diabetes in the future.");
+        if (GDM) suggestions.add("Your mother's abnormal glucose tolerance indicates higher indicates that you would bear threats of getting diabetes.");
+        if (HDL_C<=0.91 && TG>=2.22) suggestions.add("You blood fat looks high, which may be a signal or complication of diabetes.");
+        if (diagnosedD) suggestions.add("Diabetes is mostly a life-length disease, so check your health condition and blood sugar level more often. ");
+        if (score>25 || suggestions.size()>=4) suggestions.add("You would probably need to see the doctor or take regular medical examinations.");
+        if (suggestions.size()==0) suggestions.add("You looks fine!");
+
+        return suggestions;
     }
 
 
+
+
+    //below are score parts
     public int getScoreBasedOnAge(){
         int score = 0;
         if(age <= 24){
@@ -237,4 +272,11 @@ public class User {
         score += (getScoreBasedOnAge() + getScoreBasedOnBloodPressure() + getScoreBasedOnBMI() + getScoreBasedOnFamilyHistory() + getScoreBasedOnGender());
         return score;
     }
+
+    public String getScore() {
+        calcScore();
+        String result = String.valueOf(score);
+        return result;
+    }
+
 }

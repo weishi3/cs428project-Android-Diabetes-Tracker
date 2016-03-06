@@ -25,13 +25,15 @@ public class DiagnosisActivity extends AppCompatActivity {
 
     //float BMI, float waistline, int age, int bloodPressure, boolean gender, boolean familyHistory
 
-    public float BMI = 25;
-    public int waistline = 80;
+    public Double BMI = 25.0;
+    public Double waistline = 80.0;
     public int age = 22;
     public int bloodPressure = 130;
     public boolean familyHistory = false;
     public boolean gender = false;
     private String foodSug="Generally Suggested Diets";
+    private String diagnosisTitle="N/A Before Running Diagnosis!";
+
     private LinearLayout mLayout;
 
     private EditText mEditText;
@@ -41,6 +43,7 @@ public class DiagnosisActivity extends AppCompatActivity {
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
+    List<String> suggestionContents=null;
     HashMap<String, List<String>> listDataChild;
     final Activity thisAct= this;
 
@@ -63,6 +66,9 @@ public class DiagnosisActivity extends AppCompatActivity {
                 User u= new User(BMI,waistline,age,bloodPressure,familyHistory,gender);
                 String score = u.getScore();
                 foodSug=u.generateSuggestionD();
+                suggestionContents= u.generateSuggestion();
+                diagnosisTitle="Click To View Diagnosis";
+
                 mLayout.removeAllViews();
                 mLayout.addView(createNewTextView(score));
 
@@ -185,25 +191,29 @@ public class DiagnosisActivity extends AppCompatActivity {
 
 
         // Adding child data
-        listDataHeader.add("Suggestions");
+        listDataHeader.add(diagnosisTitle);
 
         listDataHeader.add(foodSug);
 
 
         // Adding child data
-        List<String> suggestions = new ArrayList<String>();
-        suggestions.add("suggestions1");
-        suggestions.add("suggestions2");
-        suggestions.add("suggestions3");
-        suggestions.add("suggestions4");
+        List<String> suggestions = suggestionContents;
+        if (suggestions==null){
+            suggestions = new ArrayList<String>();
+            suggestions.add("N/A");
+        }
+       // suggestions.add("suggestions1");
+       // suggestions.add("suggestions2");
+       // suggestions.add("suggestions3");
+       // suggestions.add("suggestions4");
 
 
         List<String> suggestedDiets = new ArrayList<String>();
 
 
-        suggestedDiets.add("suggestedDiets1");
-        suggestedDiets.add("suggestedDiets2");
-        suggestedDiets.add("suggestedDiets3");
+        suggestedDiets.add("List1-low GI");
+        suggestedDiets.add("List2-low GI");
+        suggestedDiets.add("List3-low GI");
 
 
         listDataChild.put(listDataHeader.get(0), suggestions); // Header, Child data
