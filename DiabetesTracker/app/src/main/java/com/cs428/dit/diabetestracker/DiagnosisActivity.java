@@ -1,5 +1,6 @@
 package com.cs428.dit.diabetestracker;
 
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -21,7 +23,7 @@ import android.app.Activity;
 
 import com.cs428.dit.diabetestracker.helpers.User;
 
-public class DiagnosisActivity extends AppCompatActivity {
+public class DiagnosisActivity extends AppCompatActivity{
 
     //float BMI, float waistline, int age, int bloodPressure, boolean gender, boolean familyHistory
 
@@ -112,6 +114,11 @@ public class DiagnosisActivity extends AppCompatActivity {
 
 
 
+        //scroll
+
+
+
+
 
 
         //add yiyu's
@@ -182,6 +189,7 @@ public class DiagnosisActivity extends AppCompatActivity {
 
 
     }
+
 
 
 
