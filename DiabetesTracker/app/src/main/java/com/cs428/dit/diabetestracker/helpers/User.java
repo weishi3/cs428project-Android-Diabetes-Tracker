@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * Created by Yuchen on 3/4/16.
  * Edited by Weishi on 3/5/16
+ * It would generate suggestions based on the running of first-time diagnosis based on profile
  */
 public class User {
 
@@ -33,11 +34,80 @@ public class User {
     private int score = 0;
 
 
+    public boolean isGender() {
+        return gender;
+    }
+
+    public boolean isElder() {
+
+        return isElder;
+    }
+
+    public void setElder(boolean elder) {
+        isElder = elder;
+    }
+
+    public boolean isSedentaryJob() {
+        return sedentaryJob;
+    }
+
+    public void setSedentaryJob(boolean sedentaryJob) {
+        this.sedentaryJob = sedentaryJob;
+    }
+
+    public int getExerciseT() {
+        return exerciseT;
+    }
+
+    public void setExerciseT(int exerciseT) {
+        this.exerciseT = exerciseT;
+    }
+
+    public boolean isDiagnosedD() {
+        return diagnosedD;
+    }
+
+    public void setDiagnosedD(boolean diagnosedD) {
+        this.diagnosedD = diagnosedD;
+    }
+
+    public boolean isGDM() {
+        return GDM;
+    }
+
+    public void setGDM(boolean GDM) {
+        this.GDM = GDM;
+    }
+
+    public int getWeightB() {
+        return weightB;
+    }
+
+    public void setWeightB(int weightB) {
+        this.weightB = weightB;
+    }
+
+    public Double getHDL_C() {
+        return HDL_C;
+    }
+
+    public void setHDL_C(Double HDL_C) {
+        this.HDL_C = HDL_C;
+    }
+
+    public Double getTG() {
+        return TG;
+    }
+
+    public void setTG(Double TG) {
+        this.TG = TG;
+    }
 
     public User(Double BMI, Double waistline, int age, int bloodPressure, boolean gender, boolean familyHistory) {
         this.BMI = BMI;
         this.waistline = waistline;
         this.age = age;
+
         this.bloodPressure = bloodPressure;
         this.gender = gender;
         this.familyHistory = familyHistory;
@@ -96,12 +166,14 @@ public class User {
 
 
 
+
+    //debug info : += =
     public String generateSuggestionD(){
 
-        if (score > 25) sugD+="I would suggest you to avoid consuming high-GI food.";
+        if (score > 25) sugD="I would suggest you to avoid consuming high-GI food.";
         if (score > 30) sugD+="\nAnd you should mostly focus on the recommended low-GI food with a proper amount suggested by doctor.";
-        if (score<=25 && score > 20)  sugD+="you should intentionally take food from list one and list two to avoid possible risk of diabetes. ";
-        if (score <= 20 ) sugD+="you are fine! But the first two lists below are still a good choice for you to keep fit in the long run.";
+        if (score<=25 && score > 20)  sugD="you should intentionally take food from list one and list two to avoid possible risk of diabetes. ";
+        if (score <= 20 ) sugD="you are fine based on the score! But the first two lists below are still a good choice for you to keep fit in the long run.";
         return sugD;
     }
 
@@ -114,7 +186,7 @@ public class User {
         if (GDM) suggestions.add("Your mother's abnormal glucose tolerance indicates higher indicates that you would bear threats of getting diabetes.");
         if (HDL_C<=0.91 && TG>=2.22) suggestions.add("You blood fat looks high, which may be a signal or complication of diabetes.");
         if (diagnosedD) suggestions.add("Diabetes is mostly a life-length disease, so check your health condition and blood sugar level more often. ");
-        if (score>25 || suggestions.size()>=4) suggestions.add("You would probably need to see the doctor or take regular medical examinations.");
+        if (score>25 || (suggestions.size()>=4)) suggestions.add("You would probably need to see the doctor or take regular medical examinations.");
         if (suggestions.size()==0) suggestions.add("You looks fine!");
 
         return suggestions;

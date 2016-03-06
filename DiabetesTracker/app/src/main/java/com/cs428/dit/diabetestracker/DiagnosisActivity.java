@@ -25,12 +25,15 @@ public class DiagnosisActivity extends AppCompatActivity {
 
     //float BMI, float waistline, int age, int bloodPressure, boolean gender, boolean familyHistory
 
-    public Double BMI = 25.0;
-    public Double waistline = 80.0;
-    public int age = 22;
-    public int bloodPressure = 130;
-    public boolean familyHistory = false;
-    public boolean gender = false;
+    public Double BMI = 40.0;
+    public Double waistline = 100.0;
+    public int age = 50;
+    public int bloodPressure = 160;
+    public boolean familyHistory = true;
+    public boolean gender = true;
+
+
+
     private String foodSug="Generally Suggested Diets";
     private String diagnosisTitle="N/A Before Running Diagnosis!";
 
@@ -64,10 +67,20 @@ public class DiagnosisActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 User u= new User(BMI,waistline,age,bloodPressure,familyHistory,gender);
+                u.setSedentaryJob(true);
+                u.setExerciseT(30);
+                u.setDiagnosedD(true);
+                u.setGDM(true);
+                u.setWeightB(5);
+                u.setHDL_C(0.88);
+                u.setTG(2.3);
+
+
+
                 String score = u.getScore();
                 foodSug=u.generateSuggestionD();
                 suggestionContents= u.generateSuggestion();
-                diagnosisTitle="Click To View Diagnosis";
+                diagnosisTitle="Diagnosis is over here";
 
                 mLayout.removeAllViews();
                 mLayout.addView(createNewTextView(score));
