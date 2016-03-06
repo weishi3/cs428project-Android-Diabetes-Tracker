@@ -12,7 +12,9 @@ public class User {
     private boolean familyHistory;
     private boolean gender;
 
-    private String score;
+    private int score = 0;
+
+
 
     public User(float BMI, float waistline, int age, int bloodPressure, boolean gender, boolean familyHistory) {
         this.BMI = BMI;
@@ -72,12 +74,19 @@ public class User {
     }
 
     public String getScore() {
-        int score = calcScore();
+        calcScore();
         String result = String.valueOf(score);
         return result;
     }
 
-    
+    public String generateSuggestionD(){
+        String ret = "";
+        if (score > 25) ret+="I would suggest you to avoid consuming high-GI food.";
+        if (score > 30) ret+="\nAnd you should mostly focus on the recommended low-GI food with a proper amount suggested by doctor.";
+        if (score<=25 && score > 20)  ret+="you should intentionally take food from list one and list two to avoid possible risk of diabetes. ";
+        if (score <= 20 ) ret+="you are fine! But the first two lists below are still a good choice for you to keep fit in the long run.";
+        return ret;
+    }
 
 
     public int getScoreBasedOnAge(){
@@ -218,7 +227,7 @@ public class User {
     }
 
     public int calcScore() {
-        int score = 0;
+        score = 0;
         if (gender){
             score += getScoreBasedOnWaistlineMale();
         }

@@ -173,14 +173,17 @@ public class DiagnosisActivity extends AppCompatActivity {
         suggestions.add("suggestions3");
         suggestions.add("suggestions4");
 
-        List<String> suggestedDiets = new ArrayList<String>();
-        suggestedDiets.add("suggestedDiets1");
-        suggestedDiets.add("suggestedDiets2");
-        suggestedDiets.add("suggestedDiets3");
-        suggestedDiets.add("suggestedDiets4");
+
+       // List<String> suggestedDiets = new ArrayList<String>();
+        List<Button> suggestedDiets = new ArrayList<Button>();
+
+       // suggestedDiets.add("suggestedDiets1");
+      //  suggestedDiets.add("suggestedDiets2");
+      //  suggestedDiets.add("suggestedDiets3");
+       // suggestedDiets.add("suggestedDiets4");
 
         listDataChild.put(listDataHeader.get(0), suggestions); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), suggestedDiets);
+       // listDataChild.put(listDataHeader.get(1), suggestedDiets);
     }
 
 
