@@ -31,8 +31,9 @@ public class DiagnosisActivity extends AppCompatActivity {
     public int bloodPressure = 130;
     public boolean familyHistory = false;
     public boolean gender = false;
-
+    private String foodSug="Generally Suggested Diets";
     private LinearLayout mLayout;
+
     private EditText mEditText;
     private Button mButton;
 
@@ -41,23 +42,53 @@ public class DiagnosisActivity extends AppCompatActivity {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    final Activity thisAct= this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnosis);
         mLayout = (LinearLayout) findViewById(R.id.linearLayout);
+
         //mEditText = (EditText) findViewById(R.id.)
         mButton = (Button) findViewById(R.id.button);
+
+        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+
+        // preparing list data
+        prepareListData();
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 User u= new User(BMI,waistline,age,bloodPressure,familyHistory,gender);
-                String score = String.valueOf(u.getScore());
+                String score = u.getScore();
+                foodSug=u.generateSuggestionD();
                 mLayout.removeAllViews();
                 mLayout.addView(createNewTextView(score));
 
+
+                prepareListData();
+                expListView.deferNotifyDataSetChanged();
+                listAdapter = new ExpandableListAdapter(thisAct, listDataHeader, listDataChild);
+                expListView.setAdapter(listAdapter);
+
             }
+
+            //for the button running diag
+            private View createNewTextView(String score) {
+                final LayoutParams lparams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                final TextView textView = new TextView(thisAct);
+                textView.setTextSize(50);
+                textView.setLayoutParams(lparams);
+                textView.setText("The score is: " + score);
+                return textView;
+            }
+
+
+
+
+
+
         });
 
 
@@ -66,10 +97,7 @@ public class DiagnosisActivity extends AppCompatActivity {
 
         //add yiyu's
         // get the listview
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
 
-        // preparing list data
-        prepareListData();
 
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
@@ -139,15 +167,7 @@ public class DiagnosisActivity extends AppCompatActivity {
 
 
 
-    //for the button running diag
-    private View createNewTextView(String score) {
-        final LayoutParams lparams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        final TextView textView = new TextView(this);
-        textView.setTextSize(50);
-        textView.setLayoutParams(lparams);
-        textView.setText("The score is: " + score);
-        return textView;
-    }
+
 
 
 
@@ -162,9 +182,13 @@ public class DiagnosisActivity extends AppCompatActivity {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
+
+
         // Adding child data
         listDataHeader.add("Suggestions");
-        listDataHeader.add("Suggested Diets");
+
+        listDataHeader.add(foodSug);
+
 
         // Adding child data
         List<String> suggestions = new ArrayList<String>();
@@ -174,16 +198,16 @@ public class DiagnosisActivity extends AppCompatActivity {
         suggestions.add("suggestions4");
 
 
-       // List<String> suggestedDiets = new ArrayList<String>();
-        List<Button> suggestedDiets = new ArrayList<Button>();
+        List<String> suggestedDiets = new ArrayList<String>();
 
-       // suggestedDiets.add("suggestedDiets1");
-      //  suggestedDiets.add("suggestedDiets2");
-      //  suggestedDiets.add("suggestedDiets3");
-       // suggestedDiets.add("suggestedDiets4");
+
+        suggestedDiets.add("suggestedDiets1");
+        suggestedDiets.add("suggestedDiets2");
+        suggestedDiets.add("suggestedDiets3");
+
 
         listDataChild.put(listDataHeader.get(0), suggestions); // Header, Child data
-       // listDataChild.put(listDataHeader.get(1), suggestedDiets);
+        listDataChild.put(listDataHeader.get(1), suggestedDiets);
     }
 
 
