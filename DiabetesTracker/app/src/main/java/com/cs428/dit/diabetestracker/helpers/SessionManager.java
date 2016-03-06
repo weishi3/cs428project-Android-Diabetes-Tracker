@@ -8,6 +8,7 @@ import android.content.SharedPreferences.Editor;
 import com.cs428.dit.diabetestracker.LoginActivity;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by QiZhang on 2/14/16.
@@ -41,11 +42,35 @@ public class SessionManager {
      * Create a login session. Store user email. Remember login status.
      *
      * @param email user email
+     * @param userDetails map containing the user's information
      */
-    public void createLoginSession(String email) {
+    public void createLoginSession(String email, Map<String, Object> userDetails) {
         editor.putString(KEY_EMAIL, email);
         editor.putBoolean(IS_LOGIN, true);
+        if (!userDetails.isEmpty()) {
+            editor.putInt("age", (int)(long)userDetails.get("age"));
+            editor.putFloat("waistline", (float)(double)userDetails.get("waistline"));
+            editor.putFloat("BMI", (float) (double)userDetails.get("BMI"));
+            editor.putInt("bloodPressure", (int) (long)userDetails.get("bloodPressure"));
+            editor.putBoolean("familyHistory", (boolean) userDetails.get("familyHistory"));
+            editor.putBoolean("gender", (boolean)userDetails.get("gender"));
+        }
         //commit changes to sharedpreferences
+        editor.commit();
+    }
+
+    /**
+     * Update the user's information.
+     *
+     * @param userDetails map containing the user's information
+     */
+    public void updateUserDetails(Map<String, Object> userDetails){
+        editor.putInt("age", (int)userDetails.get("age"));
+        editor.putFloat("waistline", (float)(double)userDetails.get("waistline"));
+        editor.putFloat("BMI", (float) (double)userDetails.get("BMI"));
+        editor.putInt("bloodPressure", (int)userDetails.get("bloodPressure"));
+        editor.putBoolean("familyHistory", (boolean) userDetails.get("familyHistory"));
+        editor.putBoolean("gender", (boolean)userDetails.get("gender"));
         editor.commit();
     }
 
@@ -54,10 +79,16 @@ public class SessionManager {
      *
      * @return user, a hash map containing user data.
      */
-    public HashMap<String, String> getUserDetails() {
-        HashMap<String, String> user = new HashMap<>();
+    public HashMap<String, Object> getUserDetails() {
+        HashMap<String, Object> user = new HashMap<>();
         //user email
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+        user.put("age", pref.getInt("age", 0));
+        user.put("waistline", pref.getFloat("waistline", 0));
+        user.put("bloodPressure", pref.getInt("bloodPressure", 0));
+        user.put("BMI", pref.getFloat("BMI", (float)0));
+        user.put("familyHistory", pref.getBoolean("familyHistory", false));
+        user.put("gender", pref.getBoolean("gender", false));
         return user;
     }
 

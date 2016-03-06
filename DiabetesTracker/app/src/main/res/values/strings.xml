@@ -37,4 +37,10 @@
     <string name="home_page_title">Home</string>
     <string name="diagnosis_card_title">Diagnosis</string>
     <string name="diagnosis_card_preview_text">recommendation</string>
+
+    <!-- Strings related to the Profile and Edit acitivities -->
+    <string name="error_age">Invalid age.</string>
+    <string name="error_waistline">Invalid waistline.</string>
+    <string name="error_gender">Invalid gender.</string>
+    <string name="error_num_format">Invalid number format.</string>
 </resources>

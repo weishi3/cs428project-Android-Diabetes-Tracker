@@ -13,8 +13,13 @@ import android.widget.Toast;
 
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.firebase.client.AuthData;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A login screen that offers login via email/password.
@@ -131,7 +136,23 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthenticated(AuthData authData) {
                 // Authenticated successfully with payload authData
-                session.createLoginSession(mEmail);
+                Firebase ref = myFirebaseRef.child("users").child(mEmail.replace('.','!'));
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        HashMap<String, Object> userDetails = (HashMap<String, Object>) snapshot.getValue();
+                        //null check
+                        if (userDetails == null){
+                            userDetails = new HashMap<String, Object>();
+                        }
+                        session.createLoginSession(mEmail, userDetails);
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError error) {
+                        session.createLoginSession(mEmail, new HashMap<String, Object>());
+                    }
+                });
                 Intent homepage = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(homepage);
                 finish();//close login page

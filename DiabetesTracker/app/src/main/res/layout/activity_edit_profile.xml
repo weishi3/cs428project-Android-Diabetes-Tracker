@@ -7,8 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.cs428.dit.diabetestracker.ProfileActivity">
-
+    tools:context="com.cs428.dit.diabetestracker.EditProfileActivity">
 
     <GridLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -24,21 +23,12 @@
         >
 
         <TextView
-            android:text="Your Profile"
+            android:text="Edit Your Profile"
             android:textSize="40dip"
 
-            android:layout_columnSpan="2"
+            android:layout_columnSpan="4"
             android:layout_gravity="left"
             />
-
-        <Button
-            android:text="Edit"
-            android:id="@+id/editBtn"
-            android:layout_row="0"
-            android:layout_column="3"
-            />
-
-
 
         <TextView
             android:text="Age:"
@@ -48,13 +38,12 @@
             android:layout_gravity="right"
             />
 
-        <TextView
+        <EditText
             android:id="@+id/age"
-            android:textSize="18dp"
-            android:text="10"
-            android:layout_gravity="left"
-            />
-
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"/>
 
         <TextView
             android:text="Waistline (cm):"
@@ -63,12 +52,12 @@
             android:layout_gravity="right"
             />
 
-        <TextView
+        <EditText
             android:id="@+id/waistline"
-            android:textSize="18dp"
-            android:text="10"
-            android:layout_gravity="left"
-            />
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true" />
 
         <TextView
             android:text="BMI (kg/square meter):"
@@ -77,12 +66,12 @@
             android:layout_gravity="right"
             />
 
-        <TextView
+        <EditText
             android:id="@+id/BMI"
-            android:textSize="18dp"
-            android:text="10"
-            android:layout_gravity="left"
-            />
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"/>
 
         <TextView
             android:text="Family History:"
@@ -91,12 +80,12 @@
             android:layout_gravity="right"
             />
 
-        <TextView
+        <EditText
             android:id="@+id/familyHistory"
-            android:textSize="18dp"
-            android:text="10"
-            android:layout_gravity="left"
-            />
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"/>
 
         <TextView
             android:text="Gender (Male/Female):"
@@ -105,27 +94,39 @@
             android:layout_gravity="right"
             />
 
-        <TextView
+        <EditText
             android:id="@+id/gender"
-            android:textSize="18dp"
-            android:text="10"
-            android:layout_gravity="left"
-            />
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"/>
 
         <TextView
-            android:paddingLeft="35dp"
             android:text="Blood Pressure (mmHg):"
             android:textSize="18dp"
             android:layout_column="0"
             android:layout_gravity="right"
             />
 
-        <TextView
+        <EditText
             android:id="@+id/bloodPressure"
-            android:textSize="18dp"
-            android:text="10"
-            android:layout_gravity="left"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <Button
+            android:text="Submit"
+            android:id="@+id/submitBtn"
+            android:layout_row="8"
+            android:layout_column="0"
+            android:layout_gravity="right"
             />
 
+
     </GridLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
 </RelativeLayout>

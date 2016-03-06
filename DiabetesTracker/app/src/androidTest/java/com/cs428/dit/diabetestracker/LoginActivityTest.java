@@ -105,4 +105,5 @@ public class LoginActivityTest {
         onView(withText("Logout"))
                 .perform(click());
     }
+
 }

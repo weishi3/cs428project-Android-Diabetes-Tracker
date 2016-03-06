@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         TextView welcomeTxt = (TextView) findViewById(R.id.welcomeTxt);
-        welcomeTxt.setText(session.getUserDetails().get(SessionManager.KEY_EMAIL));
+        welcomeTxt.setText((String)session.getUserDetails().get(SessionManager.KEY_EMAIL));
         Log.d(TAG, "user is " + welcomeTxt.getText().toString());
 
     }
