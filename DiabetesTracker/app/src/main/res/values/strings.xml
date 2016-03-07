@@ -43,4 +43,13 @@
     <string name="error_waistline">Invalid waistline.</string>
     <string name="error_gender">Invalid gender.</string>
     <string name="error_num_format">Invalid number format.</string>
+
+    <!-- Diagnosis Page string -->
+    <string name="diagnosis_page_name">Diagnosis Page</string>
+
+    <!-- Edit Profile Page string -->
+    <string name="edit_profile_page_name">Edit Profile</string>
+
+    <!-- Profile Page string -->
+    <string name="profile_page_name">Profile Page</string>
 </resources>
