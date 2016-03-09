@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.cs428.dit.diabetestracker.MainActivity">
+    tools:context="com.cs428.dit.diabetestracker.MainActivity"
+    android:layout_marginTop="?android:attr/actionBarSize">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="1">
+            android:weightSum="1"
+            >
 
             <ImageView
                 android:id="@+id/profileAvatar"
@@ -31,14 +33,7 @@
                 android:background="#817474"
                 android:src="@drawable/cross" />
 
-            <TextView
-                android:id="@+id/welcomeTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/welcome"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="50sp" />
+
 
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -75,6 +70,82 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/calories_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="0dp"
+                card_view:cardCornerRadius="4dp"
+
+                card_view:contentPadding="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="@color/colorHermesOrange"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:gravity="center"
+                            android:text="2,000"
+                            android:textColor="#FFFFFF"
+                            android:textSize="60sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Cal"
+                            android:textColor="#FFFFFF"
+                            android:textSize="40sp" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:padding="5dp">
+
+                        <ImageButton
+                            android:id="@+id/imageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@+id/imageButton2"
+                            android:background="@android:color/transparent"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_add_black_24dp" />
+
+                        <ImageButton
+                            android:id="@+id/imageButton2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@android:color/transparent"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_event_black_24dp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
     </ScrollView>
