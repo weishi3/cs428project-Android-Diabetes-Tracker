@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="?android:attr/actionBarSize"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.cs428.dit.diabetestracker.MainActivity"
-    android:layout_marginTop="?android:attr/actionBarSize">
+    tools:context="com.cs428.dit.diabetestracker.MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="1"
-            >
+            android:weightSum="1">
 
             <ImageView
                 android:id="@+id/profileAvatar"
@@ -32,8 +31,6 @@
                 android:layout_weight="2.62"
                 android:background="#817474"
                 android:src="@drawable/cross" />
-
-
 
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -76,9 +73,9 @@
                 android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="0dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="0dp"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:paddingBottom="0dp"
@@ -95,8 +92,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:background="@color/colorHermesOrange"
+                        android:clickable="true"
                         android:orientation="horizontal"
-                        >
+                        android:id="@+id/layout_calories_stats">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -121,26 +119,26 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:padding="5dp">
-
+                        <!--go to AddFoodItemActivity, functions like the FAB button-->
                         <ImageButton
-                            android:id="@+id/imageButton"
+                            android:id="@+id/button_log_food"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:layout_toLeftOf="@+id/imageButton2"
+                            android:layout_toLeftOf="@+id/button_see_calories_history"
                             android:background="@android:color/transparent"
                             android:padding="10dp"
-                            android:src="@drawable/ic_add_black_24dp" />
-
+                            android:src="@drawable/ic_add_black_36dp" />
+                        <!--go to FoodLogActivity-->
                         <ImageButton
-                            android:id="@+id/imageButton2"
+                            android:id="@+id/button_see_calories_history"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="10dp"
                             android:background="@android:color/transparent"
                             android:padding="10dp"
-                            android:src="@drawable/ic_event_black_24dp" />
+                            android:src="@drawable/ic_timeline_black_36dp" />
                     </RelativeLayout>
 
                 </LinearLayout>

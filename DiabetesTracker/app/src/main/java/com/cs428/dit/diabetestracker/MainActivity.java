@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         CardView diagnosisCard = (CardView) findViewById(R.id.diagnosis_card_view);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        ImageButton logFoodButton = (ImageButton) findViewById(R.id.button_log_food);
+        ImageButton caloriesHistoryButton = (ImageButton) findViewById(R.id.button_see_calories_history);
+        LinearLayout caloriesStatsLayout = (LinearLayout) findViewById(R.id.layout_calories_stats);
 
         //Go to profile page when the user click the avatar
         profileAvatar.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +52,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Go to add food item page
+        logFoodButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent logFoodIntent = new Intent(getApplicationContext(), AddFoodItemActivity.class);
+                startActivity(logFoodIntent);
+            }
+        });
 
+        //Go to food calories history page
+        caloriesHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent caloriesHistoryIntent = new Intent(getApplicationContext(), SeeCaloriesActivity.class);
+                startActivity(caloriesHistoryIntent);
+            }
+        });
+
+        //Go to food log page
+        //This is the calories card view on click
+        caloriesStatsLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent foodLogIntent = new Intent(getApplicationContext(), FoodLogActivity.class);
+                startActivity(foodLogIntent);
+            }
+        });
     }
 
     @Override
