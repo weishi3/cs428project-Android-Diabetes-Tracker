@@ -6,4 +6,6 @@
     <color name="colorTop">#FFFFFF</color>
     <color name="colorBackgroundSplash">#FFFFFF</color>
     <color name="cardview_initial_background">#71C3DE</color>
+    <color name="colorCaloriesCardBackground">#FF9900</color>
+    <color name="colorHermesOrange">#F60</color>
 </resources>
