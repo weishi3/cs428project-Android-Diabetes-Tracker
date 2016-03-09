@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 
@@ -48,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TextView welcomeTxt = (TextView) findViewById(R.id.welcomeTxt);
-        welcomeTxt.setText((String)session.getUserDetails().get(SessionManager.KEY_EMAIL));
-        Log.d(TAG, "user is " + welcomeTxt.getText().toString());
 
     }
 
