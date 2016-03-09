@@ -50,7 +50,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 HashMap<String, Object> userDetails = new HashMap<String, Object>();
                 Firebase userAge = user.child("age");
                 int age = 1;
-                TextView viewAge = (TextView) findViewById(R.id.age);;
+                TextView viewAge = (TextView) findViewById(R.id.age);
                 try {
                     age = Integer.parseInt(viewAge.getText().toString());
                 } catch (NumberFormatException e) {

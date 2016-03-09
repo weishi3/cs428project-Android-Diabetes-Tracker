@@ -28,7 +28,7 @@
         android:layout_below="@+id/button"
         android:layout_centerHorizontal="true"
 
-        android:layout_marginTop="12dp"></LinearLayout>
+        android:layout_marginTop="12dp"/>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_marginTop="120dp"
