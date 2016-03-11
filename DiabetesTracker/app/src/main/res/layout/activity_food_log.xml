@@ -8,6 +8,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".FoodLogActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/food_log_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
 
     <!--FAB button for adding a single food item-->
     <android.support.design.widget.FloatingActionButton
@@ -17,6 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        app:backgroundTint="@color/colorPrimary"
-        android:src="@drawable/ic_add_white_24dp" />
+        android:src="@drawable/ic_add_white_24dp"
+        app:backgroundTint="@color/colorPrimary" />
 </android.support.design.widget.CoordinatorLayout>

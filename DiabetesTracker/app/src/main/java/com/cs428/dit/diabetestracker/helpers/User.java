@@ -34,6 +34,17 @@ public class User {
     private int score = 0;
 
 
+    public User(Double BMI, Double waistline, int age, int bloodPressure, boolean gender, boolean familyHistory) {
+        this.BMI = BMI;
+        this.waistline = waistline;
+        this.age = age;
+
+        this.bloodPressure = bloodPressure;
+        this.gender = gender;
+        this.familyHistory = familyHistory;
+        this.isElder= (age>=40)?true:false;
+    }
+
     public boolean isGender() {
         return gender;
     }
@@ -101,17 +112,6 @@ public class User {
 
     public void setTG(Double TG) {
         this.TG = TG;
-    }
-
-    public User(Double BMI, Double waistline, int age, int bloodPressure, boolean gender, boolean familyHistory) {
-        this.BMI = BMI;
-        this.waistline = waistline;
-        this.age = age;
-
-        this.bloodPressure = bloodPressure;
-        this.gender = gender;
-        this.familyHistory = familyHistory;
-        this.isElder= (age>=40)?true:false;
     }
 
     public Double getBMI() {
@@ -185,7 +185,7 @@ public class User {
         if (weightB>=4 ) suggestions.add("Giant infant symptom could add risk of diabetes in the future.");
         if (GDM) suggestions.add("Your mother's abnormal glucose tolerance indicates higher indicates that you would bear threats of getting diabetes.");
         if (HDL_C<=0.91 && TG>=2.22) suggestions.add("You blood fat looks high, which may be a signal or complication of diabetes.");
-        if (diagnosedD) suggestions.add("Diabetes is mostly a life-length disease, so check your health condition and blood sugar level more often. ");
+        if (diagnosedD) suggestions.add("Diabetes is mostly a life-length disease, so check your health condition and blood sugarInGram level more often. ");
         if (score>25 || (suggestions.size()>=4)) suggestions.add("You would probably need to see the doctor or take regular medical examinations.");
         if (suggestions.size()==0) suggestions.add("You looks fine!");
 

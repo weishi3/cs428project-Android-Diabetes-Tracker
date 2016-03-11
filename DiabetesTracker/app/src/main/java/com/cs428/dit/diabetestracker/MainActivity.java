@@ -12,13 +12,22 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    private SessionManager session;
-
     private static final String TAG = "MAIN_ACTIVITY";
+    private SessionManager session;
+    private TextView mTextCalories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         ImageButton logFoodButton = (ImageButton) findViewById(R.id.button_log_food);
         ImageButton caloriesHistoryButton = (ImageButton) findViewById(R.id.button_see_calories_history);
         LinearLayout caloriesStatsLayout = (LinearLayout) findViewById(R.id.layout_calories_stats);
+        mTextCalories = (TextView) findViewById(R.id.total_calories_main);
+
 
         //Go to profile page when the user click the avatar
         profileAvatar.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +97,43 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        String baseURL = getString(R.string.firebase_url);
+        String userStatsURL = "stats/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
+        userStatsURL = baseURL + userStatsURL;
+        Firebase statsRef = new Firebase(userStatsURL);
+        statsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+                final String day = dateformat.format(new Date());
+                double tCal = 0.0;
+
+                for (DataSnapshot foodItemLogSnapshot: dataSnapshot.getChildren()) {
+                    FoodItemLog oneLog = foodItemLogSnapshot.getValue(FoodItemLog.class);
+                    if(day.equals(oneLog.getDate())){
+                        tCal+=(oneLog.getFood().getKilocalorie());
+                    }
+                }
+
+                if(tCal < 0.0){
+                    tCal = 0.0;
+                }
+
+                mTextCalories.setText(tCal+"");
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     @Override
