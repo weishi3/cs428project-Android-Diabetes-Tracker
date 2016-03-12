@@ -3,6 +3,7 @@ package com.cs428.dit.diabetestracker;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -12,10 +13,14 @@ import java.util.ArrayList;
 
 public class SeeCaloriesActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_colaries);
+        final SessionManager session = new SessionManager(this);
+
 
         ArrayList<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(4f, 0));

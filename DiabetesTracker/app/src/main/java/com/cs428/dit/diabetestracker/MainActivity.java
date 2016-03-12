@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // Indicator part
         ImageButton logIndicatorButton = (ImageButton) findViewById(R.id.button_log_indicator);
         ImageButton indicatorHistoryButton = (ImageButton) findViewById(R.id.button_see_indicator_history);
+        LinearLayout indicatorLayout = (LinearLayout) findViewById(R.id.layout_indicator_stats);
 
 
         //Go to profile page when the user click the avatar
@@ -103,6 +104,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent logIndicatorIntent = new Intent(getApplicationContext(), AddIndicatorActivity.class);
                 startActivity(logIndicatorIntent);
+            }
+        });
+
+        //Go to indicator history page
+        indicatorHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent indicatorHistoryIntent = new Intent(getApplicationContext(), SeeIndicatorActivity.class);
+                startActivity(indicatorHistoryIntent);
             }
         });
 
