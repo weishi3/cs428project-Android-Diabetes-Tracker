@@ -4,41 +4,41 @@ package com.cs428.dit.diabetestracker.helpers;
  * Created by Yuchen on 3/11/16.
  */
 public class Indicator {
-    public float weight;
-    public float bloodPressure;
-    public float bloodSugar;
+    public double weight;
+    public double bloodPressure;
+    public double bloodSugar;
 
     public Indicator(){
 
     }
 
-    public Indicator(float bloodSugar, float bloodPressure, float weight){
+    public Indicator(double bloodSugar, double bloodPressure, double weight){
         this.weight = weight;
         this.bloodPressure = bloodPressure;
         this.bloodSugar = bloodSugar;
     }
 
-    public float getBloodSugar() {
+    public double getBloodSugar() {
         return bloodSugar;
     }
 
-    public void setBloodSugar(float bloodSugar) {
+    public void setBloodSugar(double bloodSugar) {
         this.bloodSugar = bloodSugar;
     }
 
-    public float getBloodPressure() {
+    public double getBloodPressure() {
         return bloodPressure;
     }
 
-    public void setBloodPressure(float bloodPressure) {
+    public void setBloodPressure(double bloodPressure) {
         this.bloodPressure = bloodPressure;
     }
 
-    public float getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 }

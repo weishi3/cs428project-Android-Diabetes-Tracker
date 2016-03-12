@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
 //                final String day = dateformat.format(new Date());
-//                Double bloodSugar = 0.0;
+//                double bloodSugar = 0.0;
 //
 //                for (DataSnapshot IndicatorItemLogSnapshot: dataSnapshot.getChildren()) {
 //                    IndicatorItemLog indicatorLog = IndicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
@@ -192,8 +192,8 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                }
 //
-//                if(bloodSugar < 0){
-//                    bloodSugar = 0;
+//                if(bloodSugar < 0.0){
+//                    bloodSugar = 0.0;
 //                }
 //
 //                mTextBloodSugar.setText(bloodSugar+"");
@@ -204,8 +204,6 @@ public class MainActivity extends AppCompatActivity {
 //
 //            }
 //        });
-
-
 
 
     }

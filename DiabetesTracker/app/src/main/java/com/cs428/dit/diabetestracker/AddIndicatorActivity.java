@@ -39,30 +39,30 @@ public class AddIndicatorActivity extends AppCompatActivity {
 
                 // set empty fields to default value;
                 String Weight_str = weight.getText().toString();
-                float wei;
+                double wei;
                 if (Weight_str.equals("")){
-                    wei = 0;
+                    wei = 0.0;
                 }else{
-                    wei = Float.parseFloat(Weight_str);
+                    wei = Double.parseDouble(Weight_str);
                 }
 
                 String BloodPressure_str = bloodPressure.getText().toString();
-                float bp;
+                double bp;
                 if (BloodPressure_str.equals("")){
-                    bp = 0;
+                    bp = 0.0;
                 }else{
-                    bp = Float.parseFloat(BloodPressure_str);
+                    bp = Double.parseDouble(BloodPressure_str);
                 }
 
                 String BloodSugar_str = bloodSugar.getText().toString();
-                float bs;
+                double bs;
                 if (BloodSugar_str.equals("")){
-                    bs = 0;
+                    bs = 0.0;
                 }else{
-                    bs = Float.parseFloat(BloodSugar_str);
+                    bs = Double.parseDouble(BloodSugar_str);
                 }
 
-                Indicator indicator = new Indicator(wei, bp, bs);
+                Indicator indicator = new Indicator(bs, bp, wei);
 
                 IndicatorItemLog itemLog = new IndicatorItemLog(day, indicator);
                 Firebase mRef = new Firebase(getString(R.string.firebase_url));
