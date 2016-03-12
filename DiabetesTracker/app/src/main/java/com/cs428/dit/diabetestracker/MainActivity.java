@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
+import com.cs428.dit.diabetestracker.helpers.Indicator;
+import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN_ACTIVITY";
     private SessionManager session;
     private TextView mTextCalories;
+    private TextView mTextBloodSugar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton logIndicatorButton = (ImageButton) findViewById(R.id.button_log_indicator);
         ImageButton indicatorHistoryButton = (ImageButton) findViewById(R.id.button_see_indicator_history);
         LinearLayout indicatorLayout = (LinearLayout) findViewById(R.id.layout_indicator_stats);
+        mTextBloodSugar = (TextView) findViewById(R.id.total_indicator_main);
 
 
         //Go to profile page when the user click the avatar
@@ -116,6 +120,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        indicatorLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent indicatorLogIntent = new Intent(getApplicationContext(), IndicatorLogActivity.class);
+                startActivity(indicatorLogIntent);
+            }
+        });
+
     }
 
     @Override
@@ -141,18 +153,18 @@ public class MainActivity extends AppCompatActivity {
                 final String day = dateformat.format(new Date());
                 double tCal = 0.0;
 
-                for (DataSnapshot foodItemLogSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot foodItemLogSnapshot : dataSnapshot.getChildren()) {
                     FoodItemLog oneLog = foodItemLogSnapshot.getValue(FoodItemLog.class);
-                    if(day.equals(oneLog.getDate())){
-                        tCal+=(oneLog.getFood().getKilocalorie());
+                    if (day.equals(oneLog.getDate())) {
+                        tCal += (oneLog.getFood().getKilocalorie());
                     }
                 }
 
-                if(tCal < 0.0){
+                if (tCal < 0.0) {
                     tCal = 0.0;
                 }
 
-                mTextCalories.setText(tCal+"");
+                mTextCalories.setText(tCal + "");
             }
 
             @Override
@@ -160,6 +172,42 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+//        String baseURL2 = getString(R.string.firebase_url);
+//        String userIndicatorURL = "indicator/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
+//        userIndicatorURL = baseURL2 + userIndicatorURL;
+//        Firebase indicatorRef = new Firebase(userIndicatorURL);
+//        indicatorRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+//                final String day = dateformat.format(new Date());
+//                Double bloodSugar = 0.0;
+//
+//                for (DataSnapshot IndicatorItemLogSnapshot: dataSnapshot.getChildren()) {
+//                    IndicatorItemLog indicatorLog = IndicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
+//                    if(day.equals(indicatorLog.getDate())){
+//                        bloodSugar = (indicatorLog.getIndicator().getBloodSugar());
+//                    }
+//                }
+//
+//                if(bloodSugar < 0){
+//                    bloodSugar = 0;
+//                }
+//
+//                mTextBloodSugar.setText(bloodSugar+"");
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//
+//            }
+//        });
+
+
+
+
     }
 
     @Override

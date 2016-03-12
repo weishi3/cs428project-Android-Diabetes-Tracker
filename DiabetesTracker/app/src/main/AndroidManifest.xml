@@ -102,6 +102,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FoodLogActivity" />
         </activity>
+        <activity android:name=".IndicatorLogActivity"></activity>
     </application>
 
 </manifest>
