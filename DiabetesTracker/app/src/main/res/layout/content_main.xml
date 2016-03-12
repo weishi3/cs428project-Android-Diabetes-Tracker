@@ -193,7 +193,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="left|center"
-                            android:text="mmHg"
+                            android:text="mmol/L"
                             android:textColor="#FFFFFF"
                             android:textSize="40sp" />
                     </LinearLayout>

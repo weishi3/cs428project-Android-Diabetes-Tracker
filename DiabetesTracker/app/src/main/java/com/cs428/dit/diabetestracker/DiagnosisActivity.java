@@ -26,7 +26,7 @@ import com.cs428.dit.diabetestracker.helpers.User;
 
 public class DiagnosisActivity extends AppCompatActivity{
 
-    //float BMI, float waistline, int age, int bloodPressure, boolean gender, boolean familyHistory
+    //float BMI, float waistline, int age, int blood_pressure, boolean gender, boolean familyHistory
 
     private String foodSug="Generally Suggested Diets";
     private String diagnosisTitle="N/A Before Running Diagnosis!";
@@ -69,7 +69,7 @@ public class DiagnosisActivity extends AppCompatActivity{
                 float BMI = (float) userMap.get("BMI");
                 float waistline = (float) userMap.get("waistline");
                 int age = (int) userMap.get("age");
-                int bloodPressure = (int) userMap.get("bloodPressure");
+                int bloodPressure = (int) userMap.get("blood_pressure");
                 boolean familyHistory = (boolean) userMap.get("familyHistory");
                 boolean gender = (boolean) userMap.get("gender");
                 User u= new User(BMI,waistline,age,bloodPressure,familyHistory,gender);

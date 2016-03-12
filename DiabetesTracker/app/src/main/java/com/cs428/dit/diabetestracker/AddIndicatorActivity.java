@@ -1,0 +1,80 @@
+package com.cs428.dit.diabetestracker;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.cs428.dit.diabetestracker.helpers.Food;
+import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
+import com.cs428.dit.diabetestracker.helpers.Indicator;
+import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
+import com.cs428.dit.diabetestracker.helpers.SessionManager;
+import com.firebase.client.Firebase;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class AddIndicatorActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_indicator);
+        final TextView weight = (TextView) findViewById(R.id.weightTextfield);
+        final TextView bloodPressure = (TextView) findViewById(R.id.bloodPressureTextfield);
+        final TextView bloodSugar = (TextView) findViewById(R.id.bloodSugarTextfield);
+
+        Button btn = (Button) findViewById(R.id.btn_save_indicator);
+        final SessionManager session = new SessionManager(this);
+
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+        final String day = dateformat.format(new Date());
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // set empty fields to default value;
+                String Weight_str = weight.getText().toString();
+                float wei;
+                if (Weight_str.equals("")){
+                    wei = 0;
+                }else{
+                    wei = Float.parseFloat(Weight_str);
+                }
+
+                String BloodPressure_str = bloodPressure.getText().toString();
+                float bp;
+                if (BloodPressure_str.equals("")){
+                    bp = 0;
+                }else{
+                    bp = Float.parseFloat(BloodPressure_str);
+                }
+
+                String BloodSugar_str = bloodSugar.getText().toString();
+                float bs;
+                if (BloodSugar_str.equals("")){
+                    bs = 0;
+                }else{
+                    bs = Float.parseFloat(BloodSugar_str);
+                }
+
+                Indicator indicator = new Indicator(wei, bp, bs);
+
+                IndicatorItemLog itemLog = new IndicatorItemLog(day, indicator);
+                Firebase mRef = new Firebase(getString(R.string.firebase_url));
+                String userStatsURL = "indicator/"+session.getUserDetails().get(SessionManager.KEY_EMAIL);
+                userStatsURL = userStatsURL.replace('.', '!');
+
+                Log.d("USER_EMAIL", userStatsURL);
+                Log.d("DATE FORMAT",day);
+
+                mRef = mRef.child(userStatsURL);
+                mRef.push().setValue(itemLog);
+            }
+        });
+    }
+}

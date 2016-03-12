@@ -40,11 +40,15 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-
+        // Food part
         ImageButton logFoodButton = (ImageButton) findViewById(R.id.button_log_food);
         ImageButton caloriesHistoryButton = (ImageButton) findViewById(R.id.button_see_calories_history);
         LinearLayout caloriesStatsLayout = (LinearLayout) findViewById(R.id.layout_calories_stats);
         mTextCalories = (TextView) findViewById(R.id.total_calories_main);
+
+        // Indicator part
+        ImageButton logIndicatorButton = (ImageButton) findViewById(R.id.button_log_indicator);
+        ImageButton indicatorHistoryButton = (ImageButton) findViewById(R.id.button_see_indicator_history);
 
 
         //Go to profile page when the user click the avatar
@@ -92,6 +96,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(foodLogIntent);
             }
         });
+
+        //Go to add indicator page
+        logIndicatorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent logIndicatorIntent = new Intent(getApplicationContext(), AddIndicatorActivity.class);
+                startActivity(logIndicatorIntent);
+            }
+        });
+
     }
 
     @Override

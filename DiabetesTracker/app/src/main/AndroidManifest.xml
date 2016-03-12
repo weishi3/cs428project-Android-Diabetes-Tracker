@@ -82,13 +82,19 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
+            android:name=".AddIndicatorActivity"
+            android:label="Add Indicator">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
             android:name=".AddFoodItemActivity"
             android:label="Add Food Item">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FoodLogActivity" />
         </activity>
-        <activity android:name=".DailyDataActivity"></activity>
     </application>
 
 </manifest>
