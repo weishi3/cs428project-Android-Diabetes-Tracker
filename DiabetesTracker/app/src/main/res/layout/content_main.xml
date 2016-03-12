@@ -114,7 +114,7 @@
                             android:gravity="left|center"
                             android:text="Cal"
                             android:textColor="#FFFFFF"
-                            android:textSize="40sp" />
+                            android:textSize="30sp" />
                     </LinearLayout>
 
                     <RelativeLayout
