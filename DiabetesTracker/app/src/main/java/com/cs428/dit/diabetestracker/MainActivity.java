@@ -9,15 +9,25 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    private SessionManager session;
-
     private static final String TAG = "MAIN_ACTIVITY";
+    private SessionManager session;
+    private TextView mTextCalories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +35,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         session = new SessionManager(getApplicationContext());
+//        session = new SessionManager(this);
+        Log.d("ON_CREATE", (session.getUserDetails()+""));
+
         ImageView profileAvatar = (ImageView) findViewById(R.id.profileAvatar);
         CardView diagnosisCard = (CardView) findViewById(R.id.diagnosis_card_view);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        ImageButton logFoodButton = (ImageButton) findViewById(R.id.button_log_food);
+        ImageButton caloriesHistoryButton = (ImageButton) findViewById(R.id.button_see_calories_history);
+        LinearLayout caloriesStatsLayout = (LinearLayout) findViewById(R.id.layout_calories_stats);
+        mTextCalories = (TextView) findViewById(R.id.total_calories_main);
+
 
         //Go to profile page when the user click the avatar
         profileAvatar.setOnClickListener(new View.OnClickListener() {
@@ -48,10 +66,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TextView welcomeTxt = (TextView) findViewById(R.id.welcomeTxt);
-        welcomeTxt.setText((String)session.getUserDetails().get(SessionManager.KEY_EMAIL));
-        Log.d(TAG, "user is " + welcomeTxt.getText().toString());
+        //Go to add food item page
+        logFoodButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent logFoodIntent = new Intent(getApplicationContext(), AddFoodItemActivity.class);
+                startActivity(logFoodIntent);
+            }
+        });
 
+        //Go to food calories history page
+        caloriesHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent caloriesHistoryIntent = new Intent(getApplicationContext(), SeeCaloriesActivity.class);
+                startActivity(caloriesHistoryIntent);
+            }
+        });
+
+        //Go to food log page
+        //This is the calories card view on click
+        caloriesStatsLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent foodLogIntent = new Intent(getApplicationContext(), FoodLogActivity.class);
+                startActivity(foodLogIntent);
+            }
+        });
     }
 
     @Override
@@ -59,6 +100,44 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        String baseURL = getString(R.string.firebase_url);
+        Log.d("USER_EMAIL", session.getUserDetails().toString());
+        String userStatsURL = "stats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.', '!');
+        userStatsURL = baseURL + userStatsURL;
+        Firebase statsRef = new Firebase(userStatsURL);
+        statsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+                final String day = dateformat.format(new Date());
+                double tCal = 0.0;
+
+                for (DataSnapshot foodItemLogSnapshot : dataSnapshot.getChildren()) {
+                    FoodItemLog oneLog = foodItemLogSnapshot.getValue(FoodItemLog.class);
+                    if (day.equals(oneLog.getDate())) {
+                        tCal += (oneLog.getFood().getKilocalorie());
+                    }
+                }
+
+                if (tCal < 0.0) {
+                    tCal = 0.0;
+                }
+
+                mTextCalories.setText(tCal + "");
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     @Override
