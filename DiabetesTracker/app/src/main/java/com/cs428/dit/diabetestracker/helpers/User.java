@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class User {
 
-    private Double BMI;
-    private Double waistline;
+    private float BMI;
+    private float waistline;
     private int age;
     private int bloodPressure;
     private boolean familyHistory;
@@ -34,7 +34,7 @@ public class User {
     private int score = 0;
 
 
-    public User(Double BMI, Double waistline, int age, int bloodPressure, boolean gender, boolean familyHistory) {
+    public User(float BMI, float waistline, int age, int bloodPressure, boolean gender, boolean familyHistory) {
         this.BMI = BMI;
         this.waistline = waistline;
         this.age = age;
@@ -114,19 +114,19 @@ public class User {
         this.TG = TG;
     }
 
-    public Double getBMI() {
+    public float getBMI() {
         return BMI;
     }
 
-    public void setBMI(Double BMI) {
+    public void setBMI(float BMI) {
         this.BMI = BMI;
     }
 
-    public Double getWaistline() {
+    public float getWaistline() {
         return waistline;
     }
 
-    public void setWaistline(Double waistline) {
+    public void setWaistline(float waistline) {
         this.waistline = waistline;
     }
 

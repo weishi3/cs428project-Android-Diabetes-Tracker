@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         CardView diagnosisCard = (CardView) findViewById(R.id.diagnosis_card_view);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+
         ImageButton logFoodButton = (ImageButton) findViewById(R.id.button_log_food);
         ImageButton caloriesHistoryButton = (ImageButton) findViewById(R.id.button_see_calories_history);
         LinearLayout caloriesStatsLayout = (LinearLayout) findViewById(R.id.layout_calories_stats);

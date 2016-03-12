@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cs428.dit.diabetestracker" >
+    package="com.cs428.dit.diabetestracker">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -24,14 +24,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegistrationActivity"
-            android:label="@string/registration_page_name" >
+            android:label="@string/registration_page_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
         <activity
             android:name=".ForgetPasswordActivity"
-            android:label="@string/reset_password_page_name" >
+            android:label="@string/reset_password_page_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
@@ -39,7 +39,7 @@
         <activity
             android:name=".SplashActivity"
             android:noHistory="true"
-            android:theme="@style/SplashTheme" >
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,46 +48,47 @@
         </activity>
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/profile_page_name" >
+            android:label="@string/profile_page_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".EditProfileActivity"
-            android:label="@string/edit_profile_page_name" >
+            android:label="@string/edit_profile_page_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProfileActivity" />
         </activity>
         <activity
             android:name=".DiagnosisActivity"
-            android:label="@string/diagnosis_page_name" >
+            android:label="@string/diagnosis_page_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".FoodLogActivity"
-            android:label="Food Log" >
+            android:label="Food Log">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".SeeCaloriesActivity"
-            android:label="Calories History" >
+            android:label="Calories History">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".AddFoodItemActivity"
-            android:label="Add Food Item" >
+            android:label="Add Food Item">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FoodLogActivity" />
         </activity>
+        <activity android:name=".DailyDataActivity"></activity>
     </application>
 
 </manifest>

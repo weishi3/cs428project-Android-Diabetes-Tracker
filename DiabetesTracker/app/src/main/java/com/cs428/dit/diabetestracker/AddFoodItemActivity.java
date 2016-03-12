@@ -65,8 +65,10 @@ public class AddFoodItemActivity extends AppCompatActivity {
                 Firebase mRef = new Firebase(getString(R.string.firebase_url));
                 String userStatsURL = "stats/"+session.getUserDetails().get(SessionManager.KEY_EMAIL);
                 userStatsURL = userStatsURL.replace('.', '!');
+
                 Log.d("USER_EMAIL", userStatsURL);
                 Log.d("DATE FORMAT",day);
+
                 mRef = mRef.child(userStatsURL);
                 mRef.push().setValue(d);
             }

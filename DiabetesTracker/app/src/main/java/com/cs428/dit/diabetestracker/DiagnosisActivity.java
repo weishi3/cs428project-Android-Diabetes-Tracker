@@ -21,20 +21,12 @@ import java.util.HashMap;
 import java.util.List;
 import android.app.Activity;
 
+import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.cs428.dit.diabetestracker.helpers.User;
 
 public class DiagnosisActivity extends AppCompatActivity{
 
     //float BMI, float waistline, int age, int bloodPressure, boolean gender, boolean familyHistory
-
-    public Double BMI = 40.0;
-    public Double waistline = 100.0;
-    public int age = 50;
-    public int bloodPressure = 160;
-    public boolean familyHistory = true;
-    public boolean gender = true;
-
-
 
     private String foodSug="Generally Suggested Diets";
     private String diagnosisTitle="N/A Before Running Diagnosis!";
@@ -52,11 +44,17 @@ public class DiagnosisActivity extends AppCompatActivity{
     HashMap<String, List<String>> listDataChild;
     final Activity thisAct= this;
 
+    private SessionManager session;
+    public HashMap<String, Object> userMap;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnosis);
         mLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        session = new SessionManager(getApplicationContext());
+        userMap = session.getUserDetails();
 
         //mEditText = (EditText) findViewById(R.id.)
         mButton = (Button) findViewById(R.id.button);
@@ -68,6 +66,12 @@ public class DiagnosisActivity extends AppCompatActivity{
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                float BMI = (float) userMap.get("BMI");
+                float waistline = (float) userMap.get("waistline");
+                int age = (int) userMap.get("age");
+                int bloodPressure = (int) userMap.get("bloodPressure");
+                boolean familyHistory = (boolean) userMap.get("familyHistory");
+                boolean gender = (boolean) userMap.get("gender");
                 User u= new User(BMI,waistline,age,bloodPressure,familyHistory,gender);
                 u.setSedentaryJob(true);
                 u.setExerciseT(30);
@@ -76,8 +80,6 @@ public class DiagnosisActivity extends AppCompatActivity{
                 u.setWeightB(5);
                 u.setHDL_C(0.88);
                 u.setTG(2.3);
-
-
 
                 String score = u.getScore();
                 foodSug=u.generateSuggestionD();
