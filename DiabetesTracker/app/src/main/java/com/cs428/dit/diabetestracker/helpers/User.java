@@ -38,10 +38,10 @@ public class User {
     //weight when born
     private int weightB=0;
 
-    //Atherosclerotic CCVd
+    //Atherosclerotic CCVd: stands for chronic cerebrovascular disease
     private boolean CCVD=false;
 
-    //does a female user has PCOS?
+    //does a female user has PCOS? stands for Polycystic ovary syndrome
     private boolean PCOS=false;
 
     // does user have psychotropic problems.
