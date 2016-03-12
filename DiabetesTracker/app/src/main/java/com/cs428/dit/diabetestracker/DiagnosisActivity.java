@@ -116,11 +116,6 @@ public class DiagnosisActivity extends AppCompatActivity{
 
 
 
-        //scroll
-
-
-
-
 
 
         //add yiyu's
@@ -185,22 +180,7 @@ public class DiagnosisActivity extends AppCompatActivity{
                 return false;
             }
         });
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
 
 
 

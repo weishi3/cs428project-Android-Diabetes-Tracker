@@ -66,14 +66,12 @@ public class AddIndicatorActivity extends AppCompatActivity {
 
                 IndicatorItemLog itemLog = new IndicatorItemLog(day, indicator);
                 Firebase mRef = new Firebase(getString(R.string.firebase_url));
-                String userStatsURL = "indicator/"+session.getUserDetails().get(SessionManager.KEY_EMAIL);
-                userStatsURL = userStatsURL.replace('.', '!');
+                String userIndicatorURL = "userstats/"+session.getUserDetails().get(SessionManager.KEY_EMAIL);
+                userIndicatorURL = userIndicatorURL.replace('.', '!');
 
-                Log.d("USER_EMAIL", userStatsURL);
-                Log.d("DATE FORMAT",day);
-
-                mRef = mRef.child(userStatsURL);
-                mRef.push().setValue(itemLog);
+                Log.d("USER_EMAIL", userIndicatorURL);
+                mRef = mRef.child(userIndicatorURL).child(day.toString());
+                mRef.setValue(indicator);
             }
         });
     }
