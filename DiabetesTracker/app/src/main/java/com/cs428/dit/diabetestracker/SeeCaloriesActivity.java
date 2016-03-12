@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+
 import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.firebase.client.DataSnapshot;
@@ -21,11 +22,11 @@ import java.util.HashMap;
 
 public class SeeCaloriesActivity extends AppCompatActivity {
 
-
     LineChart lineChart;
     HashMap<String, Double> mapped_keys;
     LineDataSet dataset;
     private SessionManager session;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -30,7 +30,7 @@ public class EditProfileActivity extends AppCompatActivity {
         editText("waistline", R.id.waistline);
         editText("BMI", R.id.BMI);
         editText("familyHistory", R.id.familyHistory);
-        editText("bloodPressure", R.id.bloodPressure);
+        editText("blood_pressure", R.id.bloodPressure);
         TextView view = (TextView) findViewById(R.id.gender);
         view.setText((boolean) userDetails.get("gender") ? "Male" : "Female");
 
@@ -116,9 +116,9 @@ public class EditProfileActivity extends AppCompatActivity {
                     Firebase userGender = user.child("gender");
                     userGender.setValue(sGender.equals("male"));
                     userDetails.put("gender", sGender.equals("male"));
-                    Firebase userBloodPressure = user.child("bloodPressure");
+                    Firebase userBloodPressure = user.child("blood_pressure");
                     userBloodPressure.setValue(pressure);
-                    userDetails.put("bloodPressure", pressure);
+                    userDetails.put("blood_pressure", pressure);
                     Firebase userFamilyHistory = user.child("familyHistory");
                     userFamilyHistory.setValue(history);
                     userDetails.put("familyHistory", history);

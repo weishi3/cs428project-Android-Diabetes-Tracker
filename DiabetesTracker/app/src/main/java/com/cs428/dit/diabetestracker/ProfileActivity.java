@@ -37,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
         editText("waistline", R.id.waistline);
         editText("BMI", R.id.BMI);
         editText("familyHistory", R.id.familyHistory);
-        editText("bloodPressure", R.id.bloodPressure);
+        editText("blood_pressure", R.id.bloodPressure);
         TextView view = (TextView) findViewById(R.id.gender);
         view.setText((boolean)userDetails.get("gender") ? "Male" : "Female");
     }

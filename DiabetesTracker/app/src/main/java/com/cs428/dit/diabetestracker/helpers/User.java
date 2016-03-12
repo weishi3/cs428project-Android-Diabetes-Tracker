@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class User {
 
-    private Double BMI;
-    private Double waistline;
+    private float BMI;
+    private float waistline;
     private int age;
     private int bloodPressure;
     private boolean familyHistory;
@@ -23,18 +23,46 @@ public class User {
     private boolean isElder=false;
 
 
+
+    //start of optionals
     private boolean sedentaryJob =false;
+    //exercise
     private int exerciseT =30;
+
+    // have ever be diagnosed as diabetes or IGR history?Sex steroids diabetes?
     private boolean diagnosedD=false;
+
+    //is user's mother get diabetes when she is pregnant?
     private boolean GDM=false;
+
+    //weight when born
     private int weightB=0;
+
+    //Atherosclerotic CCVd: stands for chronic cerebrovascular disease
+    private boolean CCVD=false;
+
+    //does a female user has PCOS? stands for Polycystic ovary syndrome
+    private boolean PCOS=false;
+
+    // does user have psychotropic problems.
+    private boolean psychotropic=false;
+
+
+
+    //the following are indicators for blood fat
     private Double HDL_C=0.92;
     private Double TG = 2.21;
+
+
+    //end of optionals
+
+
 
     private int score = 0;
 
 
-    public User(Double BMI, Double waistline, int age, int bloodPressure, boolean gender, boolean familyHistory) {
+
+    public User(float BMI, float waistline, int age, int bloodPressure, boolean gender, boolean familyHistory) {
         this.BMI = BMI;
         this.waistline = waistline;
         this.age = age;
@@ -114,19 +142,19 @@ public class User {
         this.TG = TG;
     }
 
-    public Double getBMI() {
+    public float getBMI() {
         return BMI;
     }
 
-    public void setBMI(Double BMI) {
+    public void setBMI(float BMI) {
         this.BMI = BMI;
     }
 
-    public Double getWaistline() {
+    public float getWaistline() {
         return waistline;
     }
 
-    public void setWaistline(Double waistline) {
+    public void setWaistline(float waistline) {
         this.waistline = waistline;
     }
 

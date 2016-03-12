@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
+import com.cs428.dit.diabetestracker.helpers.Indicator;
+import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN_ACTIVITY";
     private SessionManager session;
     private TextView mTextCalories;
+    private TextView mTextBloodSugar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +45,18 @@ public class MainActivity extends AppCompatActivity {
         CardView diagnosisCard = (CardView) findViewById(R.id.diagnosis_card_view);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        // Food part
         ImageButton logFoodButton = (ImageButton) findViewById(R.id.button_log_food);
         ImageButton caloriesHistoryButton = (ImageButton) findViewById(R.id.button_see_calories_history);
         LinearLayout caloriesStatsLayout = (LinearLayout) findViewById(R.id.layout_calories_stats);
         mTextCalories = (TextView) findViewById(R.id.total_calories_main);
+
+        // Indicator part
+        ImageButton logIndicatorButton = (ImageButton) findViewById(R.id.button_log_indicator);
+        ImageButton indicatorHistoryButton = (ImageButton) findViewById(R.id.button_see_indicator_history);
+        LinearLayout indicatorLayout = (LinearLayout) findViewById(R.id.layout_indicator_stats);
+        mTextBloodSugar = (TextView) findViewById(R.id.total_indicator_main);
 
 
         //Go to profile page when the user click the avatar
@@ -93,6 +104,33 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(foodLogIntent);
             }
         });
+
+        //Go to add indicator page
+        logIndicatorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent logIndicatorIntent = new Intent(getApplicationContext(), AddIndicatorActivity.class);
+                startActivity(logIndicatorIntent);
+            }
+        });
+
+        //Go to indicator history page
+        indicatorHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent indicatorHistoryIntent = new Intent(getApplicationContext(), SeeIndicatorActivity.class);
+                startActivity(indicatorHistoryIntent);
+            }
+        });
+
+        indicatorLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent indicatorLogIntent = new Intent(getApplicationContext(), IndicatorLogActivity.class);
+                startActivity(indicatorLogIntent);
+            }
+        });
+
     }
 
     @Override
@@ -138,6 +176,40 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+//        String baseURL2 = getString(R.string.firebase_url);
+//        String userIndicatorURL = "indicator/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
+//        userIndicatorURL = baseURL2 + userIndicatorURL;
+//        Firebase indicatorRef = new Firebase(userIndicatorURL);
+//        indicatorRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+//                final String day = dateformat.format(new Date());
+//                double bloodSugar = 0.0;
+//
+//                for (DataSnapshot IndicatorItemLogSnapshot: dataSnapshot.getChildren()) {
+//                    IndicatorItemLog indicatorLog = IndicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
+//                    if(day.equals(indicatorLog.getDate())){
+//                        bloodSugar = (indicatorLog.getIndicator().getBloodSugar());
+//                    }
+//                }
+//
+//                if(bloodSugar < 0.0){
+//                    bloodSugar = 0.0;
+//                }
+//
+//                mTextBloodSugar.setText(bloodSugar+"");
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//
+//            }
+//        });
+
+
     }
 
     @Override

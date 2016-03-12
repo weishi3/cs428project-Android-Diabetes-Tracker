@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
+    <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
+    <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
+    <!--android:paddingTop="@dimen/activity_vertical_margin"-->
+    <!--tools:context="com.cs428.dit.diabetestracker.AddIndicatorActivity">-->
+
+<!--</RelativeLayout>-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.cs428.dit.diabetestracker.AddIndicatorActivity"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/view_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/weight"
+            />
+
+        <EditText
+            android:id="@+id/weightTextfield"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:ems="10"
+            android:focusable="true"
+            android:hint="Weight"
+            android:inputType="numberDecimal"
+            android:singleLine="true"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/view_blood_pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/blood_pressure" />
+
+        <EditText
+            android:id="@+id/bloodPressureTextfield"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elegantTextHeight="false"
+            android:ems="10"
+            android:focusable="true"
+            android:hint="Blood Pressure in mmHg"
+            android:inputType="numberDecimal"
+            android:singleLine="true" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/view_blood_sugar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/blood_sugar" />
+
+        <EditText
+            android:id="@+id/bloodSugarTextfield"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elegantTextHeight="false"
+            android:ems="10"
+            android:focusable="true"
+            android:hint="Blood Sugar in mmol/L"
+            android:inputType="numberDecimal"
+            android:singleLine="true" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_save_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="88dp"
+        android:layout_marginTop="65dp"
+        android:backgroundTint="#8EE152"
+        android:focusable="true"
+        android:text="save"
+        android:textColor="#FFFFFF" />
+
+</LinearLayout>

@@ -10,7 +10,7 @@ import static junit.framework.Assert.assertEquals;
  * Created by Yuchen on 3/4/16.
  */
 public class DiagnosisActivityScoreTest {
-    //Double BMI, Double waistline, int age, int bloodPressure, boolean gender, boolean familyHistory
+    //Double BMI, Double waistline, int age, int blood_pressure, boolean gender, boolean familyHistory
 
     @Test
     public void testMaleHealth() {
