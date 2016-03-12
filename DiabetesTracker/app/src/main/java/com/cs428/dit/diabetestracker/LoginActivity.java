@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -19,7 +20,6 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A login screen that offers login via email/password.
@@ -129,6 +129,8 @@ public class LoginActivity extends AppCompatActivity {
         final String mEmail = mEmailView.getText().toString();
         final String mPassword = mPasswordView.getText().toString();
 
+        Log.d("In login activity:", mEmail);
+
         //Reference to Firebase data
         final Firebase myFirebaseRef = new Firebase(getString(R.string.firebase_url));
         // Create a handler to handle the result of the authentication
@@ -142,10 +144,12 @@ public class LoginActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot snapshot) {
                         HashMap<String, Object> userDetails = (HashMap<String, Object>) snapshot.getValue();
                         //null check
-                        if (userDetails == null){
+                        if (userDetails == null) {
                             userDetails = new HashMap<String, Object>();
                         }
                         session.createLoginSession(mEmail, userDetails);
+
+
                     }
 
                     @Override
@@ -153,8 +157,15 @@ public class LoginActivity extends AppCompatActivity {
                         session.createLoginSession(mEmail, new HashMap<String, Object>());
                     }
                 });
+
+                //The above onDataChange cannot guarantee that email is stored.
+                //Store email to SharedPreferences on successful login.
+                session.setEmailInSession(mEmail);
+
                 Intent homepage = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(homepage);
+
+
                 finish();//close login page
             }
 
@@ -171,7 +182,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
+
         myFirebaseRef.authWithPassword(mEmail, mPassword, authResultHandler);
+        Log.d("LOGIN_SESSIONIS", (session.getUserDetails()+""));
     }
 
 

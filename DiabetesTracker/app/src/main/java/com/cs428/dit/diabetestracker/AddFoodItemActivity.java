@@ -27,16 +27,14 @@ public class AddFoodItemActivity extends AppCompatActivity {
         Button btn = (Button) findViewById(R.id.btn_save_food_item);
         final SessionManager session = new SessionManager(this);
 
-        //Parse the current date into string format for storage
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
-        final String day = dateformat.format(new Date());
+
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 // set empty fields to default value;
-                String Calories_str = foodCalories.getText().toString();
+                String Calories_str = foodCalories.getText()+"";
                 double Cal;
                 if (Calories_str.equals("")){
                     Cal = 0.0;
@@ -44,7 +42,7 @@ public class AddFoodItemActivity extends AppCompatActivity {
                     Cal = Double.parseDouble(Calories_str);
                 }
 
-                String Sugar_str = sugarInGramsText.getText().toString();
+                String Sugar_str = sugarInGramsText.getText()+"";
                 double Sugar;
                 if (Sugar_str.equals("")){
                     Sugar = 0.0;
@@ -54,13 +52,15 @@ public class AddFoodItemActivity extends AppCompatActivity {
 
                 Food f;
 
-                if(food.getText().toString().trim().equals("")){
+                if((food.getText()+"").trim().equals("")){
                     f = new Food( Sugar,Cal, "item_name_not_entered");
 
                 }else{
-                    f = new Food( Sugar,Cal, food.getText().toString());
+                    f = new Food( Sugar,Cal, food.getText()+"");
                 }
-
+                //Parse the current date into string format for storage
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+                final String day = dateformat.format(new Date());
                 FoodItemLog d = new FoodItemLog(day, f);
                 Firebase mRef = new Firebase(getString(R.string.firebase_url));
                 String userStatsURL = "stats/"+session.getUserDetails().get(SessionManager.KEY_EMAIL);

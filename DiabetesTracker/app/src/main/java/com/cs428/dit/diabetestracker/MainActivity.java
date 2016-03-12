@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         session = new SessionManager(getApplicationContext());
+//        session = new SessionManager(this);
+        Log.d("ON_CREATE", (session.getUserDetails()+""));
+
         ImageView profileAvatar = (ImageView) findViewById(R.id.profileAvatar);
         CardView diagnosisCard = (CardView) findViewById(R.id.diagnosis_card_view);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -104,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         String baseURL = getString(R.string.firebase_url);
-        String userStatsURL = "stats/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
+        Log.d("USER_EMAIL", session.getUserDetails().toString());
+        String userStatsURL = "stats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.', '!');
         userStatsURL = baseURL + userStatsURL;
         Firebase statsRef = new Firebase(userStatsURL);
         statsRef.addValueEventListener(new ValueEventListener() {
@@ -115,18 +119,18 @@ public class MainActivity extends AppCompatActivity {
                 final String day = dateformat.format(new Date());
                 double tCal = 0.0;
 
-                for (DataSnapshot foodItemLogSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot foodItemLogSnapshot : dataSnapshot.getChildren()) {
                     FoodItemLog oneLog = foodItemLogSnapshot.getValue(FoodItemLog.class);
-                    if(day.equals(oneLog.getDate())){
-                        tCal+=(oneLog.getFood().getKilocalorie());
+                    if (day.equals(oneLog.getDate())) {
+                        tCal += (oneLog.getFood().getKilocalorie());
                     }
                 }
 
-                if(tCal < 0.0){
+                if (tCal < 0.0) {
                     tCal = 0.0;
                 }
 
-                mTextCalories.setText(tCal+"");
+                mTextCalories.setText(tCal + "");
             }
 
             @Override
