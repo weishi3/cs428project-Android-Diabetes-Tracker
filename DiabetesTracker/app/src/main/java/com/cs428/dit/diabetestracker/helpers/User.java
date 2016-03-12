@@ -23,15 +23,43 @@ public class User {
     private boolean isElder=false;
 
 
+
+    //start of optionals
     private boolean sedentaryJob =false;
+    //exercise
     private int exerciseT =30;
+
+    // have ever be diagnosed as diabetes or IGR history?Sex steroids diabetes?
     private boolean diagnosedD=false;
+
+    //is user's mother get diabetes when she is pregnant?
     private boolean GDM=false;
+
+    //weight when born
     private int weightB=0;
+
+    //Atherosclerotic CCVd
+    private boolean CCVD=false;
+
+    //does a female user has PCOS?
+    private boolean PCOS=false;
+
+    // does user have psychotropic problems.
+    private boolean psychotropic=false;
+
+
+
+    //the following are indicators for blood fat
     private Double HDL_C=0.92;
     private Double TG = 2.21;
 
+
+    //end of optionals
+
+
+
     private int score = 0;
+
 
 
     public User(float BMI, float waistline, int age, int bloodPressure, boolean gender, boolean familyHistory) {
