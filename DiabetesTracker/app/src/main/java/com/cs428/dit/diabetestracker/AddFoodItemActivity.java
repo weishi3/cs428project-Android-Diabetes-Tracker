@@ -88,6 +88,7 @@ public class AddFoodItemActivity extends AppCompatActivity {
 
                 //Go back to food item log page.
                 Intent foodLog = new Intent(getApplicationContext(), FoodLogActivity.class);
+                foodLog.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(foodLog);
                 finish();
 
