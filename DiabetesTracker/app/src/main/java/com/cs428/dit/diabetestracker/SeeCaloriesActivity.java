@@ -15,6 +15,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -101,9 +102,13 @@ public class SeeCaloriesActivity extends AppCompatActivity {
                     Log.d("entry: ", entries.get(0) + "");
                     dataset = new LineDataSet(entries, "total Calories");
                     Log.d("dataset: ", dataset + "");
+                    dataset.setDrawCubic(true);
+                    dataset.setDrawFilled(true);
+                    dataset.setColors(ColorTemplate.COLORFUL_COLORS);
                     LineData data = new LineData(labels, dataset);
                     lineChart.setData(data);
                     lineChart.setDescription("Daily Calories Report");
+                    lineChart.animateXY(1000, 1000);
                 }
 
             }
