@@ -1,52 +1,46 @@
 package com.cs428.dit.diabetestracker;
 
-import android.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 import android.widget.Toast;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import android.app.Activity;
 
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.cs428.dit.diabetestracker.helpers.User;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class DiagnosisActivity extends AppCompatActivity{
 
     //float BMI, float waistline, int age, int blood_pressure, boolean gender, boolean familyHistory
 
-    private String foodSug="Generally Suggested Diets";
-    private String diagnosisTitle="N/A Before Running Diagnosis!";
-
-    private LinearLayout mLayout;
-
-    private EditText mEditText;
-    private Button mButton;
-
+    final Activity thisAct= this;
+    public HashMap<String, Object> userMap;
     // instances for expandable lists
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     List<String> suggestionContents=null;
     HashMap<String, List<String>> listDataChild;
-    final Activity thisAct= this;
-
+    private String foodSug="Generally Suggested Diets";
+    private String diagnosisTitle="N/A Before Running Diagnosis!";
+    private LinearLayout mLayout;
+    private EditText mEditText;
+    private Button mButton;
     private SessionManager session;
-    public HashMap<String, Object> userMap;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
