@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
 import com.cs428.dit.diabetestracker.helpers.Indicator;
+import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -189,10 +190,10 @@ public class MainActivity extends AppCompatActivity {
                 final String day = dateformat.format(new Date());
                 double bloodSugar = 0.0;
 
-                for (DataSnapshot indicatorSnapshot: dataSnapshot.getChildren()) {
-                    if(day.equals(indicatorSnapshot.getKey().toString())){
-                        Indicator indicator = indicatorSnapshot.getValue(Indicator.class);
-                        bloodSugar = indicator.getBloodSugar();
+                for (DataSnapshot indicatorItemLogSnapshot: dataSnapshot.getChildren()) {
+                    IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
+                    if (day.equals(oneLog.getDate())) {
+                        bloodSugar = (oneLog.getIndicator().getBloodSugar());
                     }
                 }
 

@@ -64,14 +64,14 @@ public class AddIndicatorActivity extends AppCompatActivity {
                 }
 
                 Indicator indicator = new Indicator(bs, bp, wei);
-
+                IndicatorItemLog indicatorItemLog = new IndicatorItemLog(day, indicator);
                 Firebase mRef = new Firebase(getString(R.string.firebase_url));
                 String userIndicatorURL = "userstats/"+session.getUserDetails().get(SessionManager.KEY_EMAIL);
                 userIndicatorURL = userIndicatorURL.replace('.', '!');
 
                 Log.d("USER_EMAIL", userIndicatorURL);
                 mRef = mRef.child(userIndicatorURL).child(day);
-                mRef.setValue(indicator);
+                mRef.setValue(indicatorItemLog);
 
                 Intent jumpBack = new Intent(getApplicationContext(), IndicatorLogActivity.class);
                 jumpBack.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

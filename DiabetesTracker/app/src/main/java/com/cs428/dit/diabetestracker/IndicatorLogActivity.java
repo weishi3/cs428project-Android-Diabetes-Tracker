@@ -13,8 +13,13 @@ import android.widget.TextView;
 import com.cs428.dit.diabetestracker.helpers.Indicator;
 import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerAdapter;
+
+import java.util.HashMap;
 
 public class IndicatorLogActivity extends AppCompatActivity {
 
@@ -23,6 +28,8 @@ public class IndicatorLogActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private SessionManager session;
+    public String date;
+    public HashMap<String, Object> map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,43 +66,52 @@ public class IndicatorLogActivity extends AppCompatActivity {
         mRef = mRef.child(userStatsURL);
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        mRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot snapshot) {
+//                for (DataSnapshot indicatorSnapshot: snapshot.getChildren()) {
+//                    map.put(indicatorSnapshot.getKey().toString(), indicatorSnapshot.getValue());
+//
+//                }
+//            }
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//                System.out.println("The read failed: " + firebaseError.getMessage());
+//            }
+//        });
+
 //        FirebaseRecyclerAdapter<IndicatorItemLog, MessageViewHolder> adapter =
 //                new FirebaseRecyclerAdapter<IndicatorItemLog, MessageViewHolder>(
-//                        IndicatorItemLog.class,
-//                        R.layout.recycler_list_indicator_section,
-//                        MessageViewHolder.class,
-//                        mRef
-//                ) {
+//                        IndicatorItemLog.class, R.layout.recycler_list_indicator_section, MessageViewHolder.class, mRef) {
 //                    @Override
 //                    protected void populateViewHolder(MessageViewHolder messageViewHolder, IndicatorItemLog indicatorItemLog, int i) {
 //                        messageViewHolder.mDate.setText(indicatorItemLog.getDate());
-//                        Indicator f = indicatorItemLog.getIndicator();
-//                        messageViewHolder.mWeight.setText(f.getWeight() + " kg");
-//                        messageViewHolder.mBloodPressure.setText(f.getBloodPressure()+" mmHg");
-//                        messageViewHolder.mBloodSugar.setText(f.getBloodSugar()+" mmol/L");
+//                        Indicator indicator = indicatorItemLog.getIndicator();
+//                        messageViewHolder.mWeight.setText(indicator.getWeight() + " kg");
+//                        messageViewHolder.mBloodPressure.setText(indicator.getBloodPressure()+" mmHg");
+//                        messageViewHolder.mBloodSugar.setText(indicator.getBloodSugar()+" mmol/L");
 //
 //                    }
-//
-//
 //                };
+//
 //        mRecyclerView.setAdapter(adapter);
-//
-//    }
-//
-//    public static class MessageViewHolder extends RecyclerView.ViewHolder {
-//        TextView mDate;
-//        TextView mWeight;
-//        TextView mBloodPressure;
-//        TextView mBloodSugar;
-//        public MessageViewHolder(View v) {
-//            super(v);
-//            mDate = (TextView) v.findViewById(R.id.date_view_recycler);
-//            mWeight = (TextView) v.findViewById(R.id.weight_view_recycler);
-//            mBloodPressure = (TextView) v.findViewById(R.id.blood_pressure_view_recycler);
-//            mBloodSugar = (TextView) v.findViewById(R.id.blood_sugar_view_recycler);
-//        }
-//    }
+
+    }
+
+    public static class MessageViewHolder extends RecyclerView.ViewHolder {
+        TextView mDate;
+        TextView mWeight;
+        TextView mBloodPressure;
+        TextView mBloodSugar;
+        public MessageViewHolder(View v) {
+            super(v);
+            mDate = (TextView) v.findViewById(R.id.date_view_recycler);
+            mWeight = (TextView) v.findViewById(R.id.weight_view_recycler);
+            mBloodPressure = (TextView) v.findViewById(R.id.blood_pressure_view_recycler);
+            mBloodSugar = (TextView) v.findViewById(R.id.blood_sugar_view_recycler);
+        }
+    }
 }
