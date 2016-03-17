@@ -46,7 +46,7 @@ public class SessionManager {
             editor.putInt("age", (int)(long)userDetails.get("age"));
             editor.putFloat("waistline", (float)(double)userDetails.get("waistline"));
             editor.putFloat("BMI", (float) (double)userDetails.get("BMI"));
-            editor.putInt("blood_pressure", (int) (long)userDetails.get("blood_pressure"));
+            editor.putInt("bloodPressure", (int) (long)userDetails.get("bloodPressure"));
             editor.putBoolean("familyHistory", (boolean) userDetails.get("familyHistory"));
             editor.putBoolean("gender", (boolean)userDetails.get("gender"));
         }
@@ -63,7 +63,7 @@ public class SessionManager {
         editor.putInt("age", (int) userDetails.get("age"));
         editor.putFloat("waistline", (float) (double) userDetails.get("waistline"));
         editor.putFloat("BMI", (float) (double)userDetails.get("BMI"));
-        editor.putInt("blood_pressure", (int)userDetails.get("blood_pressure"));
+        editor.putInt("bloodPressure", (int)userDetails.get("bloodPressure"));
         editor.putBoolean("familyHistory", (boolean) userDetails.get("familyHistory"));
         editor.putBoolean("gender", (boolean)userDetails.get("gender"));
         editor.commit();
@@ -80,7 +80,7 @@ public class SessionManager {
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
         user.put("age", pref.getInt("age", 0));
         user.put("waistline", pref.getFloat("waistline", 0));
-        user.put("blood_pressure", pref.getInt("blood_pressure", 0));
+        user.put("bloodPressure", pref.getInt("bloodPressure", 0));
         user.put("BMI", pref.getFloat("BMI", (float)0));
         user.put("familyHistory", pref.getBoolean("familyHistory", false));
         user.put("gender", pref.getBoolean("gender", false));

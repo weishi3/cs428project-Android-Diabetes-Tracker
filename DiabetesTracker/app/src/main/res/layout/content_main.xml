@@ -195,7 +195,7 @@
                             android:gravity="left|center"
                             android:text="mmol/L"
                             android:textColor="#FFFFFF"
-                            android:textSize="40sp" />
+                            android:textSize="15sp" />
                     </LinearLayout>
 
                     <RelativeLayout

@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
+import com.cs428.dit.diabetestracker.helpers.Indicator;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -175,37 +176,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        String baseURL2 = getString(R.string.firebase_url);
-//        String userIndicatorURL = "indicator/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
-//        userIndicatorURL = baseURL2 + userIndicatorURL;
-//        Firebase indicatorRef = new Firebase(userIndicatorURL);
-//        indicatorRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
-//                final String day = dateformat.format(new Date());
-//                double bloodSugar = 0.0;
-//
-//                for (DataSnapshot IndicatorItemLogSnapshot: dataSnapshot.getChildren()) {
-//                    IndicatorItemLog indicatorLog = IndicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
-//                    if(day.equals(indicatorLog.getDate())){
-//                        bloodSugar = (indicatorLog.getIndicator().getBloodSugar());
-//                    }
-//                }
-//
-//                if(bloodSugar < 0.0){
-//                    bloodSugar = 0.0;
-//                }
-//
-//                mTextBloodSugar.setText(bloodSugar+"");
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
+        // Indicator
+        String baseURL2 = getString(R.string.firebase_url);
+        String userIndicatorURL = "userstats/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
+        userIndicatorURL = baseURL2 + userIndicatorURL;
+        Firebase indicatorRef = new Firebase(userIndicatorURL);
+        indicatorRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                final String day = dateformat.format(new Date());
+                double bloodSugar = 0.0;
+
+                for (DataSnapshot indicatorSnapshot: dataSnapshot.getChildren()) {
+                    if(day.equals(indicatorSnapshot.getKey().toString())){
+                        Indicator indicator = indicatorSnapshot.getValue(Indicator.class);
+                        bloodSugar = indicator.getBloodSugar();
+                    }
+                }
+
+                if(bloodSugar < 0.0){
+                    bloodSugar = 0.0;
+                }
+
+                mTextBloodSugar.setText(bloodSugar+"");
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
 
 
     }

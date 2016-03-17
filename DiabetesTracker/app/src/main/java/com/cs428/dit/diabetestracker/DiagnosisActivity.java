@@ -63,7 +63,7 @@ public class DiagnosisActivity extends AppCompatActivity{
                 float BMI = (float) userMap.get("BMI");
                 float waistline = (float) userMap.get("waistline");
                 int age = (int) userMap.get("age");
-                int bloodPressure = (int) userMap.get("blood_pressure");
+                int bloodPressure = (int) userMap.get("bloodPressure");
                 boolean familyHistory = (boolean) userMap.get("familyHistory");
                 boolean gender = (boolean) userMap.get("gender");
                 User u= new User(BMI,waistline,age,bloodPressure,familyHistory,gender);

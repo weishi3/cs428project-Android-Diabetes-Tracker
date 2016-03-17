@@ -7,6 +7,10 @@ public class IndicatorItemLog {
     public String date;
     public Indicator indicator;
 
+    public IndicatorItemLog(){
+
+    }
+
     public IndicatorItemLog(String date, Indicator indicator) {
         this.date = date;
         this.indicator = indicator;

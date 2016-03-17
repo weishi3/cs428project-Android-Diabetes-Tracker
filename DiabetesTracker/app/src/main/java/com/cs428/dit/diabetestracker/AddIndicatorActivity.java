@@ -1,5 +1,6 @@
 package com.cs428.dit.diabetestracker;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +31,7 @@ public class AddIndicatorActivity extends AppCompatActivity {
         Button btn = (Button) findViewById(R.id.btn_save_indicator);
         final SessionManager session = new SessionManager(this);
 
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
         final String day = dateformat.format(new Date());
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -64,14 +65,18 @@ public class AddIndicatorActivity extends AppCompatActivity {
 
                 Indicator indicator = new Indicator(bs, bp, wei);
 
-                IndicatorItemLog itemLog = new IndicatorItemLog(day, indicator);
                 Firebase mRef = new Firebase(getString(R.string.firebase_url));
                 String userIndicatorURL = "userstats/"+session.getUserDetails().get(SessionManager.KEY_EMAIL);
                 userIndicatorURL = userIndicatorURL.replace('.', '!');
 
                 Log.d("USER_EMAIL", userIndicatorURL);
-                mRef = mRef.child(userIndicatorURL).child(day.toString());
+                mRef = mRef.child(userIndicatorURL).child(day);
                 mRef.setValue(indicator);
+
+                Intent jumpBack = new Intent(getApplicationContext(), IndicatorLogActivity.class);
+                jumpBack.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(jumpBack);
+                finish();
             }
         });
     }
