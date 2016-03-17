@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertTrue;
 public class DiagnosisInfoTest {
     @Test
     public void testCheater1() {
-        User u = new User(21.0, 72.0, 25, 123, true, false);
+        User u = new User((float)21.0, (float)72.0, 25, 123, true, false);
         u.setSedentaryJob(true);
         u.setExerciseT(30);
 
