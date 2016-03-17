@@ -19,6 +19,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 // Tests for LoginActivity
 public class LoginActivityTest {
+    // Preferred JUnit 4 mechanism of specifying the activity to be launched before each test
+    @Rule
+    public ActivityTestRule<LoginActivity> activityTestRule =
+            new ActivityTestRule<>(LoginActivity.class);
     private String mCorrectEmail1;
     private String mCorrectPassword1;
 
@@ -27,11 +31,6 @@ public class LoginActivityTest {
         mCorrectEmail1 = "qizhang4@illinois.edu";
         mCorrectPassword1 = "123456";
     }
-
-    // Preferred JUnit 4 mechanism of specifying the activity to be launched before each test
-    @Rule
-    public ActivityTestRule<LoginActivity> activityTestRule =
-            new ActivityTestRule<>(LoginActivity.class);
 
     @Test
     public void signInButtonShownTest() {
@@ -98,9 +97,9 @@ public class LoginActivityTest {
         onView(withId(R.id.diagnosis_card_view))
                 .check(matches(isDisplayed()));
 
-        onView(withText(mCorrectEmail1))
-                .check(matches(isDisplayed()));
-
+//        onView(withText(mCorrectEmail1))
+//                .check(matches(isDisplayed()));
+//
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Logout"))
                 .perform(click());
