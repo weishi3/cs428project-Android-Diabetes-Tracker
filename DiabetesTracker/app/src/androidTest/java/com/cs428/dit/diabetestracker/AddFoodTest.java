@@ -24,7 +24,7 @@ public class AddFoodTest {
     @Rule
     public ActivityTestRule<AddFoodItemActivity> addFoodItemActivityActivityTestRule =
             new ActivityTestRule<>(AddFoodItemActivity.class);
-    String fbURL = "https://brilliant-fire-9755.firebaseio.com/stats/test1@test!com";
+    String fbURL = "https://brilliant-fire-9755.firebaseio.com/foodStats/test1@test!com";
 
     @Test
     public void addFoodItemSuccessfulTest1(){

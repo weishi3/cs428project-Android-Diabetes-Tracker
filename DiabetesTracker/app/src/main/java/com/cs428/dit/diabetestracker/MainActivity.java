@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
         String baseURL = getString(R.string.firebase_url);
         Log.d("USER_EMAIL", session.getUserDetails().toString());
-        String userStatsURL = "stats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.', '!');
+        String userStatsURL = "foodStats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.', '!');
         userStatsURL = baseURL + userStatsURL;
         Firebase statsRef = new Firebase(userStatsURL);
         statsRef.addValueEventListener(new ValueEventListener() {

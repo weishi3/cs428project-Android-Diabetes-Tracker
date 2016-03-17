@@ -55,7 +55,7 @@ public class FoodLogActivity extends AppCompatActivity {
      */
     private void setRefToUserStats() {
         mRef = new Firebase(getString(R.string.firebase_url));
-        String userStatsURL = "stats/"+session.getUserDetails().get(SessionManager.KEY_EMAIL);
+        String userStatsURL = "foodStats/"+session.getUserDetails().get(SessionManager.KEY_EMAIL);
         userStatsURL = userStatsURL.replace('.', '!');
         Log.d("USER_EMAIL", userStatsURL);
         mRef = mRef.child(userStatsURL);

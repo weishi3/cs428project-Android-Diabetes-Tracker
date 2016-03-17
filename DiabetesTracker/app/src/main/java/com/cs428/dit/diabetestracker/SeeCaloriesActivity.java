@@ -43,7 +43,7 @@ public class SeeCaloriesActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         String baseURL = getString(R.string.firebase_url);
-        String userStatsURL = "stats/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
+        String userStatsURL = "foodStats/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
         userStatsURL = baseURL + userStatsURL;
         Firebase statsRef = new Firebase(userStatsURL);
 
