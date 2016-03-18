@@ -52,12 +52,12 @@ public class SessionManager {
 
             temp = userDetails.get("exerciseT");
             if( temp != null ){
-                editor.putInt("exerciseT", (int) temp);
+                editor.putInt("exerciseT", (int) (long) temp);
             }
 
             temp = userDetails.get("diagnosedD");
             if( temp != null ){
-                editor.putBoolean("exerciseT", (boolean) temp);
+                editor.putBoolean("diagnosedD", (boolean) temp);
             }
 
             temp = userDetails.get("GDM");
@@ -67,7 +67,7 @@ public class SessionManager {
 
             temp = userDetails.get("weightB");
             if( temp != null ){
-                editor.putInt("weightB", (int) temp);
+                editor.putInt("weightB", (int) (long) temp);
             }
 
             temp = userDetails.get("CCVD");
@@ -87,12 +87,12 @@ public class SessionManager {
 
             temp = userDetails.get("HDL_C");
             if( temp != null ){
-                editor.putFloat("HDL_C", (float)temp );
+                editor.putFloat("HDL_C", (float)(double)temp );
             }
 
             temp = userDetails.get("TG");
             if( temp != null ){
-                editor.putFloat("TG", (float)temp );
+                editor.putFloat("TG", (float)(double)temp );
             }
 
         }
@@ -118,12 +118,12 @@ public class SessionManager {
 
         temp = userDetails.get("exerciseT");
         if( temp != null ){
-            editor.putInt("exerciseT", (int) temp);
+            editor.putInt("exerciseT", (int)  temp);
         }
 
         temp = userDetails.get("diagnosedD");
         if( temp != null ){
-            editor.putBoolean("exerciseT", (boolean) temp);
+            editor.putBoolean("diagnosedD", (boolean) temp);
         }
 
         temp = userDetails.get("GDM");
