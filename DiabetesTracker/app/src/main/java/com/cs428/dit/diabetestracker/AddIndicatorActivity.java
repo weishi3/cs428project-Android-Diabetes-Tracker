@@ -73,6 +73,7 @@ public class AddIndicatorActivity extends AppCompatActivity {
                 mRef = mRef.child(userIndicatorURL).child(day);
                 mRef.setValue(indicatorItemLog);
 
+
                 Intent jumpBack = new Intent(getApplicationContext(), IndicatorLogActivity.class);
                 jumpBack.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(jumpBack);

@@ -66,38 +66,30 @@ public class IndicatorLogActivity extends AppCompatActivity {
         mRef = mRef.child(userStatsURL);
     }
 
+
+
+
     @Override
     protected void onStart() {
         super.onStart();
-//        mRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//                for (DataSnapshot indicatorSnapshot: snapshot.getChildren()) {
-//                    map.put(indicatorSnapshot.getKey().toString(), indicatorSnapshot.getValue());
-//
-//                }
-//            }
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//                System.out.println("The read failed: " + firebaseError.getMessage());
-//            }
-//        });
+        FirebaseRecyclerAdapter<IndicatorItemLog, MessageViewHolder> adapter =
+                new FirebaseRecyclerAdapter<IndicatorItemLog, MessageViewHolder>(
+                        IndicatorItemLog.class,
+                        R.layout.recycler_list_indicator_section,
+                        MessageViewHolder.class,
+                        mRef
+                ) {
+                    @Override
+                    protected void populateViewHolder(MessageViewHolder messageViewHolder, IndicatorItemLog d, int i) {
+                        messageViewHolder.mDate.setText(d.getDate());
+                        Indicator indicator = d.getIndicator();
 
-//        FirebaseRecyclerAdapter<IndicatorItemLog, MessageViewHolder> adapter =
-//                new FirebaseRecyclerAdapter<IndicatorItemLog, MessageViewHolder>(
-//                        IndicatorItemLog.class, R.layout.recycler_list_indicator_section, MessageViewHolder.class, mRef) {
-//                    @Override
-//                    protected void populateViewHolder(MessageViewHolder messageViewHolder, IndicatorItemLog indicatorItemLog, int i) {
-//                        messageViewHolder.mDate.setText(indicatorItemLog.getDate());
-//                        Indicator indicator = indicatorItemLog.getIndicator();
-//                        messageViewHolder.mWeight.setText(indicator.getWeight() + " kg");
-//                        messageViewHolder.mBloodPressure.setText(indicator.getBloodPressure()+" mmHg");
-//                        messageViewHolder.mBloodSugar.setText(indicator.getBloodSugar()+" mmol/L");
-//
-//                    }
-//                };
-//
-//        mRecyclerView.setAdapter(adapter);
+                        messageViewHolder.mWeight.setText(indicator.getWeight() + " kg");
+                        messageViewHolder.mBloodPressure.setText(indicator.getBloodPressure()+" mmHg");
+                        messageViewHolder.mBloodSugar.setText(indicator.getBloodSugar()+" mmol/L");
+                    }
+                };
+        mRecyclerView.setAdapter(adapter);
 
     }
 
