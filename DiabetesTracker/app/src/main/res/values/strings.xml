@@ -5,6 +5,12 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="prompt_age">Age</string>
+    <string name="prompt_waistline">Waistline(cm)</string>
+    <string name="prompt_BMI">BMI(kg/square meter)</string>
+    <string name="prompt_family_history">Family History of Diabetes?</string>
+    <string name="prompt_gender">Gender</string>
+    <string name="prompt_blood_pressure">Blood Pressure</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_register">Register</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -16,6 +22,7 @@
         completions."
     </string>
     <string name="on_success_registration">Successfully registered</string>
+
 
     <!-- Strings related to registration -->
     <string name="registration_page_name">Registration</string>
@@ -43,6 +50,7 @@
     <string name="error_waistline">Invalid waistline.</string>
     <string name="error_gender">Invalid gender.</string>
     <string name="error_num_format">Invalid number format.</string>
+    <string name="profile_no_data">N/A</string>
 
     <!-- Diagnosis Page string -->
     <string name="diagnosis_page_name">Diagnosis Page</string>

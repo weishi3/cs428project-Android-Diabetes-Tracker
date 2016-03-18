@@ -49,7 +49,7 @@ public class DiagnosisInfoTest {
 
     @Test
     public void testCheater2() {
-        User u = new User(28.0, 100.0, 50, 150, true, true);
+        User u = new User(28.0f, 100.0f, 50, 150, true, true);
         u.setSedentaryJob(false);
         u.setExerciseT(30);
 
@@ -90,7 +90,7 @@ public class DiagnosisInfoTest {
 
     @Test
     public void testCheater2INI() {
-        User u = new User(28.0, 100.0, 50, 150, true, true);
+        User u = new User(28.0f, 100.0f, 50, 150, true, true);
         u.setSedentaryJob(false);
         u.setExerciseT(30);
 
