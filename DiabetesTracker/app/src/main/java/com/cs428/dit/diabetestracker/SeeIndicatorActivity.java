@@ -1,6 +1,7 @@
 package com.cs428.dit.diabetestracker;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -77,19 +78,17 @@ public class SeeIndicatorActivity extends AppCompatActivity {
         statsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int count=0;
-
+                int count = 0;
 
 
                 for (DataSnapshot IndicatorItemLogSnapshot : dataSnapshot.getChildren()) {
                     IndicatorItemLog oneLog = IndicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
                     labels.add(oneLog.getDate());
 
-                    bloodSugar.add(new Entry((float)oneLog.getIndicator().getBloodSugar(),count));
-                    bloodPressure.add(new Entry((float)oneLog.getIndicator().getBloodPressure(),count));
-                    weight.add(new Entry((float)oneLog.getIndicator().getWeight(),count));
-                    count=count+1;
-
+                    bloodSugar.add(new Entry((float) oneLog.getIndicator().getBloodSugar(), count));
+                    bloodPressure.add(new Entry((float) oneLog.getIndicator().getBloodPressure(), count));
+                    weight.add(new Entry((float) oneLog.getIndicator().getWeight(), count));
+                    count = count + 1;
 
 
                 }
@@ -112,7 +111,7 @@ public class SeeIndicatorActivity extends AppCompatActivity {
                 bloodSugarChart.setVisibility(View.INVISIBLE);
                 //weightChart.setDescription("Indicator Chart");  // set the description
 
-                 // set the data and list of lables into chart
+                // set the data and list of lables into chart
                 //weightChart.setDescription("Indicator Chart");  // set the description
                 bloodPressureDateset = new LineDataSet(bloodPressure, "bloodPressure");
                 bloodPressureDateset.setDrawCubic(true);
@@ -124,12 +123,6 @@ public class SeeIndicatorActivity extends AppCompatActivity {
                 //weightChart.setDescription("Indicator Chart");  // set the description
 
 
-
-
-
-
-
-
             }
 
 
@@ -139,10 +132,15 @@ public class SeeIndicatorActivity extends AppCompatActivity {
             }
         });
 
+        final Button button2 = (Button) findViewById(R.id.Button06);
+        final Button button1 = (Button) findViewById(R.id.Button05);
         final Button button = (Button) findViewById(R.id.Button04);
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                button.setBackgroundColor(Color.DKGRAY);
+                button1.setBackgroundColor(Color.LTGRAY);
+                button2.setBackgroundColor(Color.LTGRAY);
 
                 weightChart.setVisibility(View.INVISIBLE);
                 bloodSugarChart.setVisibility(View.INVISIBLE);
@@ -156,10 +154,14 @@ public class SeeIndicatorActivity extends AppCompatActivity {
         });
 
 
-        final Button button1 = (Button) findViewById(R.id.Button05);
+
         button1.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                button1.setBackgroundColor(Color.DKGRAY);
+                button.setBackgroundColor(Color.LTGRAY);
+                button2.setBackgroundColor(Color.LTGRAY);
                 weightChart.setVisibility(View.INVISIBLE);
                 bloodSugarChart.setVisibility(View.INVISIBLE);
                 bloodPressureChart.setVisibility(View.INVISIBLE);
@@ -169,10 +171,13 @@ public class SeeIndicatorActivity extends AppCompatActivity {
             }
         });
 
-        final Button button2 = (Button) findViewById(R.id.Button06);
+
         button2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                button2.setBackgroundColor(Color.DKGRAY);
+                button1.setBackgroundColor(Color.LTGRAY);
+                button.setBackgroundColor(Color.LTGRAY);
                 weightChart.setVisibility(View.INVISIBLE);
                 bloodSugarChart.setVisibility(View.INVISIBLE);
                 bloodPressureChart.setVisibility(View.INVISIBLE);

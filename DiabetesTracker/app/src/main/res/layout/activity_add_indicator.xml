@@ -42,7 +42,7 @@
             android:layout_marginLeft="10dp"
             android:ems="10"
             android:focusable="true"
-            android:hint="Weight"
+            android:hint="Weight in kg"
             android:inputType="numberDecimal"
             android:singleLine="true"
             />
@@ -68,7 +68,7 @@
             android:elegantTextHeight="false"
             android:ems="10"
             android:focusable="true"
-            android:hint="Blood Pressure in mmHg"
+            android:hint="Systolic Blood Pressure"
             android:inputType="numberDecimal"
             android:singleLine="true" />
 
