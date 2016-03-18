@@ -16,7 +16,8 @@ import static junit.framework.Assert.assertTrue;
 public class DiagnosisInfoTest {
     @Test
     public void testCheater1() {
-        User u = new User((float) 21.0, (float) 72.0, 25, 123, true, false);
+
+        User u = new User(21.0f, 72.0f, 25, 123, true, false);
         u.setSedentaryJob(true);
         u.setExerciseT(30);
 
@@ -49,7 +50,7 @@ public class DiagnosisInfoTest {
 
     @Test
     public void testCheater2() {
-        User u = new User((float) 28.0, (float) 100.0, 50, 150, true, true);
+        User u = new User(28.0f, 100.0f, 50, 150, true, true);
         u.setSedentaryJob(false);
         u.setExerciseT(30);
 
@@ -90,7 +91,8 @@ public class DiagnosisInfoTest {
 
     @Test
     public void testCheater2INI() {
-        User u = new User((float) 28.0, (float) 100.0, 50, 150, true, true);
+
+        User u = new User(28.0f, 100.0f, 50, 150, true, true);
         u.setSedentaryJob(false);
         u.setExerciseT(30);
 
