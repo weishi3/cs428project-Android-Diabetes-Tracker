@@ -45,11 +45,9 @@ public class SeeIndicatorActivity extends AppCompatActivity {
     private SessionManager session;
 
 
-    ArrayList<String> labels = new ArrayList<String>();
-    ArrayList<Entry> weight = new ArrayList<>();
-    ArrayList<Entry> bloodSugar = new ArrayList<>();
-    ArrayList<Entry> bloodPressure = new ArrayList<>();
-    LineData bloodSugarData,bloodPressureData,weightData;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +56,7 @@ public class SeeIndicatorActivity extends AppCompatActivity {
         session = new SessionManager(this);
         bloodSugarChart = (LineChart) findViewById(R.id.blood_sugar);
         weightChart = (LineChart) findViewById(R.id.weight);
+
     }
 
 
@@ -79,7 +78,10 @@ public class SeeIndicatorActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int count = 0;
-
+                ArrayList<String> labels = new ArrayList<String>();
+                ArrayList<Entry> weight = new ArrayList<>();
+                ArrayList<Entry> bloodSugar = new ArrayList<>();
+                ArrayList<Entry> bloodPressure = new ArrayList<>();
 
                 for (DataSnapshot IndicatorItemLogSnapshot : dataSnapshot.getChildren()) {
                     IndicatorItemLog oneLog = IndicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
@@ -96,7 +98,7 @@ public class SeeIndicatorActivity extends AppCompatActivity {
                 weightDateset.setDrawCubic(true);
                 weightDateset.setColor(ColorTemplate.COLORFUL_COLORS[3]);
 
-                weightData = new LineData(labels, weightDateset);
+                LineData weightData = new LineData(labels, weightDateset);
 
                 weightChart.setData(weightData);
                 weightChart.setVisibility(View.INVISIBLE);
@@ -105,7 +107,7 @@ public class SeeIndicatorActivity extends AppCompatActivity {
                 bloodSugarDataset = new LineDataSet(bloodSugar, "bloodSugar");
                 bloodSugarDataset.setDrawCubic(true);
                 bloodSugarDataset.setColor(ColorTemplate.COLORFUL_COLORS[2]);
-                bloodSugarData = new LineData(labels, bloodSugarDataset);
+                LineData bloodSugarData = new LineData(labels, bloodSugarDataset);
 
                 bloodSugarChart.setData(bloodSugarData); // set the data and list of lables into chart
                 bloodSugarChart.setVisibility(View.INVISIBLE);
@@ -116,7 +118,7 @@ public class SeeIndicatorActivity extends AppCompatActivity {
                 bloodPressureDateset = new LineDataSet(bloodPressure, "bloodPressure");
                 bloodPressureDateset.setDrawCubic(true);
                 bloodPressureDateset.setColor(ColorTemplate.COLORFUL_COLORS[0]);
-                bloodPressureData = new LineData(labels, bloodPressureDateset);
+                LineData bloodPressureData = new LineData(labels, bloodPressureDateset);
 
                 bloodPressureChart.setData(bloodPressureData); // set the data and list of lables into chart
                 bloodPressureChart.setVisibility(View.INVISIBLE);
@@ -131,10 +133,10 @@ public class SeeIndicatorActivity extends AppCompatActivity {
 
             }
         });
-
         final Button button2 = (Button) findViewById(R.id.Button06);
         final Button button1 = (Button) findViewById(R.id.Button05);
         final Button button = (Button) findViewById(R.id.Button04);
+
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
