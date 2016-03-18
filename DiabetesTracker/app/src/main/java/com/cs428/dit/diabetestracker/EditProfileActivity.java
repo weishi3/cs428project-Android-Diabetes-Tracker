@@ -281,61 +281,61 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     if(sedentaryIsNull == false) {
                         Firebase userSedentary = user.child("sedentaryJob");
-                        userAge.setValue(sedentary);
+                        userSedentary.setValue(sedentary);
                         userDetails.put("sedentaryJob", sedentary);
                     }
 
                     if(exerciseIsNull == false) {
                         Firebase userExercise = user.child("exerciseT");
-                        userAge.setValue(exercise);
+                        userExercise.setValue(exercise);
                         userDetails.put("exerciseT", exercise);
                     }
 
                     if(diagnosedIsNull == false) {
                         Firebase userDiagnosed = user.child("diagnosedD");
-                        userAge.setValue(diagnosed);
+                        userDiagnosed.setValue(diagnosed);
                         userDetails.put("diagnosedD", diagnosed);
                     }
 
                     if(GDMIsNull == false) {
                         Firebase userGDM = user.child("GDM");
-                        userAge.setValue(GDM);
+                        userGDM.setValue(GDM);
                         userDetails.put("GDM", GDM);
                     }
 
                     if(weightBIsNull == false) {
                         Firebase userWeightB = user.child("weightB");
-                        userAge.setValue(weightB);
+                        userWeightB.setValue(weightB);
                         userDetails.put("weightB", weightB);
                     }
 
                     if(CCVDIsNull == false) {
                         Firebase userCCVD = user.child("CCVD");
-                        userAge.setValue(CCVD);
+                        userCCVD.setValue(CCVD);
                         userDetails.put("CCVD", CCVD);
                     }
 
                     if(PCOSIsNull == false) {
                         Firebase userPCOS = user.child("PCOS");
-                        userAge.setValue(PCOS);
+                        userPCOS.setValue(PCOS);
                         userDetails.put("PCOS", PCOS);
                     }
 
                     if(psychotropicIsNull == false) {
                         Firebase userPsychotropic = user.child("psychotropic");
-                        userAge.setValue(psychotropic);
+                        userPsychotropic.setValue(psychotropic);
                         userDetails.put("psychotropic", psychotropic);
                     }
 
                     if(HDL_CIsNull == false) {
                         Firebase userHDL_C = user.child("HDL_C");
-                        userAge.setValue(HDL_C);
+                        userHDL_C.setValue(HDL_C);
                         userDetails.put("HDL_C", HDL_C);
                     }
 
                     if(TGIsNull == false) {
                         Firebase userTG = user.child("TG");
-                        userAge.setValue(TG);
+                        userTG.setValue(TG);
                         userDetails.put("TG", TG);
                     }
                     session.updateUserDetails(userDetails);
