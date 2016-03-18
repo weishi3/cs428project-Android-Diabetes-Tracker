@@ -40,6 +40,17 @@ public class ProfileActivity extends AppCompatActivity {
         editText("bloodPressure", R.id.bloodPressure);
         TextView view = (TextView) findViewById(R.id.gender);
         view.setText((boolean)userDetails.get("gender") ? "Male" : "Female");
+        editText("sedentaryJob", R.id.sedentaryJob);
+        editText("exerciseT", R.id.exerciseT);
+        editText("diagnosedD", R.id.diagnosedD);
+        editText("GDM", R.id.GDM);
+        editText("weightB", R.id.weightB);
+        editText("CCVD", R.id.CCVD);
+        editText("PCOS", R.id.PCOS);
+        editText("psychotropic", R.id.psychotropic);
+        editText("HDL_C", R.id.HDL_C);
+        editText("TG", R.id.TG);
+
     }
 
     /**
@@ -50,6 +61,11 @@ public class ProfileActivity extends AppCompatActivity {
      */
     private void editText(String key, int id) {
         TextView view = (TextView) findViewById(id);
-        view.setText(userDetails.get(key).toString());
+        Object text = userDetails.get(key);
+        if( text == null ){
+            view.setText( "N/A" );
+            return;
+        }
+        view.setText( text.toString() );
     }
 }

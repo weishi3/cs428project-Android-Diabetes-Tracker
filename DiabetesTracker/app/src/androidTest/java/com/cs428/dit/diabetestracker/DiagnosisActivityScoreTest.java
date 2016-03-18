@@ -14,7 +14,7 @@ public class DiagnosisActivityScoreTest {
 
     @Test
     public void testMaleHealth() {
-        User user = new User((float) 21.0, (float) 72.0, 25, 123, true, false);
+        User user = new User(21.0f, 72.0f, 25, 123, true, false);
         int score = user.calcScore();
 
         assertEquals(user.getScoreBasedOnAge(), 4);
@@ -32,7 +32,8 @@ public class DiagnosisActivityScoreTest {
     @Test
     public void testFeMaleHealth() {
 
-        User user = new User((float) 21.0, (float) 72.0, 25, 123, false, false);
+
+        User user = new User(21.0f, 72.0f, 25, 123, false, false);
         int score = user.calcScore();
 
         assertEquals(user.getScoreBasedOnAge(), 4);
@@ -51,9 +52,9 @@ public class DiagnosisActivityScoreTest {
 
     @Test
     public void testBadHealth() {
-        User user = new User((float) 30.0, (float) 89.0, 50, 150, true, true);
-        int score = user.calcScore();
 
+        User user = new User(30.0f, 89.0f, 50, 150, true, true);
+        int score = user.calcScore();
         assertEquals(user.getScoreBasedOnAge(), 13);
         assertEquals(user.getScoreBasedOnWaistlineMale(), 7);
         assertEquals(user.getScoreBasedOnBMI(), 5);

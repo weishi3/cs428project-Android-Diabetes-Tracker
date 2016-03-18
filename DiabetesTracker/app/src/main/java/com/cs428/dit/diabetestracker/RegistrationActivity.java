@@ -17,6 +17,19 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText mEmailView;
     private EditText mPasswordView;
     private EditText mConfirmPasswordView;
+    private EditText mAgeView;
+    private EditText mWaistlineView;
+    private EditText mBMIView;
+    private EditText mFamilyHistoryView;
+    private EditText mBloodPressureView;
+    private EditText mGenderView;
+    //Store parsed vars
+    int pAge;
+    double pWaistline;
+    double pBMI;
+    boolean pFamilyHistory;
+    int pBloodPressure;
+    boolean pGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +39,12 @@ public class RegistrationActivity extends AppCompatActivity {
         mEmailView = (EditText) findViewById(R.id.registrationEmail);
         mPasswordView = (EditText) findViewById(R.id.registrationPW);
         mConfirmPasswordView = (EditText) findViewById(R.id.registrationConfirmPW);
+        mAgeView = (EditText) findViewById(R.id.age);
+        mWaistlineView = (EditText) findViewById(R.id.waistline);
+        mBMIView = (EditText) findViewById(R.id.BMI);
+        mFamilyHistoryView = (EditText) findViewById(R.id.familyHistory);
+        mBloodPressureView = (EditText) findViewById(R.id.bloodPressure);
+        mGenderView = (EditText) findViewById(R.id.gender);
 
         Button registerBtn = (Button) findViewById(R.id.registerBtn);
         registerBtn.setOnClickListener(new View.OnClickListener() {
@@ -48,15 +67,113 @@ public class RegistrationActivity extends AppCompatActivity {
         mEmailView.setError(null);
         mPasswordView.setError(null);
         mConfirmPasswordView.setError(null);
+        mAgeView.setError(null);
+        mWaistlineView.setError(null);
+        mBMIView.setError(null);
+        mFamilyHistoryView.setError(null);
+        mBloodPressureView.setError(null);
+        mGenderView.setError(null);
 
         // Store values at the time of the register attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         String confirmPassword = mConfirmPasswordView.getText().toString();
+        String age = mAgeView.getText().toString();
+        String waistline = mWaistlineView.getText().toString();
+        String BMI = mBMIView.getText().toString();
+        String familyHistory = mFamilyHistoryView.getText().toString();
+        String blood_pressure = mBloodPressureView.getText().toString();
+        String gender = mGenderView.getText().toString();
+
+
 
         boolean cancel = false;
         View focusView = null;
 
+        //Check for empty or invalid gender.
+        if (TextUtils.isEmpty(gender)) {
+            mGenderView.setError(getString(R.string.error_field_required));
+            focusView = mGenderView;
+            cancel = true;
+        } else if(!gender.equals("male") && !gender.equals("female")) {
+            mGenderView.setError(getString(R.string.error_gender));
+            focusView = mGenderView;
+            cancel = true;
+        } else {
+            pGender = gender.equals("male");
+        }
+        //check for empty or invalid blood pressure
+        if (TextUtils.isEmpty(blood_pressure)) {
+            mBloodPressureView.setError(getString(R.string.error_field_required));
+            focusView = mBloodPressureView;
+            cancel = true;
+        } else {
+            try {
+                pBloodPressure = Integer.parseInt(blood_pressure);
+            } catch (NumberFormatException e) {
+                mBloodPressureView.setError(getString(R.string.error_num_format));
+                focusView = mBloodPressureView;
+                cancel = true;
+            }
+        }
+        //check for empty
+        if (TextUtils.isEmpty(familyHistory)) {
+            mFamilyHistoryView.setError(getString(R.string.error_field_required));
+            focusView = mFamilyHistoryView;
+            cancel = true;
+        }
+
+        //retrieve familyHistory
+        pFamilyHistory = familyHistory.equals("true");
+
+        //check for empty or invalid bmi
+        if (TextUtils.isEmpty(BMI)) {
+            mBMIView.setError(getString(R.string.error_field_required));
+            focusView = mBMIView;
+            cancel = true;
+        } else {
+            try {
+                pBMI = Double.parseDouble(BMI);
+            } catch (NumberFormatException e) {
+                mBMIView.setError(getString(R.string.error_num_format));
+                focusView = mBMIView;
+                cancel = true;
+            }
+        }
+        //check for empty or invalid waistline
+        if (TextUtils.isEmpty(waistline)) {
+            mWaistlineView.setError(getString(R.string.error_field_required));
+            focusView = mWaistlineView;
+            cancel = true;
+        } else {
+            try {
+                pWaistline = Double.parseDouble(waistline);
+            } catch (NumberFormatException e) {
+                mWaistlineView.setError(getString(R.string.error_num_format));
+                focusView = mWaistlineView;
+                cancel = true;
+            }
+        }
+        //check for empty or invalid age
+        if (TextUtils.isEmpty(age)) {
+            mAgeView.setError(getString(R.string.error_field_required));
+            focusView = mAgeView;
+            cancel = true;
+        } else {
+            try {
+                pAge = Integer.parseInt(age);
+                if (pAge < 1 || pAge > 120) {
+                    mAgeView.setError(getString(R.string.error_age));
+                    focusView = mAgeView;
+                    cancel = true;
+                }
+            } catch (NumberFormatException e) {
+                //error stuff
+                mAgeView.setError(getString(R.string.error_num_format));
+                focusView = mAgeView;
+                cancel = true;
+            }
+        }
         // Check for an empty confirm password.
         if (TextUtils.isEmpty(confirmPassword)) {
             mConfirmPasswordView.setError(getString(R.string.error_field_required));
@@ -113,6 +230,19 @@ public class RegistrationActivity extends AppCompatActivity {
         myFirebaseRef.createUser(mEmail, mPassword, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
+                Firebase user = myFirebaseRef.child("users").child(mEmail.replace('.','!'));
+                Firebase userGender = user.child("gender");
+                userGender.setValue(pGender);
+                Firebase userBloodPressure = user.child("bloodPressure");
+                userBloodPressure.setValue(pBloodPressure);
+                Firebase userFamilyHistory = user.child("familyHistory");
+                userFamilyHistory.setValue(pFamilyHistory);
+                Firebase userBMI = user.child("BMI");
+                userBMI.setValue(pBMI);
+                Firebase userWaistline = user.child("waistline");
+                userWaistline.setValue(pWaistline);
+                Firebase userAge = user.child("age");
+                userAge.setValue(pAge);
                 Toast.makeText(getApplicationContext(), getString(R.string.on_success_registration), Toast.LENGTH_SHORT).show();
             }
 
