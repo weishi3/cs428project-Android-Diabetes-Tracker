@@ -102,7 +102,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FoodLogActivity" />
         </activity>
-
         <activity
             android:name=".IndicatorLogActivity"
             android:label="Indicator History">
@@ -110,7 +109,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
+        <activity android:name=".DietHigh" />
+        <activity android:name=".DietLow" />
+        <activity android:name=".DietMedium"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,8 @@
 package com.cs428.dit.diabetestracker;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -155,13 +157,29 @@ public class DiagnosisActivity extends AppCompatActivity{
 
             }
         });
-
+        final Context x = this;
         // Listview on child click listener
         expListView.setOnChildClickListener(new OnChildClickListener() {
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
+                final String selected = (String) listAdapter.getChild(groupPosition, childPosition);
+                switch(selected){
+                    case "lowGI":
+                        Intent intent = new Intent(DiagnosisActivity.this, DietLow.class);
+                        startActivity(intent);
+                        break;
+                    case "mediumGI":
+                        intent = new Intent(DiagnosisActivity.this,DietMedium.class);
+                        startActivity(intent);
+                        break;
+                    case "highGI":
+                        intent = new Intent(DiagnosisActivity.this,DietHigh.class);
+                        startActivity(intent);
+                        break;
+                }
+                /*
                 // TODO Auto-generated method stub
                 Toast.makeText(
                         getApplicationContext(),
@@ -171,6 +189,7 @@ public class DiagnosisActivity extends AppCompatActivity{
                                 listDataHeader.get(groupPosition)).get(
                                 childPosition), Toast.LENGTH_SHORT)
                         .show();
+               */
                 return false;
             }
         });
@@ -208,9 +227,9 @@ public class DiagnosisActivity extends AppCompatActivity{
         List<String> suggestedDiets = new ArrayList<String>();
 
 
-        suggestedDiets.add("List1-low GI");
-        suggestedDiets.add("List2-low GI");
-        suggestedDiets.add("List3-low GI");
+        suggestedDiets.add("lowGI");
+        suggestedDiets.add("mediumGI");
+        suggestedDiets.add("highGI");
 
 
         listDataChild.put(listDataHeader.get(0), suggestions); // Header, Child data
