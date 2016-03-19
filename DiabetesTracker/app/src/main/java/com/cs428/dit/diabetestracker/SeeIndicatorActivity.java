@@ -140,7 +140,7 @@ public class SeeIndicatorActivity extends AppCompatActivity {
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                button.setBackgroundColor(Color.DKGRAY);
+                button.setBackgroundColor(Color.CYAN);
                 button1.setBackgroundColor(Color.LTGRAY);
                 button2.setBackgroundColor(Color.LTGRAY);
 
@@ -161,7 +161,7 @@ public class SeeIndicatorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                button1.setBackgroundColor(Color.DKGRAY);
+                button1.setBackgroundColor(Color.CYAN);
                 button.setBackgroundColor(Color.LTGRAY);
                 button2.setBackgroundColor(Color.LTGRAY);
                 weightChart.setVisibility(View.INVISIBLE);
@@ -177,7 +177,7 @@ public class SeeIndicatorActivity extends AppCompatActivity {
         button2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                button2.setBackgroundColor(Color.DKGRAY);
+                button2.setBackgroundColor(Color.CYAN);
                 button1.setBackgroundColor(Color.LTGRAY);
                 button.setBackgroundColor(Color.LTGRAY);
                 weightChart.setVisibility(View.INVISIBLE);
