@@ -69,13 +69,27 @@ public class DiagnosisActivity extends AppCompatActivity{
                 boolean familyHistory = (boolean) userMap.get("familyHistory");
                 boolean gender = (boolean) userMap.get("gender");
                 User u= new User(BMI,waistline,age,bloodPressure,familyHistory,gender);
-                u.setSedentaryJob(true);
-                u.setExerciseT(30);
-                u.setDiagnosedD(true);
-                u.setGDM(true);
-                u.setWeightB(5);
-                u.setHDL_C(0.88);
-                u.setTG(2.3);
+
+                boolean sedentary=false;
+                int ExerciseT=60;
+                Double HDL_C=0.88;
+                Double TG=2.3;
+                int weightB=3;
+                boolean GDM =false;
+                boolean diagnosedD=false;
+
+
+                if (userMap.containsKey("sedentaryJob"))
+                    sedentary = (boolean) userMap.get("sedentaryJob");
+
+                u.setSedentaryJob(sedentary);
+
+                u.setExerciseT(ExerciseT);
+                u.setDiagnosedD(diagnosedD);
+                u.setGDM(GDM);
+                u.setWeightB(weightB);
+                u.setHDL_C(HDL_C);
+                u.setTG(TG);
 
                 String score = u.getScore();
                 foodSug=u.generateSuggestionD();
