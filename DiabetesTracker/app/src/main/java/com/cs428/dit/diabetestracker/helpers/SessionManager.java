@@ -37,64 +37,52 @@ public class SessionManager {
         editor.putString(KEY_EMAIL, email);
         editor.putBoolean(IS_LOGIN, true);
         if (!userDetails.isEmpty()) {
-
             editor.putInt("age", (int) (long) userDetails.get("age"));
             editor.putFloat("waistline", (float) (double) userDetails.get("waistline"));
             editor.putFloat("BMI", (float) (double) userDetails.get("BMI"));
             editor.putInt("bloodPressure", (int) (long) userDetails.get("bloodPressure"));
             editor.putBoolean("familyHistory", (boolean) userDetails.get("familyHistory"));
             editor.putBoolean("gender", (boolean)userDetails.get("gender"));
-
             Object temp = userDetails.get("sedentaryJob");
             if( temp != null ){
                 editor.putBoolean("sedentaryJob", (boolean) temp);
             }
-
             temp = userDetails.get("exerciseT");
             if( temp != null ){
-                editor.putInt("exerciseT", (int) temp);
+                editor.putInt("exerciseT", (int) (long) temp);
             }
-
             temp = userDetails.get("diagnosedD");
             if( temp != null ){
-                editor.putBoolean("exerciseT", (boolean) temp);
+                editor.putBoolean("diagnosedD", (boolean) temp);
             }
-
             temp = userDetails.get("GDM");
             if( temp != null ){
                 editor.putBoolean("GDM", (boolean) temp);
             }
-
             temp = userDetails.get("weightB");
             if( temp != null ){
-                editor.putInt("weightB", (int) temp);
+                editor.putInt("weightB", (int) (long) temp);
             }
-
             temp = userDetails.get("CCVD");
             if( temp != null ){
                 editor.putBoolean("CCVD", (boolean) temp);
             }
-
             temp = userDetails.get("PCOS");
             if( temp != null ){
                 editor.putBoolean("PCOS", (boolean) temp);
             }
-
             temp = userDetails.get("psychotropic");
             if( temp != null ){
                 editor.putBoolean("psychotropic", (boolean) temp);
             }
-
             temp = userDetails.get("HDL_C");
             if( temp != null ){
-                editor.putFloat("HDL_C", (float)temp );
+                editor.putFloat("HDL_C", (float)(double)temp );
             }
-
             temp = userDetails.get("TG");
             if( temp != null ){
-                editor.putFloat("TG", (float)temp );
+                editor.putFloat("TG", (float)(double)temp );
             }
-
         }
         //commit changes to sharedpreferences
         editor.commit();
@@ -114,51 +102,62 @@ public class SessionManager {
         Object temp = userDetails.get("sedentaryJob");
         if( temp != null ){
             editor.putBoolean("sedentaryJob", (boolean) temp);
+        } else {
+            editor.remove("sedentaryJob");
         }
-
         temp = userDetails.get("exerciseT");
         if( temp != null ){
-            editor.putInt("exerciseT", (int) temp);
+            editor.putInt("exerciseT", (int)  temp);
+        } else {
+            editor.remove("exerciseT");
         }
-
         temp = userDetails.get("diagnosedD");
         if( temp != null ){
-            editor.putBoolean("exerciseT", (boolean) temp);
+            editor.putBoolean("diagnosedD", (boolean) temp);
+        } else {
+            editor.remove("diagnosedD");
         }
-
         temp = userDetails.get("GDM");
         if( temp != null ){
             editor.putBoolean("GDM", (boolean) temp);
+        } else {
+            editor.remove("GDM");
         }
-
         temp = userDetails.get("weightB");
         if( temp != null ){
             editor.putInt("weightB", (int) temp);
+        } else {
+            editor.remove("weightB");
         }
-
         temp = userDetails.get("CCVD");
         if( temp != null ){
             editor.putBoolean("CCVD", (boolean) temp);
+        } else {
+            editor.remove("CCVD");
         }
-
         temp = userDetails.get("PCOS");
         if( temp != null ){
             editor.putBoolean("PCOS", (boolean) temp);
+        } else {
+            editor.remove("PCOS");
         }
-
         temp = userDetails.get("psychotropic");
         if( temp != null ){
             editor.putBoolean("psychotropic", (boolean) temp);
+        } else {
+            editor.remove("psychotropic");
         }
-
         temp = userDetails.get("HDL_C");
         if( temp != null ){
             editor.putFloat("HDL_C", (float)(double)temp );
+        } else {
+            editor.remove("HDL_C");
         }
-
         temp = userDetails.get("TG");
         if( temp != null ){
             editor.putFloat("TG", (float)(double)temp );
+        } else {
+            editor.remove("TG");
         }
         editor.commit();
     }

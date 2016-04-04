@@ -32,6 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+
         userDetails = session.getUserDetails();
         editText("age", R.id.age);
         editText("waistline", R.id.waistline);

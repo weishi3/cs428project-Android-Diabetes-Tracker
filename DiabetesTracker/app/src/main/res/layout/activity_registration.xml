@@ -8,7 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RegistrationActivity">
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,11 +18,9 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:orientation="vertical">
-
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <EditText
                     android:id="@+id/registrationEmail"
                     android:layout_width="match_parent"
@@ -33,11 +30,9 @@
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress" />
             </android.support.design.widget.TextInputLayout>
-
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <EditText
                     android:id="@+id/registrationPW"
                     android:layout_width="match_parent"
@@ -47,11 +42,9 @@
                     android:hint="@string/prompt_password"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
-
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <EditText
                     android:id="@+id/registrationConfirmPW"
                     android:layout_width="match_parent"
@@ -61,11 +54,9 @@
                     android:hint="@string/prompt_confirm_password"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
-
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <EditText
                     android:id="@+id/age"
                     android:layout_width="match_parent"
@@ -75,11 +66,9 @@
                     android:hint="@string/prompt_age"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
-
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <EditText
                     android:id="@+id/waistline"
                     android:layout_width="match_parent"
@@ -89,11 +78,9 @@
                     android:hint="@string/prompt_waistline"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
-
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <EditText
                     android:id="@+id/BMI"
                     android:layout_width="match_parent"
@@ -103,39 +90,56 @@
                     android:hint="@string/prompt_BMI"
                     android:inputType="numberDecimal" />
             </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/familyHistory"
-                    android:layout_width="match_parent"
+            <TextView
+                android:text="Family History:"
+                android:textSize="18dp"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"/>
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/familyHistory"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/familyHistoryTrue"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:ems="10"
-                    android:hint="@string/prompt_family_history"
-                    android:inputType="text" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/gender"
-                    android:layout_width="match_parent"
+                    android:text="Yes"
+                    android:onClick="onRadioButtonClicked"/>
+                <RadioButton android:id="@+id/familyHistoryFalse"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:ems="10"
-                    android:hint="@string/prompt_gender"
-                    android:inputType="text" />
-            </android.support.design.widget.TextInputLayout>
-
+                    android:text="No"
+                    android:onClick="onRadioButtonClicked"/>
+            </RadioGroup>
+            <TextView
+                android:text="Gender (Male/Female):"
+                android:textSize="18dp"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                />
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/gender"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/genderTrue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:onClick="onRadioButtonClicked"/>
+                <RadioButton android:id="@+id/genderFalse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:onClick="onRadioButtonClicked"/>
+            </RadioGroup>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <EditText
                     android:id="@+id/bloodPressure"
                     android:layout_width="match_parent"
@@ -145,7 +149,6 @@
                     android:hint="@string/prompt_blood_pressure"
                     android:inputType="numberDecimal" />
             </android.support.design.widget.TextInputLayout>
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

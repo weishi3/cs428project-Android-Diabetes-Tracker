@@ -57,10 +57,10 @@ public class ProfileActivityTest {
                 .perform(replaceText("83.1"), closeSoftKeyboard());
         onView(withId(R.id.BMI))
                 .perform(replaceText("52.1"), closeSoftKeyboard());
-        onView(withId(R.id.familyHistory))
-                .perform(replaceText("true"), closeSoftKeyboard());
-        onView(withId(R.id.gender))
-                .perform(replaceText("Male"), closeSoftKeyboard());
+        onView(withId(R.id.familyHistoryTrue))
+                .perform(click());
+        onView(withId(R.id.genderTrue))
+                .perform(click());
         onView(withId(R.id.bloodPressure))
                 .perform(replaceText("110"), closeSoftKeyboard());
         onView(withId(R.id.submitBtn))

@@ -1,18 +1,16 @@
 package com.cs428.dit.diabetestracker;
-
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
-
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-
 import java.util.Map;
-
 public class RegistrationActivity extends AppCompatActivity {
     private EditText mEmailView;
     private EditText mPasswordView;
@@ -20,9 +18,11 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText mAgeView;
     private EditText mWaistlineView;
     private EditText mBMIView;
-    private EditText mFamilyHistoryView;
+    private RadioButton mFamilyHistoryTrueBtn;
+    private RadioButton mFamilyHistoryFalseBtn;
     private EditText mBloodPressureView;
-    private EditText mGenderView;
+    private RadioButton mGenderTrueBtn;
+    private RadioButton mGenderFalseBtn;
     //Store parsed vars
     int pAge;
     double pWaistline;
@@ -30,7 +30,6 @@ public class RegistrationActivity extends AppCompatActivity {
     boolean pFamilyHistory;
     int pBloodPressure;
     boolean pGender;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +41,11 @@ public class RegistrationActivity extends AppCompatActivity {
         mAgeView = (EditText) findViewById(R.id.age);
         mWaistlineView = (EditText) findViewById(R.id.waistline);
         mBMIView = (EditText) findViewById(R.id.BMI);
-        mFamilyHistoryView = (EditText) findViewById(R.id.familyHistory);
+        mFamilyHistoryTrueBtn = (RadioButton) findViewById(R.id.familyHistoryTrue);
+        mFamilyHistoryFalseBtn = (RadioButton) findViewById(R.id.familyHistoryFalse);
         mBloodPressureView = (EditText) findViewById(R.id.bloodPressure);
-        mGenderView = (EditText) findViewById(R.id.gender);
-
+        mGenderTrueBtn = (RadioButton) findViewById(R.id.genderTrue);
+        mGenderFalseBtn = (RadioButton) findViewById(R.id.genderFalse);
         Button registerBtn = (Button) findViewById(R.id.registerBtn);
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,10 +53,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 attemptRegister();
             }
         });
-
-
     }
-
     /**
      * Attempts to register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -70,10 +67,9 @@ public class RegistrationActivity extends AppCompatActivity {
         mAgeView.setError(null);
         mWaistlineView.setError(null);
         mBMIView.setError(null);
-        mFamilyHistoryView.setError(null);
+        mFamilyHistoryFalseBtn.setError(null);
         mBloodPressureView.setError(null);
-        mGenderView.setError(null);
-
+        mGenderFalseBtn.setError(null);
         // Store values at the time of the register attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
@@ -81,26 +77,16 @@ public class RegistrationActivity extends AppCompatActivity {
         String age = mAgeView.getText().toString();
         String waistline = mWaistlineView.getText().toString();
         String BMI = mBMIView.getText().toString();
-        String familyHistory = mFamilyHistoryView.getText().toString();
+        pFamilyHistory = mFamilyHistoryTrueBtn.isChecked();
         String blood_pressure = mBloodPressureView.getText().toString();
-        String gender = mGenderView.getText().toString();
-
-
-
+        pGender = mGenderTrueBtn.isChecked();
         boolean cancel = false;
         View focusView = null;
-
         //Check for empty or invalid gender.
-        if (TextUtils.isEmpty(gender)) {
-            mGenderView.setError(getString(R.string.error_field_required));
-            focusView = mGenderView;
+        if (!pGender && !mGenderFalseBtn.isChecked()) {
+            mGenderFalseBtn.setError(getString(R.string.error_field_required));
+            focusView = mGenderFalseBtn;
             cancel = true;
-        } else if(!gender.equals("male") && !gender.equals("female")) {
-            mGenderView.setError(getString(R.string.error_gender));
-            focusView = mGenderView;
-            cancel = true;
-        } else {
-            pGender = gender.equals("male");
         }
         //check for empty or invalid blood pressure
         if (TextUtils.isEmpty(blood_pressure)) {
@@ -117,15 +103,11 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         }
         //check for empty
-        if (TextUtils.isEmpty(familyHistory)) {
-            mFamilyHistoryView.setError(getString(R.string.error_field_required));
-            focusView = mFamilyHistoryView;
+        if (!pFamilyHistory && !mFamilyHistoryFalseBtn.isChecked()) {
+            mFamilyHistoryFalseBtn.setError(getString(R.string.error_field_required));
+            focusView = mFamilyHistoryFalseBtn;
             cancel = true;
         }
-
-        //retrieve familyHistory
-        pFamilyHistory = familyHistory.equals("true");
-
         //check for empty or invalid bmi
         if (TextUtils.isEmpty(BMI)) {
             mBMIView.setError(getString(R.string.error_field_required));
@@ -216,7 +198,6 @@ public class RegistrationActivity extends AppCompatActivity {
             register();
         }
     }
-
     /**
      * Register a new account
      */
@@ -224,7 +205,6 @@ public class RegistrationActivity extends AppCompatActivity {
         //perform register attempt
         final String mEmail = mEmailView.getText().toString();
         final String mPassword = mPasswordView.getText().toString();
-
         //Reference to Firebase data
         final Firebase myFirebaseRef = new Firebase(getString(R.string.firebase_url));
         myFirebaseRef.createUser(mEmail, mPassword, new Firebase.ValueResultHandler<Map<String, Object>>() {
@@ -245,7 +225,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 userAge.setValue(pAge);
                 Toast.makeText(getApplicationContext(), getString(R.string.on_success_registration), Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onError(FirebaseError firebaseError) {
                 // if the email is already in use, notify the user.
@@ -256,11 +235,9 @@ public class RegistrationActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(getApplicationContext(), firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }
-
     /**
      * Check validity of email
      *
@@ -270,7 +247,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private boolean isEmailValid(String email) {
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
-
     /**
      * Check strength of password
      *
@@ -279,5 +255,11 @@ public class RegistrationActivity extends AppCompatActivity {
      */
     private boolean isPasswordValid(String password) {
         return password.length() > 4;
+    }
+    /**
+     * Empty function necessary for radiobuttons
+     * @param view
+     */
+    public void onRadioButtonClicked(View view) {
     }
 }
