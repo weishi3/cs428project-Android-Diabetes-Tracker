@@ -7,7 +7,14 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cs428.dit.diabetestracker.helpers.Indicator;
@@ -30,6 +37,10 @@ public class IndicatorLogActivity extends AppCompatActivity {
     private SessionManager session;
     public String date;
     public HashMap<String, Object> map;
+    public PopupWindow popupWindow;
+    public LayoutInflater inflater;
+    public RelativeLayout relativeLayout;
+    public Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +54,27 @@ public class IndicatorLogActivity extends AppCompatActivity {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        // specify an adapter (see also next example)
-//        mAdapter = new MyAdapter(myDataset);
-//        mRecyclerView.setAdapter(mAdapter);
+
+        button = (Button) findViewById(R.id.button);
+        relativeLayout = (RelativeLayout) findViewById(R.id.relative_layout);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                ViewGroup container = (ViewGroup) inflater.inflate(R.layout.popuptest, null);
+                popupWindow = new PopupWindow(container, 400, 400, true);
+                popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+                container.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        popupWindow.dismiss();
+                        return true;
+                    }
+                });
+            }
+        });
+
         FloatingActionButton updateIndicatorButton = (FloatingActionButton) findViewById(R.id.fab_update_indicator);
         setRefToUserStats();
         //Go to AddFoodItemActivity
@@ -56,6 +85,7 @@ public class IndicatorLogActivity extends AppCompatActivity {
                 startActivity(updateIndicatorIntent);
             }
         });
+
     }
 
     private void setRefToUserStats() {
@@ -65,8 +95,6 @@ public class IndicatorLogActivity extends AppCompatActivity {
         Log.d("USER_EMAIL", userStatsURL);
         mRef = mRef.child(userStatsURL);
     }
-
-
 
 
     @Override
