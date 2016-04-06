@@ -79,7 +79,7 @@ public class DiagnosisActivity extends AppCompatActivity{
                 boolean diagnosedD=false;
 
 
-                if (userMap.containsKey("sedentaryJob"))
+                if (userMap.containsKey("sedentaryJob") && userMap.get("sedentaryJob") != null)
                     sedentary = (boolean) userMap.get("sedentaryJob");
 
                 u.setSedentaryJob(sedentary);
