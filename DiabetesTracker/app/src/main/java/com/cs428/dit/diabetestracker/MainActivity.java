@@ -20,6 +20,7 @@ import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
 import com.cs428.dit.diabetestracker.helpers.Indicator;
 import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
 import com.cs428.dit.diabetestracker.helpers.Monitor;
+import com.cs428.dit.diabetestracker.helpers.MonitorSetting;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -27,14 +28,21 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN_ACTIVITY";
     private SessionManager session;
     private TextView mTextCalories;
+    private TextView units;
     private TextView mTextBloodSugar;
-    public Monitor monitor=new Monitor(3);
+    public Monitor monitor;
+    public int countMo=-1;
+    public String toDisplay;
+    public ArrayList<String> toMonitor;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,6 +202,16 @@ public class MainActivity extends AppCompatActivity {
 
         // Indicator
         String baseURL2 = getString(R.string.firebase_url);
+
+
+        //add by weishi
+
+
+
+
+
+
+        monitor=new Monitor(3);
         String userIndicatorURL = "userstats/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
         userIndicatorURL = baseURL2 + userIndicatorURL;
         Firebase indicatorRef = new Firebase(userIndicatorURL);
@@ -203,23 +221,62 @@ public class MainActivity extends AppCompatActivity {
 
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                 final String day = dateformat.format(new Date());
+
+                //may not necessary to be blood sugar
                 double bloodSugar = 0.0;
 
-                //
-                for (DataSnapshot indicatorItemLogSnapshot: dataSnapshot.getChildren()) {
-                    IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
-                    if (day.equals(oneLog.getDate())) {
-                        bloodSugar = (oneLog.getIndicator().getBloodSugar());
 
+
+                System.out.println(toDisplay);
+                monitor.count=countMo;
+                units = (TextView) findViewById(R.id.unit);
+                if (toDisplay.equals("bloodSugar")){
+
+                      units.setText("mmol/L");
+                    for (DataSnapshot indicatorItemLogSnapshot: dataSnapshot.getChildren()) {
+                        System.out.println("here");
+                        IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
+                        if (day.equals(oneLog.getDate())) {
+                            System.out.println("there");
+                            bloodSugar = (oneLog.getIndicator().getBloodSugar());
+
+                        }
+
+                        monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
                     }
+                }
+                System.out.println(bloodSugar);
+                if (toDisplay.equals("bloodPressure")){
+                    units.setText("mmHg");
+                    //
+                    for (DataSnapshot indicatorItemLogSnapshot: dataSnapshot.getChildren()) {
 
-                    monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
+                        IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
+                        if (day.equals(oneLog.getDate())) {
+
+                            bloodSugar = (oneLog.getIndicator().getBloodPressure());
+
+                        }
+
+                        monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
+                    }
+                }
+
+                if (toDisplay.equals("weight")){
+                    units.setText("kg");
+                    //
+                    for (DataSnapshot indicatorItemLogSnapshot: dataSnapshot.getChildren()) {
+                        IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
+                        if (day.equals(oneLog.getDate())) {
+                            bloodSugar = (oneLog.getIndicator().getWeight());
+
+                        }
+
+                        monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
+                    }
                 }
 
                 monitor.detectWarning();
-                System.out.println(monitor.warning);
-                System.out.println(monitor.bloodSugarQueue);
-
                 // need to modify warning message!
                 if (monitor.warning) {
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
@@ -254,6 +311,31 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
+
+
+        String userMonitorSettingURL = "monitorsetting/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
+        userMonitorSettingURL = baseURL2 + userMonitorSettingURL;
+        Firebase monitorSettingRef = new Firebase(userMonitorSettingURL);
+        monitorSettingRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                MonitorSetting sets = dataSnapshot.getValue(MonitorSetting.class);
+                countMo=sets.numDaysMonitor;
+                toDisplay=sets.indicatorType;
+                toMonitor=sets.warningMessage;
+
+
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+
+
+        });
+
 
 
     }

@@ -46,7 +46,7 @@ public class SetMonitorPlan extends AppCompatActivity {
                     displayed = "bloodPressure";
                 }
                 RadioButton cw = (RadioButton) findViewById(R.id.cw);
-                if (cbp.isChecked()) {
+                if (cw.isChecked()) {
                     displayed = "weight";
                 }
 
@@ -72,7 +72,7 @@ public class SetMonitorPlan extends AppCompatActivity {
                 mRef.setValue(ms);
 
 
-                Intent jumpBack = new Intent(getApplicationContext(), IndicatorLogActivity.class);
+                Intent jumpBack = new Intent(getApplicationContext(), MainActivity.class);
                 jumpBack.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(jumpBack);
                 finish();

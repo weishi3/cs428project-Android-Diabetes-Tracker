@@ -16,6 +16,8 @@ public class Monitor {
 
     }
 
+
+
     public Monitor(int count){
         this.count = count;
         bloodSugarQueue = new LinkedList<Double>();
@@ -29,6 +31,9 @@ public class Monitor {
     }
 
     public void detectWarning(){
+        while(bloodSugarQueue.size()>count){
+            bloodSugarQueue.poll();
+        }
         int counter = 0;
         for(double d : bloodSugarQueue){
             if (d >= 10.0){
