@@ -53,6 +53,8 @@ dependencies {
 
 //    Chart library
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.3'
+
+    compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
 }
 
 repositories {

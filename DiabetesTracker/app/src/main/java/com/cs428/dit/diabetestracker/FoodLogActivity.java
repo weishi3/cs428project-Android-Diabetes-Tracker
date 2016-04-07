@@ -55,7 +55,7 @@ public class FoodLogActivity extends AppCompatActivity {
      */
     private void setRefToUserStats() {
         mRef = new Firebase(getString(R.string.firebase_url));
-        String userStatsURL = "foodStats/"+session.getUserDetails().get(SessionManager.KEY_EMAIL);
+        String userStatsURL = "foodStats/" + session.getUserDetails().get(SessionManager.KEY_EMAIL);
         userStatsURL = userStatsURL.replace('.', '!');
         Log.d("USER_EMAIL", userStatsURL);
         mRef = mRef.child(userStatsURL);
@@ -76,8 +76,8 @@ public class FoodLogActivity extends AppCompatActivity {
                         messageViewHolder.mDate.setText(d.getDate());
                         Food f = d.getFood();
                         messageViewHolder.mFoodNameText.setText(f.getName());
-                        messageViewHolder.mSugar.setText(f.getSugarInGram()+" grams");
-                        messageViewHolder.mCalories.setText(f.getKilocalorie()+" Calories");
+                        messageViewHolder.mSugar.setText(f.getSugarInGram() + " grams");
+                        messageViewHolder.mCalories.setText(f.getKilocalorie() + " Calories");
                     }
                 };
         mRecyclerView.setAdapter(adapter);
@@ -90,6 +90,7 @@ public class FoodLogActivity extends AppCompatActivity {
         TextView mCalories;
         TextView mSugar;
         TextView mFoodNameText;
+
         public MessageViewHolder(View v) {
             super(v);
             mCalories = (TextView) v.findViewById(R.id.calories_view_recycler);

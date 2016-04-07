@@ -72,20 +72,6 @@ public class AddFoodItemActivity extends AppCompatActivity {
                 mRef = mRef.child(userStatsURL);
                 mRef.push().setValue(d);
 
-//                long currentTime = System.currentTimeMillis();
-//                String currentTimeStr = currentTime+"";
-//                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-//                final String date = dateformat.format(new Date());
-//                Firebase mRef = new Firebase(getString(R.string.firebase_url));
-//                String userStatsURL = "food/" + session.getUserDetails().get(SessionManager.KEY_EMAIL);
-//                userStatsURL = userStatsURL.replace('.', '!');
-//
-//                //The key of one food item is currentTime in milliseconds. No food name contained.
-//                //In case bad characters occur in the name causing Firebase errors.
-//
-//                Firebase currentTimeRef = mRef.child(userStatsURL).child(date).child(currentTimeStr);
-//                currentTimeRef.setValue(f);
-
                 //Go back to food item log page.
                 Intent foodLog = new Intent(getApplicationContext(), FoodLogActivity.class);
                 foodLog.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

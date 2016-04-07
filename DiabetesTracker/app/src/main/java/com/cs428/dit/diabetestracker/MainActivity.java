@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
-import com.cs428.dit.diabetestracker.helpers.Indicator;
 import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.firebase.client.DataSnapshot;
@@ -58,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout indicatorLayout = (LinearLayout) findViewById(R.id.layout_indicator_stats);
         mTextBloodSugar = (TextView) findViewById(R.id.total_indicator_main);
 
+        // Step counter
+        ImageButton walkStepButton = (ImageButton) findViewById(R.id.button_step_counter);
 
         //Go to profile page when the user click the avatar
         profileAvatar.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +103,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent foodLogIntent = new Intent(getApplicationContext(), FoodLogActivity.class);
                 startActivity(foodLogIntent);
+            }
+        });
+
+        // Go to step counter page
+        walkStepButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent stepCounterIntent = new Intent(getApplicationContext(), StepCounterActivity.class);
+                startActivity(stepCounterIntent);
             }
         });
 
