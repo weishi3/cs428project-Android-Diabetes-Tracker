@@ -1,5 +1,7 @@
 package com.cs428.dit.diabetestracker;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 
 import com.cs428.dit.diabetestracker.helpers.Indicator;
 import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
+import com.cs428.dit.diabetestracker.helpers.Monitor;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -41,9 +44,11 @@ public class IndicatorLogActivity extends AppCompatActivity {
     public LayoutInflater inflater;
     public RelativeLayout relativeLayout;
     public Button button;
+    public Monitor monitor=new Monitor(3);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indicator_log);
         session = new SessionManager(this);
@@ -55,25 +60,9 @@ public class IndicatorLogActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        button = (Button) findViewById(R.id.button);
-        relativeLayout = (RelativeLayout) findViewById(R.id.relative_layout);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                ViewGroup container = (ViewGroup) inflater.inflate(R.layout.popuptest, null);
-                popupWindow = new PopupWindow(container, 400, 400, true);
-                popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+//        button = (Button) findViewById(R.id.button);
+//        relativeLayout = (RelativeLayout) findViewById(R.id.relative_layout);
 
-                container.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        popupWindow.dismiss();
-                        return true;
-                    }
-                });
-            }
-        });
 
         FloatingActionButton updateIndicatorButton = (FloatingActionButton) findViewById(R.id.fab_update_indicator);
         setRefToUserStats();
@@ -101,12 +90,11 @@ public class IndicatorLogActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseRecyclerAdapter<IndicatorItemLog, MessageViewHolder> adapter =
-                new FirebaseRecyclerAdapter<IndicatorItemLog, MessageViewHolder>(
-                        IndicatorItemLog.class,
+                new FirebaseRecyclerAdapter<IndicatorItemLog, MessageViewHolder>(IndicatorItemLog.class,
                         R.layout.recycler_list_indicator_section,
                         MessageViewHolder.class,
-                        mRef
-                ) {
+                        mRef)
+                {
                     @Override
                     protected void populateViewHolder(MessageViewHolder messageViewHolder, IndicatorItemLog d, int i) {
                         messageViewHolder.mDate.setText(d.getDate());
@@ -115,11 +103,19 @@ public class IndicatorLogActivity extends AppCompatActivity {
                         messageViewHolder.mWeight.setText(indicator.getWeight() + " kg");
                         messageViewHolder.mBloodPressure.setText(indicator.getBloodPressure()+" mmHg");
                         messageViewHolder.mBloodSugar.setText(indicator.getBloodSugar()+" mmol/L");
+                        monitor.addBloodSugar(indicator.getBloodSugar());
+                        System.out.println(indicator.getBloodSugar());
+                        System.out.println(monitor.bloodSugarQueue);
                     }
                 };
         mRecyclerView.setAdapter(adapter);
 
+
+
+        //
+
     }
+
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
         TextView mDate;

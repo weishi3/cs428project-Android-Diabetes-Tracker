@@ -1,5 +1,7 @@
 package com.cs428.dit.diabetestracker;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
 import com.cs428.dit.diabetestracker.helpers.Indicator;
 import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
+import com.cs428.dit.diabetestracker.helpers.Monitor;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private SessionManager session;
     private TextView mTextCalories;
     private TextView mTextBloodSugar;
+    public Monitor monitor=new Monitor(3);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Indicator part
         ImageButton logIndicatorButton = (ImageButton) findViewById(R.id.button_log_indicator);
+        ImageButton monitorPlanButton = (ImageButton) findViewById(R.id.button_monitor_plan);
         ImageButton indicatorHistoryButton = (ImageButton) findViewById(R.id.button_see_indicator_history);
         LinearLayout indicatorLayout = (LinearLayout) findViewById(R.id.layout_indicator_stats);
         mTextBloodSugar = (TextView) findViewById(R.id.total_indicator_main);
@@ -114,6 +119,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        monitorPlanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent monitorPlanIntent = new Intent(getApplicationContext(), SetMonitorPlan.class);
+                startActivity(monitorPlanIntent);
+            }
+        });
+
         //Go to indicator history page
         indicatorHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +156,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+
 
         String baseURL = getString(R.string.firebase_url);
         Log.d("USER_EMAIL", session.getUserDetails().toString());
@@ -190,12 +205,40 @@ public class MainActivity extends AppCompatActivity {
                 final String day = dateformat.format(new Date());
                 double bloodSugar = 0.0;
 
+                //
                 for (DataSnapshot indicatorItemLogSnapshot: dataSnapshot.getChildren()) {
                     IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
                     if (day.equals(oneLog.getDate())) {
                         bloodSugar = (oneLog.getIndicator().getBloodSugar());
+
                     }
+
+                    monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
                 }
+
+                monitor.detectWarning();
+                System.out.println(monitor.warning);
+                System.out.println(monitor.bloodSugarQueue);
+
+                // need to modify warning message!
+                if (monitor.warning) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                    alertDialog.setTitle("Title");
+                    alertDialog.setMessage("Message");
+                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+
+                    alertDialog.setIcon(R.drawable.cross);
+                    alertDialog.show();
+                }
+
+                //
+
+
+
+                //
 
                 if(bloodSugar < 0.0){
                     bloodSugar = 0.0;
@@ -208,6 +251,8 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
 
             }
+
+
         });
 
 

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.cs428.dit.diabetestracker.SetMonitorPlan"
+    tools:showIn="@layout/activity_set_monitor_plan">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="370dp"
+        android:layout_below="@id/topInfo"
+        android:id="@+id/attributes"
+        >
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:useDefaultMargins="true"
+            android:alignmentMode="alignBounds"
+            android:columnOrderPreserved="false"
+            >
+            <TextView
+                android:text="Please choose the indicator type you want to Display:"
+                android:textSize="18dp"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/diagnosedDTrue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Blood Sugar"
+                    android:onClick="onRadioButtonClicked"/>
+                <RadioButton android:id="@+id/diagnosedDFalse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Blood Pressure"
+                    android:onClick="onRadioButtonClicked"/>
+                <RadioButton android:id="@+id/diagnosedDPNTA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Weight"
+                    android:onClick="onRadioButtonClicked"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:text="Please choose the indicator type you want to Set Alarm:"
+                android:textSize="18dp"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blood Sugar"
+                android:id="@+id/checkBox1"
+                android:layout_alignTop="@+id/attributes"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+            </CheckBox>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blood Pressure"
+                android:id="@+id/checkBox2"
+                android:layout_alignTop="@+id/attributes"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+            </CheckBox>
+
+
+            <TextView
+                android:text="Please choose the period threshold for warnings:"
+                android:textSize="18dp"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <EditText
+                android:id="@+id/bloodPressure"
+                android:textSize="18dp"
+                android:text="3"
+                android:layout_gravity="left"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:inputType="numberDecimal"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</RelativeLayout>

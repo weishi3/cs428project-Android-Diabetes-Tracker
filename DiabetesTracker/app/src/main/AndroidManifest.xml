@@ -111,7 +111,11 @@
         </activity>
         <activity android:name=".DietHigh" />
         <activity android:name=".DietLow" />
-        <activity android:name=".DietMedium"></activity>
+        <activity android:name=".DietMedium" />
+        <activity
+            android:name=".SetMonitorPlan"
+            android:label="@string/title_activity_set_monitor_plan"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

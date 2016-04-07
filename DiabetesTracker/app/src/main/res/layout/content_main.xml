@@ -204,6 +204,16 @@
                         android:padding="5dp">
                         <!--go to AddFoodItemActivity, functions like the FAB button-->
                         <ImageButton
+                            android:id="@+id/button_monitor_plan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@+id/button_log_indicator"
+                            android:background="@android:color/transparent"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_build_black_36dp" />
+
+                        <ImageButton
                             android:id="@+id/button_log_indicator"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
