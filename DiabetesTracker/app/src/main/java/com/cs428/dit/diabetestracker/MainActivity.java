@@ -346,6 +346,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 MonitorSetting sets = dataSnapshot.getValue(MonitorSetting.class);
+                if (sets==null) {
+                    Firebase mRef = new Firebase(getString(R.string.firebase_url));
+                    String userSettingURL = "monitorsetting/" + session.getUserDetails().get(SessionManager.KEY_EMAIL);
+                    userSettingURL = userSettingURL.replace('.', '!');
+                    MonitorSetting ms = new MonitorSetting(3, "bloodSugar", new ArrayList<String>());
+                    mRef = mRef.child(userSettingURL);
+                    mRef.setValue(ms);
+
+
+                }
+                sets = dataSnapshot.getValue(MonitorSetting.class);
                 countMo=sets.numDaysMonitor;
                 toDisplay=sets.indicatorType;
                 toMonitor=sets.warningMessage;
