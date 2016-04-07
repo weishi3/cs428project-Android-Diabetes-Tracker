@@ -115,7 +115,11 @@
         <activity
             android:name=".SetMonitorPlan"
             android:label="@string/title_activity_set_monitor_plan"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StepCounterActivity"
+            android:label="@string/title_activity_step_counter"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

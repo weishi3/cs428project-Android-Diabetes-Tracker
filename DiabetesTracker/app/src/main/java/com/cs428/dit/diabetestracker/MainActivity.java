@@ -73,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout indicatorLayout = (LinearLayout) findViewById(R.id.layout_indicator_stats);
         mTextBloodSugar = (TextView) findViewById(R.id.total_indicator_main);
 
+        //step counter
+        ImageButton walkStepButton= (ImageButton)findViewById(R.id.button_step_counter);
+        walkStepButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent stepCounterIntent=new Intent(getApplicationContext(),StepCounterActivity.class);
+                startActivity(stepCounterIntent);
+            }
+        });
 
         //Go to profile page when the user click the avatar
         profileAvatar.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +162,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(indicatorLogIntent);
             }
         });
+
+
+
+
+        ///
+
+
+
+
+
 
     }
 
@@ -350,17 +369,23 @@ public class MainActivity extends AppCompatActivity {
                     Firebase mRef = new Firebase(getString(R.string.firebase_url));
                     String userSettingURL = "monitorsetting/" + session.getUserDetails().get(SessionManager.KEY_EMAIL);
                     userSettingURL = userSettingURL.replace('.', '!');
-                    MonitorSetting ms = new MonitorSetting(3, "bloodSugar", new ArrayList<String>());
+                    ArrayList<String> temp= new ArrayList<String>();
+                    temp.add("bloodSugar");
+                    MonitorSetting ms = new MonitorSetting(3, "bloodSugar", temp);
                     mRef = mRef.child(userSettingURL);
                     mRef.setValue(ms);
+                    countMo = 3;
+                    toDisplay = "bloodSugar";
+                    toMonitor = temp;
 
 
+                }else {
+
+
+                    countMo = sets.numDaysMonitor;
+                    toDisplay = sets.indicatorType;
+                    toMonitor = sets.warningMessage;
                 }
-                sets = dataSnapshot.getValue(MonitorSetting.class);
-                countMo=sets.numDaysMonitor;
-                toDisplay=sets.indicatorType;
-                toMonitor=sets.warningMessage;
-
 
 
             }
