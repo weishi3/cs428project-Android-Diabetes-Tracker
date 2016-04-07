@@ -8,11 +8,12 @@ import java.util.Queue;
  */
 public class Monitor {
 
-    public int count;
+    public int count=3;
     public Queue<Double> bloodSugarQueue;
     public boolean warning;
 
     public Monitor(){
+        bloodSugarQueue = new LinkedList<Double>();
 
     }
 

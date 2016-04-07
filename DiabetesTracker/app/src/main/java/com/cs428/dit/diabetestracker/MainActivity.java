@@ -20,6 +20,7 @@ import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
 import com.cs428.dit.diabetestracker.helpers.Indicator;
 import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
 import com.cs428.dit.diabetestracker.helpers.Monitor;
+import com.cs428.dit.diabetestracker.helpers.MonitorPressure;
 import com.cs428.dit.diabetestracker.helpers.MonitorSetting;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.firebase.client.DataSnapshot;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextCalories;
     private TextView units;
     private TextView mTextBloodSugar;
+    public MonitorPressure monitorP;
     public Monitor monitor;
     public int countMo=-1;
     public String toDisplay;
@@ -212,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         monitor=new Monitor(3);
+        monitorP=new MonitorPressure(3);
         String userIndicatorURL = "userstats/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
         userIndicatorURL = baseURL2 + userIndicatorURL;
         Firebase indicatorRef = new Firebase(userIndicatorURL);
@@ -228,24 +231,30 @@ public class MainActivity extends AppCompatActivity {
 
 
                 System.out.println(toDisplay);
-                monitor.count=countMo;
+                if (countMo!=-1) {
+                    monitor.count = countMo;
+                    monitorP.count = countMo;
+                }
                 units = (TextView) findViewById(R.id.unit);
+
+                if (toDisplay==null) toDisplay="bloodSugar";
                 if (toDisplay.equals("bloodSugar")){
 
                       units.setText("mmol/L");
                     for (DataSnapshot indicatorItemLogSnapshot: dataSnapshot.getChildren()) {
-                        System.out.println("here");
+
                         IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
                         if (day.equals(oneLog.getDate())) {
-                            System.out.println("there");
+
                             bloodSugar = (oneLog.getIndicator().getBloodSugar());
 
                         }
 
                         monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
+                        monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
                     }
                 }
-                System.out.println(bloodSugar);
+
                 if (toDisplay.equals("bloodPressure")){
                     units.setText("mmHg");
                     //
@@ -259,6 +268,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
+                        monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
                     }
                 }
 
@@ -273,15 +283,31 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
+                        monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
                     }
                 }
-
+                monitorP.detectWarning();
                 monitor.detectWarning();
+                String toOutput="";
+                boolean need=false;
+                if (toMonitor==null) toMonitor=new ArrayList<String>();
+                if (toMonitor.contains("bloodSugar")&&monitor.warning){
+                    toOutput+="Blood Sugar Stats";
+                    need=true;
+
+                }
+
+                if (toMonitor.contains("bloodPressure")&&monitorP.warning){
+                    if (toOutput=="") toOutput+="Blood Pressure Stats";
+                    else toOutput+=" and Blood Pressure Stats";
+                    need=true;
+                }
+
                 // need to modify warning message!
-                if (monitor.warning) {
+                if (need) {
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                    alertDialog.setTitle("Title");
-                    alertDialog.setMessage("Message");
+                    alertDialog.setTitle("A KIND REMINDER");
+                    alertDialog.setMessage("Your "+ toOutput+" may indicate that you are in a bad health condition!");
                     alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         }
