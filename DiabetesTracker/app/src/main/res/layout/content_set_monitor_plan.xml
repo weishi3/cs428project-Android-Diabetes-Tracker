@@ -38,17 +38,17 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <RadioButton android:id="@+id/diagnosedDTrue"
+                <RadioButton android:id="@+id/cbs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Blood Sugar"
                     android:onClick="onRadioButtonClicked"/>
-                <RadioButton android:id="@+id/diagnosedDFalse"
+                <RadioButton android:id="@+id/cbp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Blood Pressure"
                     android:onClick="onRadioButtonClicked"/>
-                <RadioButton android:id="@+id/diagnosedDPNTA"
+                <RadioButton android:id="@+id/cw"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Weight"
@@ -93,7 +93,7 @@
                 />
 
             <EditText
-                android:id="@+id/bloodPressure"
+                android:id="@+id/period"
                 android:textSize="18dp"
                 android:text="3"
                 android:layout_gravity="left"
@@ -106,7 +106,19 @@
 
         </LinearLayout>
     </ScrollView>
-
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/attributes"
+        android:id="@+id/submitLayout">
+        <Button
+            android:text="Submit"
+            android:id="@+id/submitSetting"
+            android:layout_row="8"
+            android:layout_column="0"
+            android:layout_gravity="center"
+            />
+    </GridLayout>
 
 
 </RelativeLayout>
