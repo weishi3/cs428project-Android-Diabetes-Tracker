@@ -38,11 +38,7 @@ public class IndicatorLogActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private SessionManager session;
-    public String date;
-    public HashMap<String, Object> map;
-    public PopupWindow popupWindow;
-    public LayoutInflater inflater;
-    public RelativeLayout relativeLayout;
+
     public Button button;
     public Monitor monitor=new Monitor(3);
 
