@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.drawable.Drawable;
 
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.cs428.dit.diabetestracker.helpers.User;
@@ -27,10 +28,11 @@ import java.util.List;
 
 public class DietLow extends AppCompatActivity {
 
-    ExpandableListAdapter listAdapter;
+    ExpandableListAdapter1 listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    HashMap<String,Drawable> listImageChild;
     Intent intent;
     private Button mButton;
 
@@ -57,7 +59,7 @@ public class DietLow extends AppCompatActivity {
         // preparing list data
         prepareListData();
 
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+        listAdapter = new ExpandableListAdapter1(this, listDataHeader, listDataChild, listImageChild);
 
         // setting list adapter
         expListView.setAdapter(listAdapter);
@@ -87,6 +89,7 @@ public class DietLow extends AppCompatActivity {
     private void prepareListData() {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
+        listImageChild = new HashMap<String,Drawable>();
         // Adding child data
         listDataHeader.add("Rice Noodles");
         listDataHeader.add("Sweet Corn");
@@ -100,20 +103,28 @@ public class DietLow extends AppCompatActivity {
         // Adding child data
         List<String> ricenoodles = new ArrayList<String>();
         ricenoodles.add("GI:40");
+        ricenoodles.add("Calories per 100g:109");
         List<String> sweetcorn = new ArrayList<String>();
         sweetcorn.add("GI:47");
+        sweetcorn.add("Calories per 100g:86");
         List<String> lentils = new ArrayList<String>();
         lentils.add("GI:21");
+        lentils.add("Calories per 100g:116");
         List<String> beans = new ArrayList<String>();
         beans.add("GI:30");
+        beans.add("Calories per 100g:347");
         List<String> yogurt = new ArrayList<String>();
         yogurt.add("GI:19");
+        yogurt.add("Calories per 100g:59");
         List<String> greekyogurt = new ArrayList<String>();
         greekyogurt.add("GI:19");
+        greekyogurt.add("Calories per 100g:59");
         List<String> plums = new ArrayList<String>();
         plums.add("GI:24");
+        plums.add("Calories per 100g:46");
         List<String> oranges = new ArrayList<String>();
         oranges.add("GI:40");
+        oranges.add("Calories per 100g:47");
 
 
         listDataChild.put(listDataHeader.get(0), ricenoodles); // Header, Child data
@@ -124,6 +135,16 @@ public class DietLow extends AppCompatActivity {
         listDataChild.put(listDataHeader.get(5), greekyogurt);
         listDataChild.put(listDataHeader.get(6), plums);
         listDataChild.put(listDataHeader.get(7), oranges);
+
+        listImageChild.put(listDataHeader.get(0),getResources().getDrawable(R.drawable.ricenoodles));
+        listImageChild.put(listDataHeader.get(1),getResources().getDrawable(R.drawable.sweetcorn));
+        listImageChild.put(listDataHeader.get(2),getResources().getDrawable(R.drawable.lentils));
+        listImageChild.put(listDataHeader.get(3),getResources().getDrawable(R.drawable.beans));
+        listImageChild.put(listDataHeader.get(4),getResources().getDrawable(R.drawable.yogurt));
+        listImageChild.put(listDataHeader.get(5),getResources().getDrawable(R.drawable.greekyogurt));
+        listImageChild.put(listDataHeader.get(6),getResources().getDrawable(R.drawable.plums));
+        listImageChild.put(listDataHeader.get(7),getResources().getDrawable(R.drawable.oranges));
+
     }
 
 

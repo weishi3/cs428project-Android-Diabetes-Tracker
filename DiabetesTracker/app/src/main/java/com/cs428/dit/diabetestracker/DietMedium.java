@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.drawable.Drawable;
 
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.cs428.dit.diabetestracker.helpers.User;
@@ -27,10 +28,11 @@ import java.util.List;
 
 public class DietMedium extends AppCompatActivity {
 
-    ExpandableListAdapter listAdapter;
+    ExpandableListAdapter1 listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    HashMap<String,Drawable> listImageChild;
     Intent intent;
     private Button mButton;
 
@@ -57,7 +59,7 @@ public class DietMedium extends AppCompatActivity {
         // preparing list data
         prepareListData();
 
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+        listAdapter = new ExpandableListAdapter1(this, listDataHeader, listDataChild, listImageChild);
 
         // setting list adapter
         expListView.setAdapter(listAdapter);
@@ -87,6 +89,7 @@ public class DietMedium extends AppCompatActivity {
     private void prepareListData() {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
+        listImageChild = new HashMap<String,Drawable>();
         // Adding child data
         listDataHeader.add("Rice,brown");
         listDataHeader.add("Fruit cocktail");
@@ -100,20 +103,28 @@ public class DietMedium extends AppCompatActivity {
         // Adding child data
         List<String> ricebrown = new ArrayList<String>();
         ricebrown.add("GI:55");
+        ricebrown.add("Calories per 100g:111");
         List<String> fruitcocktail = new ArrayList<String>();
         fruitcocktail.add("GI:55");
+        fruitcocktail.add("Calories per 100g:50");
         List<String> apricots = new ArrayList<String>();
         apricots.add("GI:57");
+        apricots.add("Calories per 100g:48");
         List<String> pizzacheese = new ArrayList<String>();
         pizzacheese.add("GI:60");
+        pizzacheese.add("Calories per 100g:257");
         List<String> shortbread = new ArrayList<String>();
         shortbread.add("GI:64");
+        shortbread.add("Calories per 100g:502");
         List<String> beetroot = new ArrayList<String>();
         beetroot.add("GI:64");
+        beetroot.add("Calories per 100g:43");
         List<String> barleyflakes = new ArrayList<String>();
         barleyflakes.add("GI:66");
+        barleyflakes.add("Calories per 100g:354");
         List<String> tacoshell = new ArrayList<String>();
         tacoshell.add("GI:68");
+        tacoshell.add("Calories per 100g:150");
 
 
         listDataChild.put(listDataHeader.get(0), ricebrown); // Header, Child data
@@ -124,6 +135,15 @@ public class DietMedium extends AppCompatActivity {
         listDataChild.put(listDataHeader.get(5), beetroot);
         listDataChild.put(listDataHeader.get(6), barleyflakes);
         listDataChild.put(listDataHeader.get(7), tacoshell);
+
+        listImageChild.put(listDataHeader.get(0),getResources().getDrawable(R.drawable.ricebrown));
+        listImageChild.put(listDataHeader.get(1),getResources().getDrawable(R.drawable.fruitcocktail));
+        listImageChild.put(listDataHeader.get(2),getResources().getDrawable(R.drawable.apricots));
+        listImageChild.put(listDataHeader.get(3),getResources().getDrawable(R.drawable.pizzacheese));
+        listImageChild.put(listDataHeader.get(4),getResources().getDrawable(R.drawable.shortbread));
+        listImageChild.put(listDataHeader.get(5),getResources().getDrawable(R.drawable.beetroot));
+        listImageChild.put(listDataHeader.get(6),getResources().getDrawable(R.drawable.barleyflakes));
+        listImageChild.put(listDataHeader.get(7),getResources().getDrawable(R.drawable.tacoshell));
     }
 
 
