@@ -8,9 +8,9 @@ import java.util.Queue;
  */
 public class Monitor {
 
-    public int count=3;
-    public Queue<Double> bloodSugarQueue;
-    public boolean warning;
+    private int count=3;
+    private Queue<Double> bloodSugarQueue;
+    private boolean warning;
 
     public Monitor(){
         bloodSugarQueue = new LinkedList<Double>();
@@ -19,10 +19,28 @@ public class Monitor {
 
 
 
+
     public Monitor(int count){
         this.count = count;
         bloodSugarQueue = new LinkedList<Double>();
     }
+
+    //setters
+    public void setCount(int c){
+        count=c;
+    }
+
+    public void setQueue(Queue<Double> bloodSugarQueue){
+        this.bloodSugarQueue=bloodSugarQueue;
+    }
+
+    //getters
+    public boolean getWarning(){
+        return warning;
+    }
+
+
+
 
     public void addBloodSugar(double bs){
         bloodSugarQueue.offer(bs);

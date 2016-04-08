@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
 
                 System.out.println(toDisplay);
                 if (countMo!=-1) {
-                    monitor.count = countMo;
+                    monitor.setCount(countMo);
                     monitorP.count = countMo;
                 }
                 units = (TextView) findViewById(R.id.unit);
@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
                 String toOutput="";
                 boolean need=false;
                 if (toMonitor==null) toMonitor=new ArrayList<String>();
-                if (toMonitor.contains("bloodSugar")&&monitor.warning){
+                if (toMonitor.contains("bloodSugar")&&monitor.getWarning()){
                     toOutput+="Blood Sugar Stats";
                     need=true;
 

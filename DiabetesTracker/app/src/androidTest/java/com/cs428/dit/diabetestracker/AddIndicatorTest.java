@@ -35,18 +35,18 @@ public class AddIndicatorTest {
     public void addIndicatorActivityTest1(){
         Firebase ref = new Firebase(fbURL);
         onView(withId(R.id.weightTextfield))
-                .perform(typeText("100"), closeSoftKeyboard());
+                .perform(typeText("120"), closeSoftKeyboard());
         onView(withId(R.id.bloodPressureTextfield))
-                .perform(typeText("80"), closeSoftKeyboard());
+                .perform(typeText("70"), closeSoftKeyboard());
         onView(withId(R.id.bloodSugarTextfield))
-                .perform(typeText("30"), closeSoftKeyboard());
+                .perform(typeText("20"), closeSoftKeyboard());
         onView(withId(R.id.btn_save_indicator))
                 .perform(click());
-        onView(withText("100.0 kg"))
+        onView(withText("120.0 kg"))
                 .check(matches(isDisplayed()));
-        onView(withText("80.0 mmHg"))
+        onView(withText("70.0 mmHg"))
                 .check(matches(isDisplayed()));
-        onView(withText("30.0 mmol/L"))
+        onView(withText("20.0 mmol/L"))
                 .check(matches(isDisplayed()));
 
         //test for date

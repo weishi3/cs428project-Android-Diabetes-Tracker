@@ -100,8 +100,7 @@ public class IndicatorLogActivity extends AppCompatActivity {
                         messageViewHolder.mBloodPressure.setText(indicator.getBloodPressure()+" mmHg");
                         messageViewHolder.mBloodSugar.setText(indicator.getBloodSugar()+" mmol/L");
                         monitor.addBloodSugar(indicator.getBloodSugar());
-                        System.out.println(indicator.getBloodSugar());
-                        System.out.println(monitor.bloodSugarQueue);
+
                     }
                 };
         mRecyclerView.setAdapter(adapter);

@@ -207,7 +207,7 @@ public class User {
 
     //setter and getter of suggestion
     public List<String> generateSuggestion(){
-
+        if (CCVD) suggestions.add("Chronic cerebrovascular disease is a notable killer, especially for middle-aged and elder people with diabetes.");
         if (isElder) suggestions.add("When you are elder than 40, you've got a higher risk of diabetes and cardiovascular disease.");
         if ((sedentaryJob && exerciseT <60) || (!sedentaryJob && exerciseT<30) ) suggestions.add("Your lifestyle can be classified as sedentary, do more exercise!");
         if (weightB>=4 ) suggestions.add("Giant infant symptom could add risk of diabetes in the future.");

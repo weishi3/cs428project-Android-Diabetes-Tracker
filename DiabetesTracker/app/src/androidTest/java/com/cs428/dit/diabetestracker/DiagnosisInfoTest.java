@@ -34,7 +34,7 @@ public class DiagnosisInfoTest {
         assertTrue(sug.contains("Giant infant symptom could add risk of diabetes in the future."));
         assertTrue(sug.contains("Your mother's abnormal glucose tolerance indicates higher indicates that you would bear threats of getting diabetes."));
         assertTrue(sug.contains("You blood fat looks high, which may be a signal or complication of diabetes."));
-        assertTrue(sug.contains("Diabetes is mostly a life-length disease, so check your health condition and blood sugar level more often. "));
+        assertTrue(sug.contains("Diabetes is mostly a life-length disease, so check your health condition and blood sugarInGram level more often. "));
         assertTrue(sug.contains("You would probably need to see the doctor or take regular medical examinations."));
         assertTrue(!sug.contains("You looks fine!"));
 
