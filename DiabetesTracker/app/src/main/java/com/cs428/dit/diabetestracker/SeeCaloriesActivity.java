@@ -23,6 +23,8 @@ import java.util.HashMap;
 
 public class SeeCaloriesActivity extends AppCompatActivity {
 
+    public static final int DURATION_MILLIS_Y = 1000;
+    public static final int DURATION_MILLIS_X = 1000;
     LineChart lineChart;
     HashMap<String, Double> mapped_keys;
     LineDataSet dataset;
@@ -97,6 +99,11 @@ public class SeeCaloriesActivity extends AppCompatActivity {
 
                 }
 
+                displayChart(keys_str, labels, entries);
+
+            }
+
+            private void displayChart(String[] keys_str, ArrayList<String> labels, ArrayList<Entry> entries) {
                 if(keys_str.length > 0 ){
                     Log.d("CALORIES=", ((float) ((double) mapped_keys.get(keys_str[0]))) + "");
                     Log.d("entry: ", entries.get(0) + "");
@@ -108,9 +115,8 @@ public class SeeCaloriesActivity extends AppCompatActivity {
                     LineData data = new LineData(labels, dataset);
                     lineChart.setData(data);
                     lineChart.setDescription("Daily Calories Report");
-                    lineChart.animateXY(1000, 1000);
+                    lineChart.animateXY(DURATION_MILLIS_X, DURATION_MILLIS_Y);
                 }
-
             }
 
             @Override
