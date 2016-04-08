@@ -94,34 +94,15 @@ public class SeeIndicatorActivity extends AppCompatActivity {
 
 
                 }
-                weightDateset = new LineDataSet(weight, "weight");
-                weightDateset.setDrawCubic(true);
-                weightDateset.setColor(ColorTemplate.COLORFUL_COLORS[3]);
-
-                LineData weightData = new LineData(labels, weightDateset);
-
-                weightChart.setData(weightData);
-                weightChart.setVisibility(View.INVISIBLE);
+                weightchart(labels, weight);
 
 
-                bloodSugarDataset = new LineDataSet(bloodSugar, "bloodSugar");
-                bloodSugarDataset.setDrawCubic(true);
-                bloodSugarDataset.setColor(ColorTemplate.COLORFUL_COLORS[2]);
-                LineData bloodSugarData = new LineData(labels, bloodSugarDataset);
-
-                bloodSugarChart.setData(bloodSugarData); // set the data and list of lables into chart
-                bloodSugarChart.setVisibility(View.INVISIBLE);
+                bloodSugarchart(labels, bloodSugar);
                 //weightChart.setDescription("Indicator Chart");  // set the description
 
                 // set the data and list of lables into chart
                 //weightChart.setDescription("Indicator Chart");  // set the description
-                bloodPressureDateset = new LineDataSet(bloodPressure, "bloodPressure");
-                bloodPressureDateset.setDrawCubic(true);
-                bloodPressureDateset.setColor(ColorTemplate.COLORFUL_COLORS[0]);
-                LineData bloodPressureData = new LineData(labels, bloodPressureDateset);
-
-                bloodPressureChart.setData(bloodPressureData); // set the data and list of lables into chart
-                bloodPressureChart.setVisibility(View.INVISIBLE);
+                bloodPressurechart(labels, bloodPressure);
                 //weightChart.setDescription("Indicator Chart");  // set the description
 
 
@@ -193,7 +174,36 @@ public class SeeIndicatorActivity extends AppCompatActivity {
         });
     }
 
+    public void bloodPressurechart(ArrayList<String> labels, ArrayList<Entry> bloodPressure) {
+        bloodPressureDateset = new LineDataSet(bloodPressure, "bloodPressure");
+        bloodPressureDateset.setDrawCubic(true);
+        bloodPressureDateset.setColor(ColorTemplate.COLORFUL_COLORS[0]);
+        LineData bloodPressureData = new LineData(labels, bloodPressureDateset);
 
+        bloodPressureChart.setData(bloodPressureData); // set the data and list of lables into chart
+        bloodPressureChart.setVisibility(View.INVISIBLE);
+    }
+
+    public void bloodSugarchart(ArrayList<String> labels, ArrayList<Entry> bloodSugar) {
+        bloodSugarDataset = new LineDataSet(bloodSugar, "bloodSugar");
+        bloodSugarDataset.setDrawCubic(true);
+        bloodSugarDataset.setColor(ColorTemplate.COLORFUL_COLORS[2]);
+        LineData bloodSugarData = new LineData(labels, bloodSugarDataset);
+
+        bloodSugarChart.setData(bloodSugarData); // set the data and list of lables into chart
+        bloodSugarChart.setVisibility(View.INVISIBLE);
+    }
+
+    public void weightchart(ArrayList<String> labels, ArrayList<Entry> weight) {
+        weightDateset = new LineDataSet(weight, "weight");
+        weightDateset.setDrawCubic(true);
+        weightDateset.setColor(ColorTemplate.COLORFUL_COLORS[3]);
+
+        LineData weightData = new LineData(labels, weightDateset);
+
+        weightChart.setData(weightData);
+        weightChart.setVisibility(View.INVISIBLE);
+    }
 
 
 }

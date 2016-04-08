@@ -62,4 +62,8 @@
     <string name="profile_page_name">Profile Page</string>
     <string name="title_activity_set_monitor_plan">SetMonitorPlan</string>
     <string name="title_activity_step_counter">StepCounterActivity</string>
+
+    <!-- User Page string -->
+
+
 </resources>

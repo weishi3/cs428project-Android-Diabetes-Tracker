@@ -1,5 +1,7 @@
 package com.cs428.dit.diabetestracker.helpers;
 
+import android.content.res.Resources;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -198,7 +200,8 @@ public class User {
     //debug info : += =
     public String generateSuggestionD(){
 
-        if (score > 25) sugD="I would suggest you to avoid consuming high-GI food.";
+
+        if (score > 25) sugD= "I would suggest you to avoid consuming high-GI food.";
         if (score > 30) sugD+="\nAnd you should mostly focus on the recommended low-GI food with a proper amount suggested by doctor.";
         if (score<=25 && score > 20)  sugD="you should intentionally take food from list one and list two to avoid possible risk of diabetes. ";
         if (score <= 20 ) sugD="you are fine based on the score! But the first two lists below are still a good choice for you to keep fit in the long run.";

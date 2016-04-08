@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -40,7 +41,6 @@ public class DiagnosisActivity extends AppCompatActivity{
     private String foodSug="Generally Suggested Diets";
     private String diagnosisTitle="N/A Before Running Diagnosis!";
     private LinearLayout mLayout;
-    private EditText mEditText;
     private Button mButton;
     private SessionManager session;
 
@@ -62,13 +62,7 @@ public class DiagnosisActivity extends AppCompatActivity{
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                float BMI = (float) userMap.get("BMI");
-                float waistline = (float) userMap.get("waistline");
-                int age = (int) userMap.get("age");
-                int bloodPressure = (int) userMap.get("bloodPressure");
-                boolean familyHistory = (boolean) userMap.get("familyHistory");
-                boolean gender = (boolean) userMap.get("gender");
-                User u= new User(BMI,waistline,age,bloodPressure,familyHistory,gender);
+                User u = createUser();
 
                 boolean sedentary=false;
                 int ExerciseT=60;
@@ -82,14 +76,7 @@ public class DiagnosisActivity extends AppCompatActivity{
                 if (userMap.containsKey("sedentaryJob") && userMap.get("sedentaryJob") != null)
                     sedentary = (boolean) userMap.get("sedentaryJob");
 
-                u.setSedentaryJob(sedentary);
-
-                u.setExerciseT(ExerciseT);
-                u.setDiagnosedD(diagnosedD);
-                u.setGDM(GDM);
-                u.setWeightB(weightB);
-                u.setHDL_C(HDL_C);
-                u.setTG(TG);
+                setU(u, sedentary, ExerciseT, HDL_C, TG, weightB, GDM, diagnosedD);
 
                 String score = u.getScore();
                 foodSug=u.generateSuggestionD();
@@ -118,14 +105,7 @@ public class DiagnosisActivity extends AppCompatActivity{
             }
 
 
-
-
-
-
         });
-
-
-
 
 
         //add yiyu's
@@ -142,9 +122,7 @@ public class DiagnosisActivity extends AppCompatActivity{
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v,
                                         int groupPosition, long id) {
-                // Toast.makeText(getApplicationContext(),
-                // "Group Clicked " + listDataHeader.get(groupPosition),
-                // Toast.LENGTH_SHORT).show();
+
                 return false;
             }
         });
@@ -193,22 +171,34 @@ public class DiagnosisActivity extends AppCompatActivity{
                         startActivity(intent);
                         break;
                 }
-                /*
-                // TODO Auto-generated method stub
-                Toast.makeText(
-                        getApplicationContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
-               */
+
+
                 return false;
             }
         });
     }
 
+    public void setU(User u, boolean sedentary, int exerciseT, Double HDL_C, Double TG, int weightB, boolean GDM, boolean diagnosedD) {
+        u.setSedentaryJob(sedentary);
+
+        u.setExerciseT(exerciseT);
+        u.setDiagnosedD(diagnosedD);
+        u.setGDM(GDM);
+        u.setWeightB(weightB);
+        u.setHDL_C(HDL_C);
+        u.setTG(TG);
+    }
+
+    @NonNull
+    public User createUser() {
+        float BMI = (float) userMap.get("BMI");
+        float waistline = (float) userMap.get("waistline");
+        int age = (int) userMap.get("age");
+        int bloodPressure = (int) userMap.get("bloodPressure");
+        boolean familyHistory = (boolean) userMap.get("familyHistory");
+        boolean gender = (boolean) userMap.get("gender");
+        return new User(BMI,waistline,age,bloodPressure,familyHistory,gender);
+    }
 
 
     /*
@@ -232,10 +222,6 @@ public class DiagnosisActivity extends AppCompatActivity{
             suggestions = new ArrayList<String>();
             suggestions.add("N/A");
         }
-       // suggestions.add("suggestions1");
-       // suggestions.add("suggestions2");
-       // suggestions.add("suggestions3");
-       // suggestions.add("suggestions4");
 
 
         List<String> suggestedDiets = new ArrayList<String>();
