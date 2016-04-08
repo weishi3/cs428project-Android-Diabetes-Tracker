@@ -99,7 +99,7 @@ public class IndicatorLogActivity extends AppCompatActivity {
                         messageViewHolder.mWeight.setText(indicator.getWeight() + " kg");
                         messageViewHolder.mBloodPressure.setText(indicator.getBloodPressure()+" mmHg");
                         messageViewHolder.mBloodSugar.setText(indicator.getBloodSugar()+" mmol/L");
-                        monitor.addBloodSugar(indicator.getBloodSugar());
+                        //monitor.addBloodSugar(indicator.getBloodSugar());
 
                     }
                 };

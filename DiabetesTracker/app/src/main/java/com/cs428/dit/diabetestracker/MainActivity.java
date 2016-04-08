@@ -226,12 +226,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         //add by weishi
-
-
-
-
-
-
+        //what would be shown on card?
+        //dialog
         monitor=new Monitor(3);
         monitorP=new MonitorPressure(3);
         String userIndicatorURL = "userstats/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');

@@ -42,14 +42,22 @@ public class MonitorTest {
         queue.offer(11.0);
         queue.offer(12.0);
         queue.offer(13.0);
+
+        Queue<Double> queue2 = new LinkedList<>();
+        queue2.offer(11.0);
+        queue2.offer(9.0);
+        queue2.offer(13.0);
+
         return Arrays.asList(new Object[][]{
-                {queue, true}
+                {queue, true},
+                {queue2, false}
+
         });
     }
 
     @Test
     public void testMonitorPlanChecker() {
-
+        //monitor.bloodSugarQueue=inputNumber;
         monitor.setQueue(inputNumber);
         monitor.detectWarning();
         assertEquals(expectedResult, monitor.getWarning());
