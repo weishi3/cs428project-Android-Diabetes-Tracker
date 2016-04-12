@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('bsh-2.0b4.jar'))
