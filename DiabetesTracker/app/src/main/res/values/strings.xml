@@ -168,7 +168,10 @@
     <string name="tutorial_indicator_add_content"></string>
     <string name="tutorial_indicator_history_title">Indicator History</string>
     <string name="tutorial_indicator_history_content">Show Indicator History Chart</string>
-
+    <string name="prompt_food_empty">item_name_not_entered</string>
+    <string name="food_log_date_format">yyyy/MM/dd</string>
+    <string name="sugar_unit">grams</string>
+    <string name="calories_unit">Calories</string>
 
 
 </resources>

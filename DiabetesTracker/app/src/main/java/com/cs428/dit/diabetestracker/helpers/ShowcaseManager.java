@@ -53,11 +53,12 @@ public class ShowcaseManager {
     /**
      * Request focus on the view with id viewId
      * This method is helpful in ScrollView where some views are hidden
+     *
      * @param activity The activity that has the view
-     * @param viewId The id of the view to be focused on
+     * @param viewId   The id of the view to be focused on
      */
-    private void requestFocus(Activity activity, int viewId){
-        View view =  activity.findViewById(viewId);
+    private void requestFocus(Activity activity, int viewId) {
+        View view = activity.findViewById(viewId);
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
         view.requestFocus(View.FOCUS_DOWN);
@@ -72,10 +73,10 @@ public class ShowcaseManager {
         requestFocus(showcaseParam.getMainActivity(), showcaseParam.getId());
 
         RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-// This aligns button to the bottom left side of screen
+        // This aligns button to the bottom left side of screen
         lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-// Set margins to the button, we add 16dp margins here
+        // Set margins to the button, we add 16dp margins here
         int margin = ((Number) (showcaseParam.getMainActivity().getResources().getDisplayMetrics().density * 16)).intValue();
         lps.setMargins(margin, margin, margin, margin);
 
@@ -114,7 +115,6 @@ public class ShowcaseManager {
 
 
         sv.setButtonPosition(lps);
-
 
 
     }

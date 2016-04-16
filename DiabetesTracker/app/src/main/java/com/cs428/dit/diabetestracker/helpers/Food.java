@@ -5,6 +5,10 @@ package com.cs428.dit.diabetestracker.helpers;
  * This class corresponds to the food json object in firebase.
  */
 public class Food {
+    public static final int CALORIESMIN = 0;
+    public static final double CALORIESDEFAULT = 0.0;
+    public static final int SUGARMIN = 0;
+    public static final double SUGARDEFAULT = 0.0;
     String name;
     double kilocalorie;
     double sugarInGram;
@@ -32,8 +36,8 @@ public class Food {
     }
 
     public void setKilocalorie(double kilocalorie) {
-        if (kilocalorie < 0) {
-            this.kilocalorie = 0.0;
+        if (kilocalorie < CALORIESMIN) {
+            this.kilocalorie = CALORIESDEFAULT;
         }
         else{
             this.kilocalorie = kilocalorie;
@@ -45,8 +49,8 @@ public class Food {
     }
 
     public void setSugarInGram(double sugarInGram) {
-        if (sugarInGram < 0) {
-            this.sugarInGram = 0.0;
+        if (sugarInGram < SUGARMIN) {
+            this.sugarInGram = SUGARDEFAULT;
         }
         else{
             this.sugarInGram = sugarInGram;
