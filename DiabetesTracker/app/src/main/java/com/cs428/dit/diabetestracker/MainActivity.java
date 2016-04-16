@@ -17,16 +17,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
-import com.cs428.dit.diabetestracker.helpers.Indicator;
 import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
 import com.cs428.dit.diabetestracker.helpers.Monitor;
 import com.cs428.dit.diabetestracker.helpers.MonitorPressure;
 import com.cs428.dit.diabetestracker.helpers.MonitorSetting;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
+import com.cs428.dit.diabetestracker.helpers.ShowcaseManager;
+import com.cs428.dit.diabetestracker.helpers.ShowcaseParam;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,10 +42,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextBloodSugar;
     public MonitorPressure monitorP;
     public Monitor monitor;
-    public int countMo=-1;
+    public int countMo = -1;
     public String toDisplay;
     public ArrayList<String> toMonitor;
-
+    private ShowcaseManager showcaseManager;
 
 
     @Override
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         session = new SessionManager(getApplicationContext());
 //        session = new SessionManager(this);
-        Log.d("ON_CREATE", (session.getUserDetails()+""));
+        Log.d("ON_CREATE", (session.getUserDetails() + ""));
 
         ImageView profileAvatar = (ImageView) findViewById(R.id.profileAvatar);
         CardView diagnosisCard = (CardView) findViewById(R.id.diagnosis_card_view);
@@ -74,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
         mTextBloodSugar = (TextView) findViewById(R.id.total_indicator_main);
 
         //step counter
-        ImageButton walkStepButton= (ImageButton)findViewById(R.id.button_step_counter);
+        ImageButton walkStepButton = (ImageButton) findViewById(R.id.button_step_counter);
         walkStepButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent stepCounterIntent=new Intent(getApplicationContext(),StepCounterActivity.class);
+                Intent stepCounterIntent = new Intent(getApplicationContext(), StepCounterActivity.class);
                 startActivity(stepCounterIntent);
             }
         });
@@ -164,15 +166,34 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
         ///
+        // Show tutorial
+        showTutorial();
 
 
+    }
 
+    /**
+     * Show tutorial on views
+     * TODO: Fix login keyboard blocking the tutorial
+     */
+    private void showTutorial() {
+        showcaseManager = new ShowcaseManager();
+        ShowcaseView.Builder showcaseView = null;
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.profileAvatar, "Profile", "Show profile", 0, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.diagnosis_card_view, "Diagnosis", "Show diagnosis", 1, showcaseView));
 
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.calories_card_view, "Calories consumed today", "Click to see a list of food items", 2, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_step_counter, "Exercise mode", "Show step counter", 3, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_log_food, "Add food", "Add what you eat today", 4, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_see_calories_history, "Calories History", "See Calories History", 5, showcaseView));
 
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.indicator_card_view, "Indicator", "Show indicator", 6, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_monitor_plan, "Tune indicator settings", "Click to tune", 7, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_log_indicator, "Log Indicator", "Click to log indicator", 8, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_see_indicator_history, "Indicator History", "Show indicator history", 9, showcaseView));
 
+        showcaseManager.buildAllShowcases();
     }
 
     @Override
@@ -187,10 +208,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
 
-
         String baseURL = getString(R.string.firebase_url);
         Log.d("USER_EMAIL", session.getUserDetails().toString());
-        String userStatsURL = "foodStats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.', '!');
+        String userStatsURL = "foodStats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL) + "").replace('.', '!');
         userStatsURL = baseURL + userStatsURL;
         Firebase statsRef = new Firebase(userStatsURL);
         statsRef.addValueEventListener(new ValueEventListener() {
@@ -228,8 +248,8 @@ public class MainActivity extends AppCompatActivity {
         //add by weishi
         //what would be shown on card?
         //dialog
-        monitor=new Monitor(3);
-        monitorP=new MonitorPressure(3);
+        monitor = new Monitor(3);
+        monitorP = new MonitorPressure(3);
         String userIndicatorURL = "userstats/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
         userIndicatorURL = baseURL2 + userIndicatorURL;
         Firebase indicatorRef = new Firebase(userIndicatorURL);
@@ -244,19 +264,18 @@ public class MainActivity extends AppCompatActivity {
                 double bloodSugar = 0.0;
 
 
-
                 System.out.println(toDisplay);
-                if (countMo!=-1) {
+                if (countMo != -1) {
                     monitor.setCount(countMo);
                     monitorP.count = countMo;
                 }
                 units = (TextView) findViewById(R.id.unit);
 
-                if (toDisplay==null) toDisplay="bloodSugar";
-                if (toDisplay.equals("bloodSugar")){
+                if (toDisplay == null) toDisplay = "bloodSugar";
+                if (toDisplay.equals("bloodSugar")) {
 
-                      units.setText("mmol/L");
-                    for (DataSnapshot indicatorItemLogSnapshot: dataSnapshot.getChildren()) {
+                    units.setText("mmol/L");
+                    for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
 
                         IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
                         if (day.equals(oneLog.getDate())) {
@@ -270,10 +289,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                if (toDisplay.equals("bloodPressure")){
+                if (toDisplay.equals("bloodPressure")) {
                     units.setText("mmHg");
                     //
-                    for (DataSnapshot indicatorItemLogSnapshot: dataSnapshot.getChildren()) {
+                    for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
 
                         IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
                         if (day.equals(oneLog.getDate())) {
@@ -287,10 +306,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                if (toDisplay.equals("weight")){
+                if (toDisplay.equals("weight")) {
                     units.setText("kg");
                     //
-                    for (DataSnapshot indicatorItemLogSnapshot: dataSnapshot.getChildren()) {
+                    for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
                         IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
                         if (day.equals(oneLog.getDate())) {
                             bloodSugar = (oneLog.getIndicator().getWeight());
@@ -303,26 +322,26 @@ public class MainActivity extends AppCompatActivity {
                 }
                 monitorP.detectWarning();
                 monitor.detectWarning();
-                String toOutput="";
-                boolean need=false;
-                if (toMonitor==null) toMonitor=new ArrayList<String>();
-                if (toMonitor.contains("bloodSugar")&&monitor.getWarning()){
-                    toOutput+="Blood Sugar Stats";
-                    need=true;
+                String toOutput = "";
+                boolean need = false;
+                if (toMonitor == null) toMonitor = new ArrayList<String>();
+                if (toMonitor.contains("bloodSugar") && monitor.getWarning()) {
+                    toOutput += "Blood Sugar Stats";
+                    need = true;
 
                 }
 
-                if (toMonitor.contains("bloodPressure")&&monitorP.warning){
-                    if (toOutput=="") toOutput+="Blood Pressure Stats";
-                    else toOutput+=" and Blood Pressure Stats";
-                    need=true;
+                if (toMonitor.contains("bloodPressure") && monitorP.warning) {
+                    if (toOutput == "") toOutput += "Blood Pressure Stats";
+                    else toOutput += " and Blood Pressure Stats";
+                    need = true;
                 }
 
                 // need to modify warning message!
                 if (need) {
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                     alertDialog.setTitle("A KIND REMINDER");
-                    alertDialog.setMessage("Your "+ toOutput+" may indicate that you are in a bad health condition!");
+                    alertDialog.setMessage("Your " + toOutput + " may indicate that you are in a bad health condition!");
                     alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         }
@@ -335,14 +354,13 @@ public class MainActivity extends AppCompatActivity {
                 //
 
 
-
                 //
 
-                if(bloodSugar < 0.0){
+                if (bloodSugar < 0.0) {
                     bloodSugar = 0.0;
                 }
 
-                mTextBloodSugar.setText(bloodSugar+"");
+                mTextBloodSugar.setText(bloodSugar + "");
             }
 
             @Override
@@ -361,11 +379,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 MonitorSetting sets = dataSnapshot.getValue(MonitorSetting.class);
-                if (sets==null) {
+                if (sets == null) {
                     Firebase mRef = new Firebase(getString(R.string.firebase_url));
                     String userSettingURL = "monitorsetting/" + session.getUserDetails().get(SessionManager.KEY_EMAIL);
                     userSettingURL = userSettingURL.replace('.', '!');
-                    ArrayList<String> temp= new ArrayList<String>();
+                    ArrayList<String> temp = new ArrayList<String>();
                     temp.add("bloodSugar");
                     MonitorSetting ms = new MonitorSetting(3, "bloodSugar", temp);
                     mRef = mRef.child(userSettingURL);
@@ -375,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
                     toMonitor = temp;
 
 
-                }else {
+                } else {
 
 
                     countMo = sets.numDaysMonitor;
@@ -393,7 +411,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
-
 
 
     }
