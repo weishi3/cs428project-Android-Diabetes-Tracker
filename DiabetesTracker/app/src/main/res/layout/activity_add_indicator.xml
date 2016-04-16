@@ -86,7 +86,7 @@
             android:id="@+id/view_blood_sugar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/blood_sugar" />
+            android:src="@drawable/sugar_green64" />
 
         <EditText
             android:id="@+id/bloodSugarTextfield"

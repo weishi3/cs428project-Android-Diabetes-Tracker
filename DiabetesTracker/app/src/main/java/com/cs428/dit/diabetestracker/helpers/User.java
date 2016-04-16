@@ -202,9 +202,9 @@ public class User {
 
 
         if (score > 25) sugD= "I would suggest you to avoid consuming high-GI food.";
-        if (score > 30) sugD+="\nAnd you should mostly focus on the recommended low-GI food with a proper amount suggested by doctor.";
-        if (score<=25 && score > 20)  sugD="you should intentionally take food from list one and list two to avoid possible risk of diabetes. ";
-        if (score <= 20 ) sugD="you are fine based on the score! But the first two lists below are still a good choice for you to keep fit in the long run.";
+        if (score > 30) sugD+="\nYou should mostly focus on the recommended low-GI food with a proper amount suggested by doctor.";
+        if (score<=25 && score > 20)  sugD="You should intentionally take food from list one and list two to avoid possible risk of diabetes. ";
+        if (score <= 20 ) sugD="You are fine based on the score! But the first two lists below are still a good choice for you to keep fit in the long run.";
         return sugD;
     }
 
