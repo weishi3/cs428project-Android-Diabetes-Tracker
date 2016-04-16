@@ -180,18 +180,18 @@ public class MainActivity extends AppCompatActivity {
     private void showTutorial() {
         showcaseManager = new ShowcaseManager();
         ShowcaseView.Builder showcaseView = null;
-        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.profileAvatar, "Profile", "Show profile", 0, showcaseView));
-        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.diagnosis_card_view, "Diagnosis", "Show diagnosis", 1, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.profileAvatar, getString(R.string.tutorial_profile_avatar_title), getString(R.string.tutorial_profile_avatar_content), 0, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.diagnosis_card_view, getString(R.string.tutorial_diagnosis_title), getString(R.string.tutorial_diagnosis_content), 1, showcaseView));
 
-        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.calories_card_view, "Calories consumed today", "Click to see a list of food items", 2, showcaseView));
-        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_step_counter, "Exercise mode", "Show step counter", 3, showcaseView));
-        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_log_food, "Add food", "Add what you eat today", 4, showcaseView));
-        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_see_calories_history, "Calories History", "See Calories History", 5, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.calories_card_view, getString(R.string.tutorial_calories_card_view_title), getString(R.string.tutorial_calories_card_view_content), 2, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_step_counter, getString(R.string.tutorial_calories_step_title), getString(R.string.tutorial_calories_step_content), 3, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_log_food, getString(R.string.tutorial_calories_add_food_title), getString(R.string.tutorial_calories_add_food_content), 4, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_see_calories_history, getString(R.string.tutorial_calories_see_history_title), getString(R.string.tutorial_calories_see_history_content), 5, showcaseView));
 
-        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.indicator_card_view, "Indicator", "Show indicator", 6, showcaseView));
-        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_monitor_plan, "Tune indicator settings", "Click to tune", 7, showcaseView));
-        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_log_indicator, "Log Indicator", "Click to log indicator", 8, showcaseView));
-        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_see_indicator_history, "Indicator History", "Show indicator history", 9, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.indicator_card_view, getString(R.string.tutorial_indicator_card_view_title), getString(R.string.tutorial_indicator_card_view_content), 6, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_monitor_plan, getString(R.string.tutorial_indicator_settings_title), getString(R.string.tutorial_indicator_settings_content), 7, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_log_indicator, getString(R.string.tutorial_indicator_add_title), getString(R.string.tutorial_indicator_add_content), 8, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_see_indicator_history, getString(R.string.tutorial_indicator_history_title), getString(R.string.tutorial_indicator_history_content), 9, showcaseView));
 
         showcaseManager.buildAllShowcases();
     }

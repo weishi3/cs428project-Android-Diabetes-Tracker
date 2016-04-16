@@ -147,6 +147,28 @@
     <string name="DietHigh7cal">Calories per 100g:402</string>
     <!-- User Page string -->
 
+    <!-- Tutorial related strings -->
+    <string name="tutorial_profile_avatar_title">Profile</string>
+    <string name="tutorial_profile_avatar_content">Click for more</string>
+    <string name="tutorial_diagnosis_title">Diagnosis Preview</string>
+    <string name="tutorial_diagnosis_content">Click for more</string>
+    <string name="tutorial_calories_card_view_title">Calories Consumed Today</string>
+    <string name="tutorial_calories_card_view_content"></string>
+    <string name="tutorial_calories_add_food_title">Log food</string>
+    <string name="tutorial_calories_add_food_content">Click to log food</string>
+    <string name="tutorial_calories_step_title">Exercise Mode</string>
+    <string name="tutorial_calories_step_content">Click to open the step counter</string>
+    <string name="tutorial_calories_see_history_title">Calories History</string>
+    <string name="tutorial_calories_see_history_content">Show Calories History Chart</string>
+    <string name="tutorial_indicator_card_view_title">Indicator Card</string>
+    <string name="tutorial_indicator_card_view_content">Click for more</string>
+    <string name="tutorial_indicator_settings_title">Indicator Settings</string>
+    <string name="tutorial_indicator_settings_content">Click to tune your settings</string>
+    <string name="tutorial_indicator_add_title">Add Indcator</string>
+    <string name="tutorial_indicator_add_content"></string>
+    <string name="tutorial_indicator_history_title">Indicator History</string>
+    <string name="tutorial_indicator_history_content">Show Indicator History Chart</string>
+
 
 
 </resources>
