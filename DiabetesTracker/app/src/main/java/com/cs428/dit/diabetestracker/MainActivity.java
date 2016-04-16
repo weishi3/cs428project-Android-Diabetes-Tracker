@@ -1,6 +1,5 @@
 package com.cs428.dit.diabetestracker;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,16 +17,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
-import com.cs428.dit.diabetestracker.helpers.Indicator;
 import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
 import com.cs428.dit.diabetestracker.helpers.Monitor;
 import com.cs428.dit.diabetestracker.helpers.MonitorPressure;
 import com.cs428.dit.diabetestracker.helpers.MonitorSetting;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
+import com.cs428.dit.diabetestracker.helpers.ShowcaseManager;
+import com.cs428.dit.diabetestracker.helpers.ShowcaseParam;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     public int countMo=-1;
     public String toDisplay;
     public ArrayList<String> toMonitor;
-
+    private ShowcaseManager showcaseManager;
 
 
     @Override
@@ -164,17 +165,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-        ///
-
-
-
-
+        // Show tutorial
+        showTutorial();
 
 
     }
+
+    /**
+     * Show tutorial on views
+     * TODO: Fix login keyboard blocking the tutorial
+     */
+    private void showTutorial() {
+        showcaseManager = new ShowcaseManager();
+        ShowcaseView.Builder showcaseView = null;
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.profileAvatar, getString(R.string.tutorial_profile_avatar_title), getString(R.string.tutorial_profile_avatar_content), 0, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.diagnosis_card_view, getString(R.string.tutorial_diagnosis_title), getString(R.string.tutorial_diagnosis_content), 1, showcaseView));
+
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.calories_card_view, getString(R.string.tutorial_calories_card_view_title), getString(R.string.tutorial_calories_card_view_content), 2, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_step_counter, getString(R.string.tutorial_calories_step_title), getString(R.string.tutorial_calories_step_content), 3, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_log_food, getString(R.string.tutorial_calories_add_food_title), getString(R.string.tutorial_calories_add_food_content), 4, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_see_calories_history, getString(R.string.tutorial_calories_see_history_title), getString(R.string.tutorial_calories_see_history_content), 5, showcaseView));
+
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.indicator_card_view, getString(R.string.tutorial_indicator_card_view_title), getString(R.string.tutorial_indicator_card_view_content), 6, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_monitor_plan, getString(R.string.tutorial_indicator_settings_title), getString(R.string.tutorial_indicator_settings_content), 7, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_log_indicator, getString(R.string.tutorial_indicator_add_title), getString(R.string.tutorial_indicator_add_content), 8, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_see_indicator_history, getString(R.string.tutorial_indicator_history_title), getString(R.string.tutorial_indicator_history_content), 9, showcaseView));
+
+        showcaseManager.buildAllShowcases();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
