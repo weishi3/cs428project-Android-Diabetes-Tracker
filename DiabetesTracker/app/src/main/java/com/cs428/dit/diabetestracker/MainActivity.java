@@ -1,5 +1,6 @@
 package com.cs428.dit.diabetestracker;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -322,14 +323,16 @@ public class MainActivity extends AppCompatActivity {
                 if (need) {
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                     alertDialog.setTitle("A KIND REMINDER");
-                    alertDialog.setMessage("Your "+ toOutput+" may indicate that you are in a bad health condition!");
+                    alertDialog.setMessage("Your " + toOutput + " may indicate that you are in a bad health condition!");
                     alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         }
                     });
 
                     alertDialog.setIcon(R.drawable.cross);
-                    alertDialog.show();
+                    if (!isFinishing()) {
+                        alertDialog.show();
+                    }
                 }
 
                 //

@@ -106,7 +106,7 @@ public class AddIndicatorActivity extends AppCompatActivity {
                 mRef.setValue(indicatorItemLog);
 
 
-                Intent jumpBack = new Intent(getApplicationContext(), IndicatorLogActivity.class);
+                Intent jumpBack = new Intent(getApplicationContext(), MainActivity.class);
                 jumpBack.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(jumpBack);
                 finish();
