@@ -29,10 +29,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  * Test with account test1@test.com
  */
 public class AddFoodTest {
-//    @Rule
-//    public ActivityTestRule<AddFoodItemActivity> addFoodItemActivityActivityTestRule =
-//            new ActivityTestRule<>(AddFoodItemActivity.class);
-
     @Rule
     public ActivityTestRule<MainActivity> mainActivityActivityTestRule =
             new ActivityTestRule<>(MainActivity.class);
@@ -52,6 +48,11 @@ public class AddFoodTest {
         } catch (Exception e) {
             //do nothing, not logged in
         }
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+
         onView(withId(R.id.email))
                 .perform(typeText(mTestEmail));
         onView(withId(R.id.password))
@@ -67,15 +68,12 @@ public class AddFoodTest {
 
 
     }
-//    String fbUrl
-//    String fbURL = "https://brilliant-fire-9755.firebaseio.com/foodStats/test1@test!com";
 
     @Test
     public void addFoodItemSuccessfulTest1() {
         Log.d("EMAIL", fbURL);
         Date date = new Date();
         Firebase ref = new Firebase(fbURL);
-        //
 
         // Go to add food page.
         onView(withId(R.id.button_log_food))
@@ -120,9 +118,9 @@ public class AddFoodTest {
         onView(withId(R.id.foodNameTextfield))
                 .perform(typeText("test_food2" + date), closeSoftKeyboard());
         onView(withId(R.id.foodCaloriesTextfield))
-                .perform(typeText("250"), closeSoftKeyboard());
+                .perform(typeText("2000"), closeSoftKeyboard());
         onView(withId(R.id.sugarInGramsTextfield))
-                .perform(typeText("5"), closeSoftKeyboard());
+                .perform(typeText("10"), closeSoftKeyboard());
         onView(withId(R.id.btn_save_food_item))
                 .perform(click());
         try {
@@ -134,5 +132,195 @@ public class AddFoodTest {
         ref.removeValue();
     }
 
+    @Test
+    public void addFoodItemSuccessfulTest3() {
+        Log.d("EMAIL", fbURL);
+        Date date = new Date();
+        Firebase ref = new Firebase(fbURL);
+        //
 
+        // Go to add food page.
+        onView(withId(R.id.button_log_food))
+                .perform(scrollTo(), click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+        // On Add food item page, add food item
+        onView(withId(R.id.foodNameTextfield))
+                .perform(typeText("test_food3" + date), closeSoftKeyboard());
+        onView(withId(R.id.foodCaloriesTextfield))
+                .perform(typeText("500"), closeSoftKeyboard());
+        onView(withId(R.id.sugarInGramsTextfield))
+                .perform(typeText("10"), closeSoftKeyboard());
+        onView(withId(R.id.btn_save_food_item))
+                .perform(click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+        onView(withText("test_food3" + date))
+                .check(matches(isDisplayed()));
+        ref.removeValue();
+    }
+
+    @Test
+    public void addFoodItemEmptyFoodTest1() {
+        Log.d("EMAIL", fbURL);
+
+        Firebase ref = new Firebase(fbURL);
+
+        // Go to add food page.
+        onView(withId(R.id.button_log_food))
+                .perform(scrollTo(), click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+        // On Add food item page, add food item
+        onView(withId(R.id.foodNameTextfield))
+                .perform(typeText(""), closeSoftKeyboard());
+        onView(withId(R.id.foodCaloriesTextfield))
+                .perform(typeText("9000"), closeSoftKeyboard());
+        onView(withId(R.id.sugarInGramsTextfield))
+                .perform(typeText("20"), closeSoftKeyboard());
+        onView(withId(R.id.btn_save_food_item))
+                .perform(click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+        String s = mainActivityActivityTestRule.getActivity().getString(R.string.prompt_food_empty);
+        onView(withText(s))
+                .check(matches(isDisplayed()));
+        ref.removeValue();
+    }
+
+    @Test
+    public void addFoodItemDefaultSugarTest() {
+        Log.d("EMAIL", fbURL);
+
+        Firebase ref = new Firebase(fbURL);
+
+        // Go to add food page.
+        onView(withId(R.id.button_log_food))
+                .perform(scrollTo(), click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+        // On Add food item page, add food item
+        onView(withId(R.id.foodNameTextfield))
+                .perform(typeText(" test "), closeSoftKeyboard());
+        onView(withId(R.id.foodCaloriesTextfield))
+                .perform(typeText("9000"), closeSoftKeyboard());
+
+        onView(withId(R.id.btn_save_food_item))
+                .perform(click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+        String sugar = "0.0 "+mainActivityActivityTestRule.getActivity().getString(R.string.sugar_unit);
+        onView(withText(sugar))
+                .check(matches(isDisplayed()));
+        ref.removeValue();
+    }
+
+    @Test
+    public void addFoodItemDefaultCaloriesTest() {
+        Log.d("EMAIL", fbURL);
+
+        Firebase ref = new Firebase(fbURL);
+
+        // Go to add food page.
+        onView(withId(R.id.button_log_food))
+                .perform(scrollTo(), click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+        // On Add food item page, add food item
+        onView(withId(R.id.foodNameTextfield))
+                .perform(typeText(" test "), closeSoftKeyboard());
+        onView(withId(R.id.sugarInGramsTextfield))
+                .perform(typeText("20"), closeSoftKeyboard());
+
+        onView(withId(R.id.btn_save_food_item))
+                .perform(click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+        String calories = "0.0 "+mainActivityActivityTestRule.getActivity().getString(R.string.calories_unit);
+        onView(withText(calories))
+                .check(matches(isDisplayed()));
+        ref.removeValue();
+    }
+
+    @Test
+    public void addFoodItemCaloriesPureNumberTest() {
+        Log.d("EMAIL", fbURL);
+
+        Firebase ref = new Firebase(fbURL);
+
+        // Go to add food page.
+        onView(withId(R.id.button_log_food))
+                .perform(scrollTo(), click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+        // On Add food item page, add food item
+        onView(withId(R.id.foodNameTextfield))
+                .perform(typeText(""), closeSoftKeyboard());
+        onView(withId(R.id.foodCaloriesTextfield))
+                .perform(typeText("9000aaa"), closeSoftKeyboard());
+        onView(withId(R.id.sugarInGramsTextfield))
+                .perform(typeText("20"), closeSoftKeyboard());
+
+        onView(withId(R.id.btn_save_food_item))
+                .perform(click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+        String calories = "9000.0 "+mainActivityActivityTestRule.getActivity().getString(R.string.calories_unit);
+        onView(withText(calories))
+                .check(matches(isDisplayed()));
+        ref.removeValue();
+    }
+
+    @Test
+    public void addFoodItemSugarPureNumberTest() {
+        Log.d("EMAIL", fbURL);
+
+        Firebase ref = new Firebase(fbURL);
+
+        // Go to add food page.
+        onView(withId(R.id.button_log_food))
+                .perform(scrollTo(), click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+        // On Add food item page, add food item
+        onView(withId(R.id.foodNameTextfield))
+                .perform(typeText(""), closeSoftKeyboard());
+        onView(withId(R.id.foodCaloriesTextfield))
+                .perform(typeText("9000"), closeSoftKeyboard());
+        onView(withId(R.id.sugarInGramsTextfield))
+                .perform(typeText("20sugar"), closeSoftKeyboard());
+
+        onView(withId(R.id.btn_save_food_item))
+                .perform(click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+        String sugar = "20.0 "+mainActivityActivityTestRule.getActivity().getString(R.string.sugar_unit);
+        onView(withText(sugar))
+                .check(matches(isDisplayed()));
+        ref.removeValue();
+    }
 }
