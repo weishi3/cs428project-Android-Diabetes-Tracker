@@ -52,6 +52,9 @@ dependencies {
     //    Chart library
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.3'
     compile project(':bsh-2.0b4')
+
+    // ShowcaseView for Tutorial view
+    compile 'com.github.amlcurran.showcaseview:library:5.4.3'
 }
 
 repositories {

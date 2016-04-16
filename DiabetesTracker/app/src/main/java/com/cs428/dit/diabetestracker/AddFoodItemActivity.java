@@ -18,6 +18,9 @@ import java.util.Date;
 
 public class AddFoodItemActivity extends AppCompatActivity {
 
+    public static final double CALORIESEMPTY = 0.0;
+    public static final double SUGAREMPTY = 0.0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,7 @@ public class AddFoodItemActivity extends AppCompatActivity {
                 String Calories_str = foodCalories.getText() + "";
                 double Cal;
                 if (Calories_str.equals("")) {
-                    Cal = 0.0;
+                    Cal = CALORIESEMPTY;
                 } else {
                     Cal = Double.parseDouble(Calories_str);
                 }
@@ -45,7 +48,7 @@ public class AddFoodItemActivity extends AppCompatActivity {
                 String Sugar_str = sugarInGramsText.getText() + "";
                 double Sugar;
                 if (Sugar_str.equals("")) {
-                    Sugar = 0.0;
+                    Sugar = SUGAREMPTY;
                 } else {
                     Sugar = Double.parseDouble(Sugar_str);
                 }
@@ -53,13 +56,13 @@ public class AddFoodItemActivity extends AppCompatActivity {
                 Food f;
 
                 if ((food.getText() + "").trim().equals("")) {
-                    f = new Food(Sugar, Cal, "item_name_not_entered");
+                    f = new Food(Sugar, Cal, getString(R.string.prompt_food_empty));
 
                 } else {
                     f = new Food(Sugar, Cal, food.getText() + "");
                 }
                 //Parse the current date into string format for storage
-                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+                SimpleDateFormat dateformat = new SimpleDateFormat(getString(R.string.food_log_date_format));
                 final String day = dateformat.format(new Date());
                 FoodItemLog d = new FoodItemLog(day, f);
                 Firebase mRef = new Firebase(getString(R.string.firebase_url));
@@ -71,20 +74,6 @@ public class AddFoodItemActivity extends AppCompatActivity {
 
                 mRef = mRef.child(userStatsURL);
                 mRef.push().setValue(d);
-
-//                long currentTime = System.currentTimeMillis();
-//                String currentTimeStr = currentTime+"";
-//                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-//                final String date = dateformat.format(new Date());
-//                Firebase mRef = new Firebase(getString(R.string.firebase_url));
-//                String userStatsURL = "food/" + session.getUserDetails().get(SessionManager.KEY_EMAIL);
-//                userStatsURL = userStatsURL.replace('.', '!');
-//
-//                //The key of one food item is currentTime in milliseconds. No food name contained.
-//                //In case bad characters occur in the name causing Firebase errors.
-//
-//                Firebase currentTimeRef = mRef.child(userStatsURL).child(date).child(currentTimeStr);
-//                currentTimeRef.setValue(f);
 
                 //Go back to food item log page.
                 Intent foodLog = new Intent(getApplicationContext(), FoodLogActivity.class);

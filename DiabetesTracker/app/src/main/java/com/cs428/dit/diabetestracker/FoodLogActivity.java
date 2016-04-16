@@ -76,8 +76,8 @@ public class FoodLogActivity extends AppCompatActivity {
                         messageViewHolder.mDate.setText(d.getDate());
                         Food f = d.getFood();
                         messageViewHolder.mFoodNameText.setText(f.getName());
-                        messageViewHolder.mSugar.setText(f.getSugarInGram()+" grams");
-                        messageViewHolder.mCalories.setText(f.getKilocalorie()+" Calories");
+                        messageViewHolder.mSugar.setText(f.getSugarInGram()+" "+getString(R.string.sugar_unit));
+                        messageViewHolder.mCalories.setText(f.getKilocalorie()+" "+getString(R.string.calories_unit));
                     }
                 };
         mRecyclerView.setAdapter(adapter);
