@@ -23,13 +23,25 @@ public class LoginActivityTest {
     @Rule
     public ActivityTestRule<LoginActivity> activityTestRule =
             new ActivityTestRule<>(LoginActivity.class);
-    private String mCorrectEmail1;
-    private String mCorrectPassword1;
-
+    private String mCorrectEmail1 = "qizhang4@illinois.edu";
+    private String mCorrectPassword1 = "123456";
+    
     @Before
-    public void setUp() {
-        mCorrectEmail1 = "qizhang4@illinois.edu";
-        mCorrectPassword1 = "123456";
+    public void initialize() {
+
+        try {
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Logout"))
+                    .perform(click());
+        } catch (Exception e) {
+            //do nothing, not logged in
+        }
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+
+
     }
 
     @Test
@@ -97,9 +109,6 @@ public class LoginActivityTest {
         onView(withId(R.id.diagnosis_card_view))
                 .check(matches(isDisplayed()));
 
-//        onView(withText(mCorrectEmail1))
-//                .check(matches(isDisplayed()));
-//
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Logout"))
                 .perform(click());

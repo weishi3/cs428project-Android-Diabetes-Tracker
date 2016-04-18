@@ -64,8 +64,6 @@ public class AddFoodTest {
         } catch (InterruptedException e) {
         }
         fbURL = "https://brilliant-fire-9755.firebaseio.com/foodStats/" + "addfood@test!com";
-        //(sessionManager.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.','!')
-
 
     }
 
