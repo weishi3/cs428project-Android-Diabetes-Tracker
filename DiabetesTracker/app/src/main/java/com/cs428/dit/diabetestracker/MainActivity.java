@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
         //dialog
         monitor=new Monitor(3);
         monitorP=new MonitorPressure(3);
-        String userIndicatorURL = "userstats/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
+        String userIndicatorURL = "userstats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.', '!');
         userIndicatorURL = baseURL2 + userIndicatorURL;
         Firebase indicatorRef = new Firebase(userIndicatorURL);
         indicatorRef.addValueEventListener(new ValueEventListener() {
@@ -376,7 +376,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        String userMonitorSettingURL = "monitorsetting/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
+        String userMonitorSettingURL = "monitorsetting/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.', '!');
         userMonitorSettingURL = baseURL2 + userMonitorSettingURL;
         Firebase monitorSettingRef = new Firebase(userMonitorSettingURL);
         monitorSettingRef.addValueEventListener(new ValueEventListener() {
