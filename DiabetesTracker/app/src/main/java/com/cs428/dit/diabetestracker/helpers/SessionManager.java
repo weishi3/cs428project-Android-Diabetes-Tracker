@@ -42,51 +42,22 @@ public class SessionManager {
             editor.putFloat("BMI", (float) (double) userDetails.get("BMI"));
             editor.putInt("bloodPressure", (int) (long) userDetails.get("bloodPressure"));
             editor.putBoolean("familyHistory", (boolean) userDetails.get("familyHistory"));
-            editor.putBoolean("gender", (boolean)userDetails.get("gender"));
-            Object temp = userDetails.get("sedentaryJob");
-            if( temp != null ){
-                editor.putBoolean("sedentaryJob", (boolean) temp);
-            }
-            temp = userDetails.get("exerciseT");
-            if( temp != null ){
-                editor.putInt("exerciseT", (int) (long) temp);
-            }
-            temp = userDetails.get("diagnosedD");
-            if( temp != null ){
-                editor.putBoolean("diagnosedD", (boolean) temp);
-            }
-            temp = userDetails.get("GDM");
-            if( temp != null ){
-                editor.putBoolean("GDM", (boolean) temp);
-            }
-            temp = userDetails.get("weightB");
-            if( temp != null ){
-                editor.putInt("weightB", (int) (long) temp);
-            }
-            temp = userDetails.get("CCVD");
-            if( temp != null ){
-                editor.putBoolean("CCVD", (boolean) temp);
-            }
-            temp = userDetails.get("PCOS");
-            if( temp != null ){
-                editor.putBoolean("PCOS", (boolean) temp);
-            }
-            temp = userDetails.get("psychotropic");
-            if( temp != null ){
-                editor.putBoolean("psychotropic", (boolean) temp);
-            }
-            temp = userDetails.get("HDL_C");
-            if( temp != null ){
-                editor.putFloat("HDL_C", (float)(double)temp );
-            }
-            temp = userDetails.get("TG");
-            if( temp != null ){
-                editor.putFloat("TG", (float)(double)temp );
-            }
+            editor.putBoolean("gender", (boolean) userDetails.get("gender"));
+            setBoolean(userDetails, "sedentaryJob");
+            setLongInt(userDetails, "exerciseT");
+            setBoolean(userDetails, "diagnosedD");
+            setBoolean(userDetails, "GDM");
+            setLongInt(userDetails, "weightB");
+            setBoolean(userDetails, "CCVD");
+            setBoolean(userDetails, "PCOS");
+            setBoolean(userDetails, "psychotropic");
+            setFloat(userDetails, "HDL_C");
+            setFloat(userDetails, "TG");
         }
         //commit changes to sharedpreferences
         editor.commit();
     }
+
     /**
      * Update the user's information.
      *
@@ -100,67 +71,19 @@ public class SessionManager {
         editor.putBoolean("familyHistory", (boolean) userDetails.get("familyHistory"));
         editor.putBoolean("gender", (boolean) userDetails.get("gender"));
         Object temp = userDetails.get("sedentaryJob");
-        if( temp != null ){
-            editor.putBoolean("sedentaryJob", (boolean) temp);
-        } else {
-            editor.remove("sedentaryJob");
-        }
-        temp = userDetails.get("exerciseT");
-        if( temp != null ){
-            editor.putInt("exerciseT", (int)  temp);
-        } else {
-            editor.remove("exerciseT");
-        }
-        temp = userDetails.get("diagnosedD");
-        if( temp != null ){
-            editor.putBoolean("diagnosedD", (boolean) temp);
-        } else {
-            editor.remove("diagnosedD");
-        }
-        temp = userDetails.get("GDM");
-        if( temp != null ){
-            editor.putBoolean("GDM", (boolean) temp);
-        } else {
-            editor.remove("GDM");
-        }
-        temp = userDetails.get("weightB");
-        if( temp != null ){
-            editor.putInt("weightB", (int) temp);
-        } else {
-            editor.remove("weightB");
-        }
-        temp = userDetails.get("CCVD");
-        if( temp != null ){
-            editor.putBoolean("CCVD", (boolean) temp);
-        } else {
-            editor.remove("CCVD");
-        }
-        temp = userDetails.get("PCOS");
-        if( temp != null ){
-            editor.putBoolean("PCOS", (boolean) temp);
-        } else {
-            editor.remove("PCOS");
-        }
-        temp = userDetails.get("psychotropic");
-        if( temp != null ){
-            editor.putBoolean("psychotropic", (boolean) temp);
-        } else {
-            editor.remove("psychotropic");
-        }
-        temp = userDetails.get("HDL_C");
-        if( temp != null ){
-            editor.putFloat("HDL_C", (float)(double)temp );
-        } else {
-            editor.remove("HDL_C");
-        }
-        temp = userDetails.get("TG");
-        if( temp != null ){
-            editor.putFloat("TG", (float)(double)temp );
-        } else {
-            editor.remove("TG");
-        }
+        setBoolean(userDetails, "sedentaryJob");
+        setInt(userDetails, "exerciseT");
+        setBoolean(userDetails, "diagnosedD");
+        setBoolean(userDetails, "GDM");
+        setInt(userDetails, "weightB");
+        setBoolean(userDetails, "CCVD");
+        setBoolean(userDetails, "PCOS");
+        setBoolean(userDetails, "psychotropic");
+        setFloat(userDetails, "HDL_C");
+        setFloat(userDetails, "TG");
         editor.commit();
     }
+
     /**
      * Get session data of the user
      *
@@ -223,5 +146,44 @@ public class SessionManager {
     public void eraseSharedPreference() {
         editor.clear();
         editor.commit();
+    }
+
+    /**
+     * Helper functions to set a specific value using the data in userDetails
+     * @param userDetails map containing the user's information
+     * @param key the parameter we are updating
+     */
+    private void setFloat(Map<String, Object> userDetails, String key){
+        Object temp = userDetails.get(key);
+        if( temp != null ){
+            editor.putFloat(key, (float)(double)temp);
+        } else {
+            editor.remove(key);
+        }
+    }
+    private void setBoolean(Map<String, Object> userDetails, String key){
+        Object temp = userDetails.get(key);
+        if( temp != null ){
+            editor.putBoolean(key, (boolean) temp);
+        } else {
+            editor.remove(key);
+        }
+    }
+    //int objects are stored as longs in Firebase
+    private void setLongInt(Map<String, Object> userDetails, String key){
+        Object temp = userDetails.get(key);
+        if( temp != null) {
+            editor.putInt(key, (int) (long) temp);
+        } else {
+            editor.remove(key);
+        }
+    }
+    private void setInt(Map<String, Object> userDetails, String key){
+        Object temp = userDetails.get(key);
+        if (temp != null) {
+            editor.putInt(key, (int)temp);
+        } else {
+            editor.remove(key);
+        }
     }
 }
