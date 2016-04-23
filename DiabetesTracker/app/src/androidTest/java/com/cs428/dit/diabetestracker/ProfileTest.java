@@ -69,21 +69,6 @@ public class ProfileTest {
     }
 
     @Test
-    public void goToEditPage() {
-        onView(withId(R.id.editBtn))
-                .perform(click());
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-        }
-
-        onView(withId(R.id.submitBtn))
-                .check(matches(isDisplayed()));
-
-    }
-
-    @Test
     public void changeAge() {
         onView(withId(R.id.editBtn))
                 .perform(click());
@@ -187,7 +172,10 @@ public class ProfileTest {
         onView(withId(R.id.psychotropic))
                 .check(matches(withText("false")));
 
+    }
 
+    @Test
+    public void setNullValues() {
         onView(withId(R.id.editBtn))
                 .perform(click());
         try {
@@ -201,6 +189,8 @@ public class ProfileTest {
                 .perform(scrollTo(), click());
         onView(withId(R.id.psychotropicPNTA))
                 .perform(scrollTo(), click(), closeSoftKeyboard());
+        onView(withId(R.id.TG))
+                .perform(scrollTo(), replaceText(""), closeSoftKeyboard());
 
         closeSoftKeyboard();
 
@@ -216,7 +206,8 @@ public class ProfileTest {
                 .check(matches(withText("N/A")));
         onView(withId(R.id.psychotropic))
                 .check(matches(withText("N/A")));
-
+        onView(withId(R.id.TG))
+                .check(matches(withText("N/A")));
     }
 
     @Test
@@ -300,5 +291,53 @@ public class ProfileTest {
         onView(withId(R.id.TG))
                 .check(matches(ErrorMatcher.withError(errorText)));
     }
+    @Test
+    public void fixInvalidInputs() {
+        onView(withId(R.id.editBtn))
+                .perform(click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+        }
+        onView(withId(R.id.age))
+                .perform(replaceText("not a good age"), closeSoftKeyboard());
+        onView(withId(R.id.submitBtn))
+                .perform(click());
+        String errorText = activityTestRule.getActivity().getResources().getString(R.string.error_num_format);
+        onView(withId(R.id.age))
+                .check(matches(ErrorMatcher.withError(errorText)));
 
+        onView(withId(R.id.bloodPressure))
+                .perform(scrollTo(), replaceText("not a number"), closeSoftKeyboard());
+        onView(withId(R.id.submitBtn))
+                .perform(click());
+        errorText = activityTestRule.getActivity().getResources().getString(R.string.error_num_format);
+        onView(withId(R.id.bloodPressure))
+                .check(matches(ErrorMatcher.withError(errorText)));
+
+        onView(withId(R.id.age))
+                .perform(replaceText("15"), closeSoftKeyboard());
+        onView(withId(R.id.submitBtn))
+                .perform(click());
+        onView(withId(R.id.bloodPressure))
+                .check(matches(ErrorMatcher.withError(errorText)));
+
+        onView(withId(R.id.bloodPressure))
+                .perform(scrollTo(), replaceText("50"), closeSoftKeyboard());
+        onView(withId(R.id.submitBtn))
+                .perform(click());
+
+        onView(withId(R.id.submitBtn))
+                .perform(click());
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(withId(R.id.age))
+                .check(matches(withText("15")));
+        onView(withId(R.id.bloodPressure))
+                .check(matches(withText("50")));
+    }
 }
