@@ -93,7 +93,7 @@
             android:label="Add Indicator" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".IndicatorLogActivity" />
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".AddFoodItemActivity"
@@ -109,13 +109,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity
+            android:name=".SetMonitorPlan"
+            android:label="Set Monitor Plan">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity android:name=".DietHigh" />
         <activity android:name=".DietLow" />
         <activity android:name=".DietMedium" />
-        <activity
-            android:name=".SetMonitorPlan"
-            android:label="@string/title_activity_set_monitor_plan"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".StepCounterActivity"
             android:label="@string/title_activity_step_counter"
