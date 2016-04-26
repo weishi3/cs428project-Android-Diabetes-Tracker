@@ -43,7 +43,7 @@ public class FoodList {
         Firebase user = base.child("users").child(email);
         Firebase foodlist = user.child("foodlist");
         c = con;
-        Log.d("sp2tag", "called here 2");
+
         //foodList = new ArrayList<String[]>();
         //foodList.add(new String[]{"1","2","3"});
         foodlist.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -55,7 +55,6 @@ public class FoodList {
                         foodList.add(((String) child.getValue()).split(","));
                     }
                 }
-                Log.d("sptag", "called here");
             }
 
             @Override
