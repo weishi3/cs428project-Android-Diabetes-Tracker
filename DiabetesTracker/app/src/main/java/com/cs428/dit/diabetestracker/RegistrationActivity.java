@@ -1,5 +1,4 @@
 package com.cs428.dit.diabetestracker;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -9,18 +8,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import com.cs428.dit.diabetestracker.helpers.Restriction;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-
-import org.w3c.dom.Text;
-
 import java.util.Map;
-import java.util.concurrent.Callable;
-
 public class RegistrationActivity extends AppCompatActivity {
-
     private EditText mEmailView;
     private EditText mPasswordView;
     private EditText mConfirmPasswordView;
@@ -32,8 +23,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText mBloodPressureView;
     private RadioButton mGenderTrueBtn;
     private RadioButton mGenderFalseBtn;
-    private View focusView;
-    private boolean cancel;
     //Store parsed vars
     int pAge;
     double pWaistline;
@@ -41,7 +30,6 @@ public class RegistrationActivity extends AppCompatActivity {
     boolean pFamilyHistory;
     int pBloodPressure;
     boolean pGender;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,26 +80,82 @@ public class RegistrationActivity extends AppCompatActivity {
         pFamilyHistory = mFamilyHistoryTrueBtn.isChecked();
         String blood_pressure = mBloodPressureView.getText().toString();
         pGender = mGenderTrueBtn.isChecked();
-        cancel = false;
-        Restriction rest = new Restriction();
-        //Check for empty gender
-        setBooleanCancel((!pGender && !mGenderFalseBtn.isChecked()),
-                mGenderFalseBtn);
+        boolean cancel = false;
+        View focusView = null;
+        //Check for empty or invalid gender.
+        if (!pGender && !mGenderFalseBtn.isChecked()) {
+            mGenderFalseBtn.setError(getString(R.string.error_field_required));
+            focusView = mGenderFalseBtn;
+            cancel = true;
+        }
         //check for empty or invalid blood pressure
-        pBloodPressure = setIntCancel(blood_pressure, mBloodPressureView, rest.get_false_int(), "");
-        //check for empty or invalid familyHistory
-        setBooleanCancel((!pFamilyHistory && !mFamilyHistoryFalseBtn.isChecked()),
-                mFamilyHistoryFalseBtn);
-        //check for empty or invalid bmi
-        pBMI = setDblCancel(BMI, mBMIView, rest.get_false_dbl(), "");
-        //check for empty or invalid waistline
-        pWaistline = setDblCancel(waistline, mWaistlineView, rest.get_false_dbl(), "");
-        //check for empty or invalid age
-        pAge = setIntCancel(age,  mAgeView, new Restriction.int_restriction() {
-            public boolean call(int param){
-                return (param < 1 || param > 120);
+        if (TextUtils.isEmpty(blood_pressure)) {
+            mBloodPressureView.setError(getString(R.string.error_field_required));
+            focusView = mBloodPressureView;
+            cancel = true;
+        } else {
+            try {
+                pBloodPressure = Integer.parseInt(blood_pressure);
+            } catch (NumberFormatException e) {
+                mBloodPressureView.setError(getString(R.string.error_num_format));
+                focusView = mBloodPressureView;
+                cancel = true;
             }
-        }, getString(R.string.error_age));
+        }
+        //check for empty
+        if (!pFamilyHistory && !mFamilyHistoryFalseBtn.isChecked()) {
+            mFamilyHistoryFalseBtn.setError(getString(R.string.error_field_required));
+            focusView = mFamilyHistoryFalseBtn;
+            cancel = true;
+        }
+        //check for empty or invalid bmi
+        if (TextUtils.isEmpty(BMI)) {
+            mBMIView.setError(getString(R.string.error_field_required));
+            focusView = mBMIView;
+            cancel = true;
+        } else {
+            try {
+                pBMI = Double.parseDouble(BMI);
+            } catch (NumberFormatException e) {
+                mBMIView.setError(getString(R.string.error_num_format));
+                focusView = mBMIView;
+                cancel = true;
+            }
+        }
+        //check for empty or invalid waistline
+        if (TextUtils.isEmpty(waistline)) {
+            mWaistlineView.setError(getString(R.string.error_field_required));
+            focusView = mWaistlineView;
+            cancel = true;
+        } else {
+            try {
+                pWaistline = Double.parseDouble(waistline);
+            } catch (NumberFormatException e) {
+                mWaistlineView.setError(getString(R.string.error_num_format));
+                focusView = mWaistlineView;
+                cancel = true;
+            }
+        }
+        //check for empty or invalid age
+        if (TextUtils.isEmpty(age)) {
+            mAgeView.setError(getString(R.string.error_field_required));
+            focusView = mAgeView;
+            cancel = true;
+        } else {
+            try {
+                pAge = Integer.parseInt(age);
+                if (pAge < 1 || pAge > 120) {
+                    mAgeView.setError(getString(R.string.error_age));
+                    focusView = mAgeView;
+                    cancel = true;
+                }
+            } catch (NumberFormatException e) {
+                //error stuff
+                mAgeView.setError(getString(R.string.error_num_format));
+                focusView = mAgeView;
+                cancel = true;
+            }
+        }
         // Check for an empty confirm password.
         if (TextUtils.isEmpty(confirmPassword)) {
             mConfirmPasswordView.setError(getString(R.string.error_field_required));
@@ -166,16 +210,20 @@ public class RegistrationActivity extends AppCompatActivity {
         myFirebaseRef.createUser(mEmail, mPassword, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
-                Firebase user = myFirebaseRef.child("users").child(mEmail.replace('.', '!'));
-                user.child("gender").setValue(pGender);
-                user.child("bloodPressure").setValue(pBloodPressure);
-                user.child("familyHistory").setValue(pFamilyHistory);
-                user.child("BMI").setValue(pBMI);
-                user.child("waistline").setValue(pWaistline);
-                user.child("age").setValue(pAge);
+                Firebase user = myFirebaseRef.child("users").child(mEmail.replace('.','!'));
+                Firebase userGender = user.child("gender");
+                userGender.setValue(pGender);
+                Firebase userBloodPressure = user.child("bloodPressure");
+                userBloodPressure.setValue(pBloodPressure);
+                Firebase userFamilyHistory = user.child("familyHistory");
+                userFamilyHistory.setValue(pFamilyHistory);
+                Firebase userBMI = user.child("BMI");
+                userBMI.setValue(pBMI);
+                Firebase userWaistline = user.child("waistline");
+                userWaistline.setValue(pWaistline);
+                Firebase userAge = user.child("age");
+                userAge.setValue(pAge);
                 Toast.makeText(getApplicationContext(), getString(R.string.on_success_registration), Toast.LENGTH_SHORT).show();
-                Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(loginActivity);
             }
             @Override
             public void onError(FirebaseError firebaseError) {
@@ -207,66 +255,6 @@ public class RegistrationActivity extends AppCompatActivity {
      */
     private boolean isPasswordValid(String password) {
         return password.length() > 4;
-    }
-
-    private void setBooleanCancel(boolean condition, RadioButton btn) {
-        if(condition) {
-            btn.setError(getString(R.string.error_field_required));
-            focusView = btn;
-            cancel = true;
-        }
-    }
-
-    private void setValue(Firebase user, String child, Object value){
-        user.child(child).setValue(value);
-    }
-
-    private int setIntCancel(String value, EditText view, Restriction.int_restriction restriction, String error) {
-        if(TextUtils.isEmpty(value)) {
-            view.setError(getString(R.string.error_field_required));
-            focusView = view;
-            cancel = true;
-            return -1;
-        }
-        try {
-            int parsedValue = Integer.parseInt(value);
-            if (restriction.call(parsedValue)){
-                view.setError(error);
-                focusView = view;
-                cancel = true;
-            }
-            return parsedValue;
-        } catch (NumberFormatException e) {
-            view.setError(getString(R.string.error_num_format));
-            focusView = view;
-            cancel = true;
-            return -1; //return value not used if cancel is set
-        }
-    }
-    /*
-    *
-     */
-    private double setDblCancel(String value, EditText view, Restriction.dbl_restriction restriction, String error) {
-        if(TextUtils.isEmpty(value)) {
-            view.setError(getString(R.string.error_field_required));
-            focusView = view;
-            cancel = true;
-            return -1;
-        }
-        try {
-            double parsedValue = Double.parseDouble(value);
-            if (restriction.call(parsedValue)){
-                view.setError(error);
-                focusView = view;
-                cancel = true;
-            }
-            return parsedValue;
-        } catch (NumberFormatException e) {
-            view.setError(getString(R.string.error_num_format));
-            focusView = view;
-            cancel = true;
-            return -1; //return value not used if cancel is set
-        }
     }
     /**
      * Empty function necessary for radiobuttons

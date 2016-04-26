@@ -172,6 +172,7 @@
     <string name="food_log_date_format">yyyy/MM/dd</string>
     <string name="sugar_unit">grams</string>
     <string name="calories_unit">Calories</string>
+    <string name="title_activity_save_diet">SaveDietActivity</string>
 
 
 </resources>

@@ -36,15 +36,7 @@ public class RegistrationActivityTest {
     Firebase users;
     @Before
     public void setUp() {
-        try {
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Logout"))
-                    .perform(click());
-        } catch (Exception e) {
-            //do nothing, not logged in
-        }
         String rand = UUID.randomUUID().toString().replace('-', 'd');
-        //naming: v = valid, i = invalid, f = fixed(fixed to work with firebase)
         vEmail = rand + "@testing.com";
         iEmail = "rodda2@illinois.edu";
         fvEmail = vEmail.replace('.','!');
@@ -64,8 +56,8 @@ public class RegistrationActivityTest {
     }
     // Preferred JUnit 4 mechanism of specifying the activity to be launched before each test
     @Rule
-    public ActivityTestRule<LoginActivity> activityTestRule =
-            new ActivityTestRule<>(LoginActivity.class);
+    public ActivityTestRule<RegistrationActivity> activityTestRule =
+            new ActivityTestRule<>(RegistrationActivity.class);
     @Test
     public void registerButtonShownTest() {
         onView(withId(R.id.registerBtn))
@@ -74,7 +66,6 @@ public class RegistrationActivityTest {
     }
     @Test
     public void validTest() {
-        onView(withId(R.id.registerBtn)).perform(click());
         onView(withId(R.id.registrationEmail))
                 .perform(typeText(vEmail), closeSoftKeyboard());
         onView(withId(R.id.registrationPW))
@@ -107,51 +98,11 @@ public class RegistrationActivityTest {
             }
         });
         assert(usersSnapShot.hasChild(fvEmail));
-
-        //try to log in as the newly created user to check
-        //that all the values entered in the registration match
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-        }
-        onView(withId(R.id.email))
-                .perform(typeText(vEmail), closeSoftKeyboard());
-        onView(withId(R.id.password))
-                .perform(typeText(vPassword), closeSoftKeyboard());
-        onView(withId(R.id.email_sign_in_button))
-                .perform(click());
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-        }
-        onView(withId(R.id.profileAvatar))
-                .perform(click());
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-        }
-
-        onView(withId(R.id.age))
-                .check(matches(withText("21")));
-        onView(withId(R.id.waistline))
-                .check(matches(withText("32.0")));
-        onView(withId(R.id.bloodPressure))
-                .check(matches(withText("120")));
-        onView(withId(R.id.BMI))
-                .check(matches(withText("20.0")));
-        onView(withId(R.id.familyHistory))
-                .check(matches(withText("true")));
-        onView(withId(R.id.gender))
-                .check(matches(withText("Female")));
-
         Firebase createdUser = users.child(fvEmail);
         createdUser.removeValue();
     }
-
-
     @Test
     public void invalidTest() {
-        onView(withId(R.id.registerBtn)).perform(click());
         onView(withId(R.id.registrationEmail))
                 .perform(typeText(iEmail), closeSoftKeyboard());
         onView(withId(R.id.registrationPW))

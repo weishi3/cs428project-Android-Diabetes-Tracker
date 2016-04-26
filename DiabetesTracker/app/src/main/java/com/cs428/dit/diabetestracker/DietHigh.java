@@ -46,7 +46,7 @@ public class DietHigh extends AppCompatActivity {
     HashMap<String, List<String>> listDataChild;
     HashMap<String,Drawable> listImageChild;
     Intent intent;
-    private Button mButton;
+    private Button saveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +54,14 @@ public class DietHigh extends AppCompatActivity {
         setContentView(R.layout.activity_diet_low);
 
 
-        mButton = (Button) findViewById(R.id.back);
+        saveButton = (Button) findViewById(R.id.saveBtn);
         final Context x = this;
-        mButton.setOnClickListener(new View.OnClickListener() {
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(x,DiagnosisActivity.class);
-                startActivity(i);
+            public void onClick(View view) {
+                Intent saveDiet = new Intent(getApplicationContext(), SaveHighGIActivity.class);
+                startActivity(saveDiet);
             }
         });
 
