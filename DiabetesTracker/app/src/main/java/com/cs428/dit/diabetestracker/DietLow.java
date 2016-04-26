@@ -36,7 +36,8 @@ public class DietLow extends AppCompatActivity {
     HashMap<String, List<String>> listDataChild;
     HashMap<String,Drawable> listImageChild;
     Intent intent;
-    private Button mButton;
+    private Button saveButton;
+    private Button checkButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +45,23 @@ public class DietLow extends AppCompatActivity {
         setContentView(R.layout.activity_diet_low);
 
 
-        mButton = (Button) findViewById(R.id.back);
+        saveButton = (Button) findViewById(R.id.saveBtn);
+        checkButton = (Button) findViewById(R.id.checkBtn);
         final Context x = this;
-        mButton.setOnClickListener(new View.OnClickListener() {
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(x,DiagnosisActivity.class);
-                startActivity(i);
+            public void onClick(View view) {
+                Intent saveDiet = new Intent(getApplicationContext(), SaveLowGIDietActivity.class);
+                startActivity(saveDiet);
+            }
+        });
+
+        checkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent checkSavedDiet = new Intent(getApplicationContext(), CheckSavedDietActivity.class);
+                startActivity(checkSavedDiet);
             }
         });
 
@@ -92,72 +103,52 @@ public class DietLow extends AppCompatActivity {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
         listImageChild = new HashMap<String,Drawable>();
-        StringRunner runner = new StringRunner();
-        String classname = "DietLow";
-        String code = "";
-        String temp = "well";
+
+        listDataHeader.add("Rice Noodles");
+        listDataHeader.add("Sweet Corn");
+        listDataHeader.add("Lentils");
+        listDataHeader.add("Beans");
+        listDataHeader.add("Yogurt");
+        listDataHeader.add("Greek Yogurt");
+        listDataHeader.add("Plums");
+        listDataHeader.add("Oranges");
+
         // Adding child data
-        for(int i = 0;i<8;i++){
-            code = "temp = getString(R.string."+classname+i+");";
-            runner.runString(code);
-            listDataHeader.add(temp);
-        }
-//        listDataHeader.add("Rice Noodles");
-//        listDataHeader.add("Sweet Corn");
-//        listDataHeader.add("Lentils");
-//        listDataHeader.add("Beans");
-//        listDataHeader.add("Yogurt");
-//        listDataHeader.add("Greek Yogurt");
-//        listDataHeader.add("Plums");
-//        listDataHeader.add("Oranges");
-
-        for(int i = 0;i<8;i++){
-            List<String> item = new ArrayList<String>();
-            code = "temp = getString(R.string."+classname+i+"gi"+");";
-            runner.runString(code);
-            item.add(temp);
-            code = "temp = getString(R.string."+classname+i+"cal"+");";
-            runner.runString(code);
-            item.add(temp);
-            listDataChild.put(listDataHeader.get(i),item);
-
-        }
-//        // Adding child data
-//        List<String> ricenoodles = new ArrayList<String>();
-//        ricenoodles.add("GI:40");
-//        ricenoodles.add("Calories per 100g:109");
-//        List<String> sweetcorn = new ArrayList<String>();
-//        sweetcorn.add("GI:47");
-//        sweetcorn.add("Calories per 100g:86");
-//        List<String> lentils = new ArrayList<String>();
-//        lentils.add("GI:21");
-//        lentils.add("Calories per 100g:116");
-//        List<String> beans = new ArrayList<String>();
-//        beans.add("GI:30");
-//        beans.add("Calories per 100g:347");
-//        List<String> yogurt = new ArrayList<String>();
-//        yogurt.add("GI:19");
-//        yogurt.add("Calories per 100g:59");
-//        List<String> greekyogurt = new ArrayList<String>();
-//        greekyogurt.add("GI:19");
-//        greekyogurt.add("Calories per 100g:59");
-//        List<String> plums = new ArrayList<String>();
-//        plums.add("GI:24");
-//        plums.add("Calories per 100g:46");
-//        List<String> oranges = new ArrayList<String>();
-//        oranges.add("GI:40");
-//        oranges.add("Calories per 100g:47");
+        List<String> ricenoodles = new ArrayList<String>();
+        ricenoodles.add("GI:40");
+        ricenoodles.add("Calories per 100g:109");
+        List<String> sweetcorn = new ArrayList<String>();
+        sweetcorn.add("GI:47");
+        sweetcorn.add("Calories per 100g:86");
+        List<String> lentils = new ArrayList<String>();
+        lentils.add("GI:21");
+        lentils.add("Calories per 100g:116");
+        List<String> beans = new ArrayList<String>();
+        beans.add("GI:30");
+        beans.add("Calories per 100g:347");
+        List<String> yogurt = new ArrayList<String>();
+        yogurt.add("GI:19");
+        yogurt.add("Calories per 100g:59");
+        List<String> greekyogurt = new ArrayList<String>();
+        greekyogurt.add("GI:19");
+        greekyogurt.add("Calories per 100g:59");
+        List<String> plums = new ArrayList<String>();
+        plums.add("GI:24");
+        plums.add("Calories per 100g:46");
+        List<String> oranges = new ArrayList<String>();
+        oranges.add("GI:40");
+        oranges.add("Calories per 100g:47");
 
 
 
-//        listDataChild.put(listDataHeader.get(0), ricenoodles); // Header, Child data
-//        listDataChild.put(listDataHeader.get(1), sweetcorn);
-//        listDataChild.put(listDataHeader.get(2), lentils);
-//        listDataChild.put(listDataHeader.get(3), beans);
-//        listDataChild.put(listDataHeader.get(4), yogurt);
-//        listDataChild.put(listDataHeader.get(5), greekyogurt);
-//        listDataChild.put(listDataHeader.get(6), plums);
-//        listDataChild.put(listDataHeader.get(7), oranges);
+        listDataChild.put(listDataHeader.get(0), ricenoodles); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), sweetcorn);
+        listDataChild.put(listDataHeader.get(2), lentils);
+        listDataChild.put(listDataHeader.get(3), beans);
+        listDataChild.put(listDataHeader.get(4), yogurt);
+        listDataChild.put(listDataHeader.get(5), greekyogurt);
+        listDataChild.put(listDataHeader.get(6), plums);
+        listDataChild.put(listDataHeader.get(7), oranges);
 
         listImageChild.put(listDataHeader.get(0),getResources().getDrawable(R.drawable.ricenoodles));
         listImageChild.put(listDataHeader.get(1),getResources().getDrawable(R.drawable.sweetcorn));

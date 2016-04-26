@@ -42,13 +42,14 @@ public class DietMedium extends AppCompatActivity {
         setContentView(R.layout.activity_diet_low);
 
 
-        mButton = (Button) findViewById(R.id.back);
+        mButton = (Button) findViewById(R.id.saveBtn);
         final Context x = this;
+
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(x,DiagnosisActivity.class);
-                startActivity(i);
+            public void onClick(View view) {
+                Intent saveDiet = new Intent(getApplicationContext(), SaveMediumGIActivity.class);
+                startActivity(saveDiet);
             }
         });
 
