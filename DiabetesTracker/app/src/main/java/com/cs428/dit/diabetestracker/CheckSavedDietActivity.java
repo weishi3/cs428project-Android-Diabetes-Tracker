@@ -14,6 +14,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import android.util.Log;
+import com.firebase.client.AuthData;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
 
 public class CheckSavedDietActivity extends AppCompatActivity {
     ExpandableListAdapter listAdapter;
@@ -24,6 +30,7 @@ public class CheckSavedDietActivity extends AppCompatActivity {
     private Context ac;
     private SessionManager session;
     private HashMap<String, Object> userDetails;
+    static ArrayList<String[]> foodList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,45 +41,62 @@ public class CheckSavedDietActivity extends AppCompatActivity {
         userDetails = session.getUserDetails();
         String userEmail = userDetails.get("email").toString().replace('.', '!');
 
-        ArrayList<String[]> dietLists = FoodList.retrieve(ac, userEmail);
-        if(dietLists == null){
-            Log.d("tag","null here");
-        }
 
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+        Firebase.setAndroidContext(ac);
+        Firebase base = new Firebase("https://brilliant-fire-9755.firebaseio.com");
+        Firebase user = base.child("users").child(userEmail);
+        Firebase foodlist = user.child("foodlist");
 
-        // preparing list data
-        prepareListData(dietLists);
+        foodlist.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue()!=null){
+                    foodList = new ArrayList<String[]>();
+                    for(DataSnapshot child:dataSnapshot.getChildren()){
+                        foodList.add(((String)child.getValue()).split(","));
+                    }
+                    expListView = (ExpandableListView) findViewById(R.id.lvExp);
 
-        // get the listview
+                    // preparing list data
+                    prepareListData(foodList);
 
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+                    // get the listview
 
-        // setting list adapter
-        expListView.setAdapter(listAdapter);
-        // Listview Group expanded listener
-        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+                    listAdapter = new ExpandableListAdapter(ac, listDataHeader, listDataChild);
+
+                    // setting list adapter
+                    expListView.setAdapter(listAdapter);
+                    // Listview Group expanded listener
+                    expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+                        @Override
+                        public void onGroupExpand(int groupPosition) {
+                            Toast.makeText(getApplicationContext(),
+                                    listDataHeader.get(groupPosition) + " Expanded",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    // Listview Group collasped listener
+                    expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+                        @Override
+                        public void onGroupCollapse(int groupPosition) {
+                            Toast.makeText(getApplicationContext(),
+                                    listDataHeader.get(groupPosition) + " Collapsed",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                }
+
+            }
 
             @Override
-            public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Listview Group collasped listener
-        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();
+            public void onCancelled(FirebaseError firebaseError) {
 
             }
         });
-        final Context x = this;
     }
 
     /*
@@ -101,26 +125,5 @@ public class CheckSavedDietActivity extends AppCompatActivity {
             }
             listDataChild.put(foodList[0], foods);
         }
-        /*
-        // Adding child data
-        listDataHeader.add(diagnosisTitle);
-        listDataHeader.add(foodSug);
-
-        // Adding child data
-        List<String> suggestions = suggestionContents;
-        if (suggestions==null){
-            suggestions = new ArrayList<String>();
-            suggestions.add("N/A");
-        }
-
-        List<String> suggestedDiets = new ArrayList<String>();
-
-        suggestedDiets.add("lowGI");
-        suggestedDiets.add("mediumGI");
-        suggestedDiets.add("highGI");
-
-        listDataChild.put(listDataHeader.get(0), suggestions); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), suggestedDiets);
-        */
     }
 }

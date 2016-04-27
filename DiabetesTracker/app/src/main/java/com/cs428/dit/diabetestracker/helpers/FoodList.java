@@ -36,35 +36,4 @@ public class FoodList {
         Firebase newlist = user.child("foodlist").push();
         newlist.setValue(d+","+list);
     }
-
-    public static ArrayList<String[]> retrieve(Context con,String email){
-        Firebase.setAndroidContext(con);
-        Firebase base = new Firebase("https://brilliant-fire-9755.firebaseio.com");
-        Firebase user = base.child("users").child(email);
-        Firebase foodlist = user.child("foodlist");
-        c = con;
-
-        //foodList = new ArrayList<String[]>();
-        //foodList.add(new String[]{"1","2","3"});
-        foodlist.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null) {
-                    foodList = new ArrayList<String[]>();
-                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        foodList.add(((String) child.getValue()).split(","));
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                //Toast.makeText(c, "error: "+firebaseError.getMessage(),Toast.LENGTH_SHORT).show();
-                //Log.d("error", firebaseError.getMessage())
-            }
-        });
-        //foodlist.child("nothing").setValue("nothing");
-        return foodList;
-    }
-
 }
