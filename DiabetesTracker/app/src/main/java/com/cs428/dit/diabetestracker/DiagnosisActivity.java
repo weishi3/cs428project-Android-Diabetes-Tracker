@@ -65,18 +65,48 @@ public class DiagnosisActivity extends AppCompatActivity{
                 User u = createUser();
 
                 boolean sedentary=false;
-                int ExerciseT=60;
-                Double HDL_C=0.88;
-                Double TG=2.3;
+                int ExerciseT=80;
+                Double HDL_C=0.92;
+                Double TG=2.21;
                 int weightB=3;
                 boolean GDM =false;
                 boolean diagnosedD=false;
+                boolean psychotropic=false;
+                //Atherosclerotic CCVd: stands for chronic cerebrovascular disease
+                boolean CCVD=false;
 
+                //does a female user has PCOS? stands for Polycystic ovary syndrome
+                boolean PCOS=false;
+
+                // does user have psychotropic problems.
 
                 if (userMap.containsKey("sedentaryJob") && userMap.get("sedentaryJob") != null)
                     sedentary = (boolean) userMap.get("sedentaryJob");
+                if (userMap.containsKey("exerciseT") && userMap.get("exerciseT") != null)
+                    ExerciseT = (int) userMap.get("exerciseT");
+                if (userMap.containsKey("HDL_C") && userMap.get("HDL_C") != null)
+                    HDL_C = (double) userMap.get("HDL_C");
+                if (userMap.containsKey("TG") && userMap.get("TG") != null)
+                    TG = (double) userMap.get("TG");
+                if (userMap.containsKey("weightB") && userMap.get("weightB") != null)
+                    weightB = (int) userMap.get("weightB");
+                if (userMap.containsKey("GDM") && userMap.get("GDM") != null)
+                    GDM = (boolean) userMap.get("GDM");
+                if (userMap.containsKey("diagnosedD") && userMap.get("diagnosedD") != null)
+                    diagnosedD = (boolean) userMap.get("diagnosedD");
+                if (userMap.containsKey("psychotropic") && userMap.get("psychotropic") != null)
+                    psychotropic = (boolean) userMap.get("psychotropic");
+                if (userMap.containsKey("CCVD") && userMap.get("CCVD") != null)
+                    CCVD = (boolean) userMap.get("CCVD");
 
-                setU(u, sedentary, ExerciseT, HDL_C, TG, weightB, GDM, diagnosedD);
+                if (userMap.containsKey("PCOS") && userMap.get("PCOS") != null)
+                    PCOS = (boolean) userMap.get("PCOS");
+
+
+
+
+
+                setU(u, sedentary, ExerciseT, HDL_C, TG, weightB, GDM, diagnosedD,psychotropic,CCVD,PCOS);
 
                 String score = u.getScore();
                 foodSug=u.generateSuggestionD();
@@ -178,7 +208,8 @@ public class DiagnosisActivity extends AppCompatActivity{
         });
     }
 
-    public void setU(User u, boolean sedentary, int exerciseT, Double HDL_C, Double TG, int weightB, boolean GDM, boolean diagnosedD) {
+
+    public void setU(User u, boolean sedentary, int exerciseT, Double HDL_C, Double TG, int weightB, boolean GDM, boolean diagnosedD, boolean psychotropic, boolean CCVD, boolean PCOS) {
         u.setSedentaryJob(sedentary);
 
         u.setExerciseT(exerciseT);
@@ -187,6 +218,9 @@ public class DiagnosisActivity extends AppCompatActivity{
         u.setWeightB(weightB);
         u.setHDL_C(HDL_C);
         u.setTG(TG);
+        u.setPsychotropic(psychotropic);
+        u.setCCVD(CCVD);
+        u.setPCOS(PCOS);
     }
 
     @NonNull

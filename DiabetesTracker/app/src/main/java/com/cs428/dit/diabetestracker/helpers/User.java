@@ -40,6 +40,30 @@ public class User {
     //weight when born
     private int weightB=0;
 
+    public boolean isCCVD() {
+        return CCVD;
+    }
+
+    public void setCCVD(boolean CCVD) {
+        this.CCVD = CCVD;
+    }
+
+    public boolean isPCOS() {
+        return PCOS;
+    }
+
+    public void setPCOS(boolean PCOS) {
+        this.PCOS = PCOS;
+    }
+
+    public boolean isPsychotropic() {
+        return psychotropic;
+    }
+
+    public void setPsychotropic(boolean psychotropic) {
+        this.psychotropic = psychotropic;
+    }
+
     //Atherosclerotic CCVd: stands for chronic cerebrovascular disease
     private boolean CCVD=false;
 
