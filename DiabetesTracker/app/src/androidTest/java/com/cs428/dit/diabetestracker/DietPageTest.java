@@ -23,7 +23,5 @@ public class DietPageTest {
     public void DietPageTest() {
         onView(withId(R.id.lvExp2))
                 .check(matches(isDisplayed()));
-        onView(withId(R.id.back))
-                .check(matches(isDisplayed()));
     }
 }

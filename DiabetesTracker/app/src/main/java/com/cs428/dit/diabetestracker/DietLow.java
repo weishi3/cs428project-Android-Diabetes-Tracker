@@ -115,29 +115,21 @@ public class DietLow extends AppCompatActivity {
 
         // Adding child data
         List<String> ricenoodles = new ArrayList<String>();
-        ricenoodles.add("GI:40");
-        ricenoodles.add("Calories per 100g:109");
+        ricenoodles.add("GI:40\nCalories per 100g:109");
         List<String> sweetcorn = new ArrayList<String>();
-        sweetcorn.add("GI:47");
-        sweetcorn.add("Calories per 100g:86");
+        sweetcorn.add("GI:47\nCalories per 100g:86");
         List<String> lentils = new ArrayList<String>();
-        lentils.add("GI:21");
-        lentils.add("Calories per 100g:116");
+        lentils.add("GI:21\nCalories per 100g:116");
         List<String> beans = new ArrayList<String>();
-        beans.add("GI:30");
-        beans.add("Calories per 100g:347");
+        beans.add("GI:30\nCalories per 100g:347");
         List<String> yogurt = new ArrayList<String>();
-        yogurt.add("GI:19");
-        yogurt.add("Calories per 100g:59");
+        yogurt.add("GI:19\nCalories per 100g:59");
         List<String> greekyogurt = new ArrayList<String>();
-        greekyogurt.add("GI:19");
-        greekyogurt.add("Calories per 100g:59");
+        greekyogurt.add("GI:19\nCalories per 100g:59");
         List<String> plums = new ArrayList<String>();
-        plums.add("GI:24");
-        plums.add("Calories per 100g:46");
+        plums.add("GI:24\nCalories per 100g:46");
         List<String> oranges = new ArrayList<String>();
-        oranges.add("GI:40");
-        oranges.add("Calories per 100g:47");
+        oranges.add("GI:40\nCalories per 100g:47");
 
 
 
