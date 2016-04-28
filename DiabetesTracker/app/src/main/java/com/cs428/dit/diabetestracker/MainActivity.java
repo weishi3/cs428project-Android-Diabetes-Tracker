@@ -1,9 +1,14 @@
 package com.cs428.dit.diabetestracker;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -46,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
     public String toDisplay;
     public ArrayList<String> toMonitor;
     private ShowcaseManager showcaseManager;
-
+    public NotificationCompat.Builder mBuilder;
+    public  NotificationManager mNotificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,11 +212,44 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+         mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_add_black_24dp)
+                        .setContentTitle(" A KIND REMINDER FROM Diabetes Tracker.")
+                        .setAutoCancel(true)
+                        .setContentText("Input your health indicator today!");
+// Creates an explicit intent for an Activity in your app
+        Intent resultIntent = new Intent(this, AddIndicatorActivity.class);
+
+// The stack builder object will contain an artificial back stack for the
+// started Activity.
+// This ensures that navigating backward from the Activity leads out of
+// your application to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+// Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(AddIndicatorActivity.class);
+// Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+// mId allows you to update the notification later on.
+        mNotificationManager.notify(111, mBuilder.build());
+
+
+
+
+
 
 
         String baseURL = getString(R.string.firebase_url);
         Log.d("USER_EMAIL", session.getUserDetails().toString());
-        String userStatsURL = "foodStats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.', '!');
+        String userStatsURL = "foodStats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL) + "").replace('.', '!');
         userStatsURL = baseURL + userStatsURL;
         Firebase statsRef = new Firebase(userStatsURL);
         statsRef.addValueEventListener(new ValueEventListener() {
@@ -248,9 +287,9 @@ public class MainActivity extends AppCompatActivity {
         //add by weishi
         //what would be shown on card?
         //dialog
-        monitor=new Monitor(3);
-        monitorP=new MonitorPressure(3);
-        String userIndicatorURL = "userstats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.', '!');
+        monitor = new Monitor(3);
+        monitorP = new MonitorPressure(3);
+        String userIndicatorURL = "userstats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL) + "").replace('.', '!');
         userIndicatorURL = baseURL2 + userIndicatorURL;
         Firebase indicatorRef = new Firebase(userIndicatorURL);
         indicatorRef.addValueEventListener(new ValueEventListener() {
@@ -264,19 +303,18 @@ public class MainActivity extends AppCompatActivity {
                 double bloodSugar = 0.0;
 
 
-
                 System.out.println(toDisplay);
-                if (countMo!=-1) {
+                if (countMo != -1) {
                     monitor.setCount(countMo);
                     monitorP.count = countMo;
                 }
                 units = (TextView) findViewById(R.id.unit);
 
-                if (toDisplay==null) toDisplay="bloodSugar";
-                if (toDisplay.equals("bloodSugar")){
+                if (toDisplay == null) toDisplay = "bloodSugar";
+                if (toDisplay.equals("bloodSugar")) {
 
-                      units.setText("mmol/L");
-                    for (DataSnapshot indicatorItemLogSnapshot: dataSnapshot.getChildren()) {
+                    units.setText("mmol/L");
+                    for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
 
                         IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
                         if (day.equals(oneLog.getDate())) {
@@ -290,10 +328,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                if (toDisplay.equals("bloodPressure")){
+                if (toDisplay.equals("bloodPressure")) {
                     units.setText("mmHg");
                     //
-                    for (DataSnapshot indicatorItemLogSnapshot: dataSnapshot.getChildren()) {
+                    for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
 
                         IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
                         if (day.equals(oneLog.getDate())) {
@@ -307,10 +345,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                if (toDisplay.equals("weight")){
+                if (toDisplay.equals("weight")) {
                     units.setText("kg");
                     //
-                    for (DataSnapshot indicatorItemLogSnapshot: dataSnapshot.getChildren()) {
+                    for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
                         IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
                         if (day.equals(oneLog.getDate())) {
                             bloodSugar = (oneLog.getIndicator().getWeight());
@@ -323,19 +361,19 @@ public class MainActivity extends AppCompatActivity {
                 }
                 monitorP.detectWarning();
                 monitor.detectWarning();
-                String toOutput="";
-                boolean need=false;
-                if (toMonitor==null) toMonitor=new ArrayList<String>();
-                if (toMonitor.contains("bloodSugar")&&monitor.getWarning()){
-                    toOutput+="Blood Sugar Stats";
-                    need=true;
+                String toOutput = "";
+                boolean need = false;
+                if (toMonitor == null) toMonitor = new ArrayList<String>();
+                if (toMonitor.contains("bloodSugar") && monitor.getWarning()) {
+                    toOutput += "Blood Sugar Stats";
+                    need = true;
 
                 }
 
-                if (toMonitor.contains("bloodPressure")&&monitorP.warning){
-                    if (toOutput=="") toOutput+="Blood Pressure Stats";
-                    else toOutput+=" and Blood Pressure Stats";
-                    need=true;
+                if (toMonitor.contains("bloodPressure") && monitorP.warning) {
+                    if (toOutput == "") toOutput += "Blood Pressure Stats";
+                    else toOutput += " and Blood Pressure Stats";
+                    need = true;
                 }
 
                 // need to modify warning message!
@@ -357,14 +395,16 @@ public class MainActivity extends AppCompatActivity {
                 //
 
 
-
                 //
 
-                if(bloodSugar < 0.0){
+                if (bloodSugar < 0.0) {
                     bloodSugar = 0.0;
                 }
 
-                mTextBloodSugar.setText(bloodSugar+"");
+                mTextBloodSugar.setText(bloodSugar + "");
+
+                if (bloodSugar!=0.0)
+                    mNotificationManager.cancel(111);
             }
 
             @Override
@@ -374,6 +414,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
+
+
+
+
+
 
 
         String userMonitorSettingURL = "monitorsetting/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.', '!');

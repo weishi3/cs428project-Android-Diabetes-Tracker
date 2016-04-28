@@ -233,7 +233,7 @@ public class User {
 
         if (score > 25) sugD= "Your health condition STATS in your profile indicates that you probably have higher risk of getting diabetes than average people. Try to avoid consuming HIGH-GI food listed below.";
         if (score > 30) sugD="Your health condition STATS in your profile indicates that You have pretty high risk of getting diabetes. LOW_GI food is your good friend, take body examination regularly and consult a doctor";
-        if (score<=25 && score > 15)  sugD=" Your health condition STATS in your profile shows you are currently in a good stage. Though take a healthy lifestyle and MEDIUM-GI and LOW-GI food is a good reference. ";
+        if (score<=25 && score > 15)  sugD="Your health condition STATS in your profile shows you are currently in a good stage. Though take a healthy lifestyle and MEDIUM-GI and LOW-GI food is a good reference. ";
         if (score <= 15 ) sugD="Based on your profile, It looks you are far from getting diabetes! Though a good lifestyle is important and MEDIUM-GI and LOW-GI food is helpful in the long run.";
         return sugD;
     }

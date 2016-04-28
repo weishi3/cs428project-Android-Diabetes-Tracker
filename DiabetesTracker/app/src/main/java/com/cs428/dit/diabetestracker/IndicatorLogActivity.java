@@ -1,11 +1,16 @@
 package com.cs428.dit.diabetestracker;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -70,6 +75,10 @@ public class IndicatorLogActivity extends AppCompatActivity {
                 startActivity(updateIndicatorIntent);
             }
         });
+
+
+
+
 
     }
 
