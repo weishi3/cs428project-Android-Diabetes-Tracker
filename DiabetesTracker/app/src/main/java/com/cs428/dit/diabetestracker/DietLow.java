@@ -100,9 +100,13 @@ public class DietLow extends AppCompatActivity {
     }
 
     private void prepareListData() {
+        prepareListHeaderData();
+        prepareListItemData();
+        prepareListImageData();
+    }
+
+    private void prepareListHeaderData() {
         listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-        listImageChild = new HashMap<String,Drawable>();
 
         listDataHeader.add("Rice Noodles");
         listDataHeader.add("Sweet Corn");
@@ -112,8 +116,11 @@ public class DietLow extends AppCompatActivity {
         listDataHeader.add("Greek Yogurt");
         listDataHeader.add("Plums");
         listDataHeader.add("Oranges");
+    }
 
-        // Adding child data
+    private void prepareListItemData() {
+        listDataChild = new HashMap<String, List<String>>();
+
         List<String> ricenoodles = new ArrayList<String>();
         ricenoodles.add("GI:40\nCalories per 100g:109");
         List<String> sweetcorn = new ArrayList<String>();
@@ -131,8 +138,6 @@ public class DietLow extends AppCompatActivity {
         List<String> oranges = new ArrayList<String>();
         oranges.add("GI:40\nCalories per 100g:47");
 
-
-
         listDataChild.put(listDataHeader.get(0), ricenoodles); // Header, Child data
         listDataChild.put(listDataHeader.get(1), sweetcorn);
         listDataChild.put(listDataHeader.get(2), lentils);
@@ -141,16 +146,19 @@ public class DietLow extends AppCompatActivity {
         listDataChild.put(listDataHeader.get(5), greekyogurt);
         listDataChild.put(listDataHeader.get(6), plums);
         listDataChild.put(listDataHeader.get(7), oranges);
+    }
+
+    private void prepareListImageData() {
+        listImageChild = new HashMap<String,Drawable>();
 
         listImageChild.put(listDataHeader.get(0),getResources().getDrawable(R.drawable.ricenoodles));
-        listImageChild.put(listDataHeader.get(1),getResources().getDrawable(R.drawable.sweetcorn));
-        listImageChild.put(listDataHeader.get(2),getResources().getDrawable(R.drawable.lentils));
+        listImageChild.put(listDataHeader.get(1), getResources().getDrawable(R.drawable.sweetcorn));
+        listImageChild.put(listDataHeader.get(2), getResources().getDrawable(R.drawable.lentils));
         listImageChild.put(listDataHeader.get(3),getResources().getDrawable(R.drawable.beans));
-        listImageChild.put(listDataHeader.get(4),getResources().getDrawable(R.drawable.yogurt));
+        listImageChild.put(listDataHeader.get(4), getResources().getDrawable(R.drawable.yogurt));
         listImageChild.put(listDataHeader.get(5),getResources().getDrawable(R.drawable.greekyogurt));
-        listImageChild.put(listDataHeader.get(6),getResources().getDrawable(R.drawable.plums));
-        listImageChild.put(listDataHeader.get(7),getResources().getDrawable(R.drawable.oranges));
-
+        listImageChild.put(listDataHeader.get(6), getResources().getDrawable(R.drawable.plums));
+        listImageChild.put(listDataHeader.get(7), getResources().getDrawable(R.drawable.oranges));
     }
 
 
