@@ -21,6 +21,12 @@ public class User {
     private List<String> suggestions=new ArrayList<String>();
     private String sugD="";
 
+    public String getSuggestionsSummary() {
+        return suggestionsSummary;
+    }
+
+    private String suggestionsSummary="";
+
 
     private boolean isElder=false;
 
@@ -225,25 +231,25 @@ public class User {
     public String generateSuggestionD(){
 
 
-        if (score > 25) sugD= "I would suggest you to avoid consuming high-GI food.";
-        if (score > 30) sugD+="\nYou should mostly focus on the recommended low-GI food with a proper amount suggested by doctor.";
-        if (score<=25 && score > 20)  sugD="You should intentionally take food from list one and list two to avoid possible risk of diabetes. ";
-        if (score <= 20 ) sugD="You are fine based on the score! But the first two lists below are still a good choice for you to keep fit in the long run.";
+        if (score > 25) sugD= "Your health condition STATS in your profile indicates that you probably have higher risk of getting diabetes than average people. Try to avoid consuming HIGH-GI food listed below.";
+        if (score > 30) sugD="Your health condition STATS in your profile indicates that You have pretty high risk of getting diabetes. LOW_GI food is your good friend, take body examination regularly and consult a doctor";
+        if (score<=25 && score > 15)  sugD=" Your health condition STATS in your profile shows you are currently in a good stage. Though take a healthy lifestyle and MEDIUM-GI and LOW-GI food is a good reference. ";
+        if (score <= 15 ) sugD="Based on your profile, It looks you are far from getting diabetes! Though a good lifestyle is important and MEDIUM-GI and LOW-GI food is helpful in the long run.";
         return sugD;
     }
 
     //setter and getter of suggestion
     public List<String> generateSuggestion(){
         if (CCVD) suggestions.add("Chronic cerebrovascular disease is a notable killer, especially for middle-aged and elder people with diabetes.");
-        if (isElder) suggestions.add("When you are elder than 40, you've got a higher risk of diabetes and cardiovascular disease.");
+        if (isElder) suggestions.add("Since you are elder than 40, you've got a higher risk of diabetes and cardiovascular disease. Take physical examination more often!");
         if ((sedentaryJob && exerciseT <60) || (!sedentaryJob && exerciseT<30) ) suggestions.add("Your lifestyle can be classified as sedentary, do more exercise!");
-        if (weightB>=4 ) suggestions.add("Giant infant symptom could add risk of diabetes in the future.");
-        if (GDM) suggestions.add("Your mother's abnormal glucose tolerance indicates higher indicates that you would bear threats of getting diabetes.");
+        if (weightB>=4 ) suggestions.add("Giant infant symptom means you have higher risk of getting diabetes than average people in the future.");
+        if (GDM) suggestions.add("Since your mother have gestational diabetes mellitus, you would bear more threats of getting diabetes.");
         if (HDL_C<=0.91 && TG>=2.22) suggestions.add("You blood fat looks high, which may be a signal or complication of diabetes.");
-        if (diagnosedD) suggestions.add("Diabetes is mostly a life-length disease, so check your health condition and blood sugarInGram level more often. ");
-        if (score>25 || (suggestions.size()>=4)) suggestions.add("You would probably need to see the doctor or take regular medical examinations.");
-        if (suggestions.size()==0) suggestions.add("You looks fine!");
-
+        if (diagnosedD) suggestions.add("Diabetes is mostly a life-length disease, so keep checking your health condition and monitor blood sugar level. ");
+        if ( suggestions.size()>=4) suggestionsSummary="You would probably need to consult a doctor for more detailed information with following points.";
+        if (suggestions.size()==0) suggestionsSummary="You looks perfectly fine based on your optional description in profile!";
+        if (suggestions.size()<4 && suggestions.size()>0) suggestionsSummary="We have several helpful information based on your optional description in profile";
         return suggestions;
     }
 

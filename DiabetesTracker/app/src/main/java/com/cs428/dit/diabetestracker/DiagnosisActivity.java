@@ -111,7 +111,7 @@ public class DiagnosisActivity extends AppCompatActivity{
                 String score = u.getScore();
                 foodSug=u.generateSuggestionD();
                 suggestionContents= u.generateSuggestion();
-                diagnosisTitle="Diagnosis is over here";
+                diagnosisTitle=u.getSuggestionsSummary();
 
                 mLayout.removeAllViews();
                 mLayout.addView(createNewTextView(score));
