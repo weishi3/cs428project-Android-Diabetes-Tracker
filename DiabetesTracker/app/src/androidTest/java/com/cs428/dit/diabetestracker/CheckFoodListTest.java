@@ -25,10 +25,6 @@ public class CheckFoodListTest {
     public void SaveFoodListPageTest() {
         onView(withId(R.id.lvExp))
                 .check(matches(isDisplayed()));
-        onView(withId(R.id.lblListHeader))
-                .check(matches(isDisplayed()));
-        onView(withId(R.id.lblListItem))
-                .check(matches(isDisplayed()));
     }
 
 }
