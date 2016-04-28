@@ -246,7 +246,7 @@ public class User {
         if (weightB>=4 ) suggestions.add("Giant infant symptom means you have higher risk of getting diabetes than average people in the future.");
         if (GDM) suggestions.add("Since your mother have gestational diabetes mellitus, you would bear more threats of getting diabetes.");
         if (HDL_C<=0.91 && TG>=2.22) suggestions.add("You blood fat looks high, which may be a signal or complication of diabetes.");
-        if (diagnosedD) suggestions.add("Diabetes is mostly a life-length disease, so keep checking your health condition and monitor blood sugar level. ");
+        if (diagnosedD) suggestions.add("Diabetes is mostly a life-length disease, so keep checking your health condition and monitor blood sugar level.");
         if ( suggestions.size()>=4) suggestionsSummary="You would probably need to consult a doctor for more detailed information with following points.";
         if (suggestions.size()==0) suggestionsSummary="You looks perfectly fine based on your optional description in profile!";
         if (suggestions.size()<4 && suggestions.size()>0) suggestionsSummary="We have several helpful information based on your optional description in profile";
