@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
@@ -26,20 +25,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class DiagnosisActivity extends AppCompatActivity{
+public class DiagnosisActivity extends AppCompatActivity {
 
     //float BMI, float waistline, int age, int blood_pressure, boolean gender, boolean familyHistory
-
-    final Activity thisAct= this;
+    final Activity thisAct = this;
     public HashMap<String, Object> userMap;
     // instances for expandable lists
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
-    List<String> suggestionContents=null;
+    List<String> suggestionContents = null;
     HashMap<String, List<String>> listDataChild;
-    private String foodSug="Generally Suggested Diets";
-    private String diagnosisTitle="N/A Before Running Diagnosis!";
+    private String foodSug = "Generally Suggested Diets";
+    private String diagnosisTitle = "N/A Before Running Diagnosis!";
     private LinearLayout mLayout;
     private Button mButton;
     private SessionManager session;
@@ -64,19 +62,19 @@ public class DiagnosisActivity extends AppCompatActivity{
             public void onClick(View v) {
                 User u = createUser();
 
-                boolean sedentary=false;
-                int ExerciseT=80;
-                Double HDL_C=0.92;
-                Double TG=2.21;
-                int weightB=3;
-                boolean GDM =false;
-                boolean diagnosedD=false;
-                boolean psychotropic=false;
+                boolean sedentary = false;
+                int ExerciseT = 80;
+                Double HDL_C = 0.92;
+                Double TG = 2.21;
+                int weightB = 3;
+                boolean GDM = false;
+                boolean diagnosedD = false;
+                boolean psychotropic = false;
                 //Atherosclerotic CCVd: stands for chronic cerebrovascular disease
-                boolean CCVD=false;
+                boolean CCVD = false;
 
                 //does a female user has PCOS? stands for Polycystic ovary syndrome
-                boolean PCOS=false;
+                boolean PCOS = false;
 
                 // does user have psychotropic problems.
 
@@ -103,15 +101,12 @@ public class DiagnosisActivity extends AppCompatActivity{
                     PCOS = (boolean) userMap.get("PCOS");
 
 
-
-
-
-                setU(u, sedentary, ExerciseT, HDL_C, TG, weightB, GDM, diagnosedD,psychotropic,CCVD,PCOS);
+                setU(u, sedentary, ExerciseT, HDL_C, TG, weightB, GDM, diagnosedD, psychotropic, CCVD, PCOS);
 
                 String score = u.getScore();
-                foodSug=u.generateSuggestionD();
-                suggestionContents= u.generateSuggestion();
-                diagnosisTitle=u.getSuggestionsSummary();
+                foodSug = u.generateSuggestionD();
+                suggestionContents = u.generateSuggestion();
+                diagnosisTitle = u.getSuggestionsSummary();
 
                 mLayout.removeAllViews();
                 mLayout.addView(createNewTextView(score));
@@ -136,11 +131,6 @@ public class DiagnosisActivity extends AppCompatActivity{
 
 
         });
-
-
-        //add yiyu's
-        // get the listview
-
 
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
@@ -187,17 +177,17 @@ public class DiagnosisActivity extends AppCompatActivity{
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 final String selected = (String) listAdapter.getChild(groupPosition, childPosition);
-                switch(selected){
+                switch (selected) {
                     case "lowGI":
                         Intent intent = new Intent(DiagnosisActivity.this, DietLow.class);
                         startActivity(intent);
                         break;
                     case "mediumGI":
-                        intent = new Intent(DiagnosisActivity.this,DietMedium.class);
+                        intent = new Intent(DiagnosisActivity.this, DietMedium.class);
                         startActivity(intent);
                         break;
                     case "highGI":
-                        intent = new Intent(DiagnosisActivity.this,DietHigh.class);
+                        intent = new Intent(DiagnosisActivity.this, DietHigh.class);
                         startActivity(intent);
                         break;
                 }
@@ -231,7 +221,7 @@ public class DiagnosisActivity extends AppCompatActivity{
         int bloodPressure = (int) userMap.get("bloodPressure");
         boolean familyHistory = (boolean) userMap.get("familyHistory");
         boolean gender = (boolean) userMap.get("gender");
-        return new User(BMI,waistline,age,bloodPressure,familyHistory,gender);
+        return new User(BMI, waistline, age, bloodPressure, familyHistory, gender);
     }
 
 
@@ -242,29 +232,22 @@ public class DiagnosisActivity extends AppCompatActivity{
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
-
-
         // Adding child data
         listDataHeader.add(diagnosisTitle);
-
         listDataHeader.add(foodSug);
-
 
         // Adding child data
         List<String> suggestions = suggestionContents;
-        if (suggestions==null){
+        if (suggestions == null) {
             suggestions = new ArrayList<String>();
             suggestions.add("N/A");
         }
 
-
         List<String> suggestedDiets = new ArrayList<String>();
-
 
         suggestedDiets.add("lowGI");
         suggestedDiets.add("mediumGI");
         suggestedDiets.add("highGI");
-
 
         listDataChild.put(listDataHeader.get(0), suggestions); // Header, Child data
         listDataChild.put(listDataHeader.get(1), suggestedDiets);

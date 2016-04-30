@@ -12,31 +12,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ExpandableListView.OnGroupClickListener;
-import android.widget.ExpandableListView.OnGroupCollapseListener;
-import android.widget.ExpandableListView.OnGroupExpandListener;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.TextView;
-import android.widget.Toast;
+
 import android.graphics.drawable.Drawable;
-
-import com.cs428.dit.diabetestracker.helpers.SessionManager;
-import com.cs428.dit.diabetestracker.helpers.User;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class DietHigh extends AppCompatActivity {
 
@@ -44,7 +21,7 @@ public class DietHigh extends AppCompatActivity {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
-    HashMap<String,Drawable> listImageChild;
+    HashMap<String, Drawable> listImageChild;
     Intent intent;
     private Button saveButton;
 
@@ -102,7 +79,7 @@ public class DietHigh extends AppCompatActivity {
     private void prepareListData() {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
-        listImageChild = new HashMap<String,Drawable>();
+        listImageChild = new HashMap<String, Drawable>();
         // Adding child data
         listDataHeader.add("Pita Bread");
         listDataHeader.add("Melba Toast");
@@ -150,14 +127,14 @@ public class DietHigh extends AppCompatActivity {
         listDataChild.put(listDataHeader.get(7), puffedrice);
 
 
-        listImageChild.put(listDataHeader.get(0),getResources().getDrawable(R.drawable.pitabread));
-        listImageChild.put(listDataHeader.get(1),getResources().getDrawable(R.drawable.melbatoast));
-        listImageChild.put(listDataHeader.get(2),getResources().getDrawable(R.drawable.millet));
-        listImageChild.put(listDataHeader.get(3),getResources().getDrawable(R.drawable.couscous));
-        listImageChild.put(listDataHeader.get(4),getResources().getDrawable(R.drawable.mango));
-        listImageChild.put(listDataHeader.get(5),getResources().getDrawable(R.drawable.pineapple));
-        listImageChild.put(listDataHeader.get(6),getResources().getDrawable(R.drawable.favabeans));
-        listImageChild.put(listDataHeader.get(7),getResources().getDrawable(R.drawable.puffedrice));
+        listImageChild.put(listDataHeader.get(0), getResources().getDrawable(R.drawable.pitabread));
+        listImageChild.put(listDataHeader.get(1), getResources().getDrawable(R.drawable.melbatoast));
+        listImageChild.put(listDataHeader.get(2), getResources().getDrawable(R.drawable.millet));
+        listImageChild.put(listDataHeader.get(3), getResources().getDrawable(R.drawable.couscous));
+        listImageChild.put(listDataHeader.get(4), getResources().getDrawable(R.drawable.mango));
+        listImageChild.put(listDataHeader.get(5), getResources().getDrawable(R.drawable.pineapple));
+        listImageChild.put(listDataHeader.get(6), getResources().getDrawable(R.drawable.favabeans));
+        listImageChild.put(listDataHeader.get(7), getResources().getDrawable(R.drawable.puffedrice));
     }
 
 }
