@@ -173,6 +173,9 @@
     <string name="sugar_unit">grams</string>
     <string name="calories_unit">Calories</string>
     <string name="title_activity_save_diet">SaveDietActivity</string>
+    <string name="food_item_storage_endpoint">foodStats/</string>
+    <string name="calories_chart_calories_legend">Total Calories</string>
+    <string name="calories_chart_title">Daily Calories Report</string>
 
 
 </resources>
