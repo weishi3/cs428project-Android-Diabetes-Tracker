@@ -177,6 +177,7 @@
     <string name="calories_chart_calories_legend">Total Calories</string>
     <string name="calories_chart_title">Daily Calories Report</string>
     <string name="step_counter_unavailable_prompt">Counter sensor not available!</string>
+    <string name="account_used_add_food_test">addfood@test.com</string>
 
 
 </resources>
