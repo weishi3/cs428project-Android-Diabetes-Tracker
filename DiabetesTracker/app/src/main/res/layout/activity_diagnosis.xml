@@ -10,42 +10,43 @@
     tools:context="com.cs428.dit.diabetestracker.DiagnosisActivity">
 
 
-
     <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Diagnosis"
-        android:id="@+id/button"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="1dp" />
+        android:layout_marginTop="1dp"
+        android:text="Diagnosis" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/button"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
 
-        android:layout_marginTop="12dp"/>
+        android:orientation="vertical" />
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_marginTop="120dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="120dp"
         android:background="@android:color/white"
-        android:fillViewport="true" >
+        android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:weightSum="1" >
-        <ExpandableListView
+            android:weightSum="1">
 
-            android:id="@+id/lvExp"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"/>
+            <ExpandableListView
+
+                android:id="@+id/lvExp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

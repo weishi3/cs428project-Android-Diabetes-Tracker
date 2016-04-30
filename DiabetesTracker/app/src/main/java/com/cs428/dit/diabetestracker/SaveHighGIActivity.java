@@ -3,21 +3,13 @@ package com.cs428.dit.diabetestracker;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.TextView;
+
 import com.cs428.dit.diabetestracker.helpers.FoodList;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
-import android.util.Log;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 
 import com.firebase.client.Firebase;
 
@@ -64,7 +56,7 @@ public class SaveHighGIActivity extends AppCompatActivity {
                     riceNoodles = true;
                 }
                 sweetCorn = false;
-                RadioButton  sweetCornTrue= (RadioButton) findViewById(R.id.sweetCornTrue);
+                RadioButton sweetCornTrue = (RadioButton) findViewById(R.id.sweetCornTrue);
                 if (sweetCornTrue.isChecked()) {
                     sweetCorn = true;
                 }
@@ -128,7 +120,6 @@ public class SaveHighGIActivity extends AppCompatActivity {
 
                 String userEmail = userDetails.get("email").toString().replace('.', '!');
 
-                Log.d("tag", foodList);
                 FoodList.add(ac, userEmail, foodList);
 
                 Intent dietLow = new Intent(getApplicationContext(), DietLow.class);
@@ -137,7 +128,6 @@ public class SaveHighGIActivity extends AppCompatActivity {
         });
 
     }
-
 
     private void setButton(int idTrue) {
         RadioButton t = (RadioButton) findViewById(idTrue);

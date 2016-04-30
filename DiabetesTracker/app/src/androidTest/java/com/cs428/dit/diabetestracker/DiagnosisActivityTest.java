@@ -11,9 +11,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 
-/**
- * Created by liyiyu1 on 3/4/16.
- */
 public class DiagnosisActivityTest {
     @Rule
     public ActivityTestRule<DiagnosisActivity> activityTestRule =
