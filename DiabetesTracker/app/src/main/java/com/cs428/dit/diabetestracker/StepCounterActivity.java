@@ -12,8 +12,11 @@ import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.CircleProgress;
 
+/**
+ * This is the Step Counter Page
+ */
 public class StepCounterActivity extends AppCompatActivity implements SensorEventListener {
-    // sharedpref file name
+    // Sharedpreferences file name
     private static final String PREF_NAME = "StepPref";
     private static final String LastCount = "LastCount";
     // Shared preferences
@@ -32,19 +35,23 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_counter);
+        setCounterStyle();
 
-        mStepProgress = (CircleProgress) findViewById(R.id.step_circle_progress);
-        mStepProgress.setMax(MAXSTEP);
-        mStepProgress.setSuffixText("");
-
-
-
-
+        // Set SharedPreference File
         pref = getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = pref.edit();
 
         lastCount = pref.getInt(LastCount, 0);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+    }
+
+    /**
+     * Set the appearance of the counter
+     */
+    private void setCounterStyle() {
+        mStepProgress = (CircleProgress) findViewById(R.id.step_circle_progress);
+        mStepProgress.setMax(MAXSTEP);
+        mStepProgress.setSuffixText("");
     }
 
     @Override
@@ -55,7 +62,7 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
         if (countSensor != null) {
             sensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
         } else {
-            Toast.makeText(this, "Count sensor not available!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.step_counter_unavailable_prompt, Toast.LENGTH_LONG).show();
         }
 
     }
