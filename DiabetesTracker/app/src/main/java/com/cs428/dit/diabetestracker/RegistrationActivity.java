@@ -42,6 +42,9 @@ public class RegistrationActivity extends AppCompatActivity {
     int pBloodPressure;
     boolean pGender;
 
+    /*
+    * Method called when this activity is created (This screen is pulled up)
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,6 +212,12 @@ public class RegistrationActivity extends AppCompatActivity {
         return password.length() > 4;
     }
 
+    /**
+     * Ensures that the given boolean (represented by a radio button) has a value
+     * otherwise, cancel is set to true and an error is displayed next to the selection
+     * @param condition the restriction on the value
+     * @param btn the button that is displayed on the screen
+     */
     private void setBooleanCancel(boolean condition, RadioButton btn) {
         if(condition) {
             btn.setError(getString(R.string.error_field_required));
@@ -217,10 +226,15 @@ public class RegistrationActivity extends AppCompatActivity {
         }
     }
 
-    private void setValue(Firebase user, String child, Object value){
-        user.child(child).setValue(value);
-    }
-
+    /**
+     * Ensures that the given int has a value, satisfies a condition, and is a valid int
+     * otherwise, cancel is set and the appropriate error is displayed next to the field
+     * @param value the string value
+     * @param view the corresponding field
+     * @param restriction the restriction on the value
+     * @param error the error corresponding to failing the restriction
+     * @return the parsed string value
+     */
     private int setIntCancel(String value, EditText view, Restriction.int_restriction restriction, String error) {
         if(TextUtils.isEmpty(value)) {
             view.setError(getString(R.string.error_field_required));
@@ -243,15 +257,22 @@ public class RegistrationActivity extends AppCompatActivity {
             return -1; //return value not used if cancel is set
         }
     }
-    /*
-    *
+
+    /**
+     * Ensures that the dbl field has a value, fulfills a condition, and is a valid dbl
+     * otherwise, cancel is set and the appropriate error is displayed next to the field
+     * @param value the string
+     * @param view the field corresponding to the value
+     * @param restriction the restriction on the value
+     * @param error the error related to failing the restriction
+     * @return the parsed string value
      */
     private double setDblCancel(String value, EditText view, Restriction.dbl_restriction restriction, String error) {
         if(TextUtils.isEmpty(value)) {
             view.setError(getString(R.string.error_field_required));
             focusView = view;
             cancel = true;
-            return -1;
+            return -1; //return value not used if canel is set
         }
         try {
             double parsedValue = Double.parseDouble(value);
