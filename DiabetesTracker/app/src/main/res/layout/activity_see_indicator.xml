@@ -11,9 +11,9 @@
 
 
     <LinearLayout android:id="@+id/LinearLayout02" android:layout_height="wrap_content" android:layout_width="match_parent">
-        <Button android:id="@+id/Button04" android:text="Weight" android:layout_width="0dp" android:layout_weight="0.6" android:layout_height="wrap_content"></Button>
-        <Button android:id="@+id/Button05" android:text="BloodSugar" android:layout_width="0dp" android:layout_weight="0.9" android:layout_height="wrap_content"></Button>
-        <Button android:id="@+id/Button06" android:text="BloodPressure" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"></Button>
+        <Button android:id="@+id/Weight_button" android:text="Weight" android:layout_width="0dp" android:layout_weight="0.6" android:layout_height="wrap_content"></Button>
+        <Button android:id="@+id/BloodSugar_button" android:text="BloodSugar" android:layout_width="0dp" android:layout_weight="0.9" android:layout_height="wrap_content"></Button>
+        <Button android:id="@+id/BloodPressure_button" android:text="BloodPressure" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"></Button>
     </LinearLayout>
 
     <com.github.mikephil.charting.charts.LineChart
