@@ -76,7 +76,7 @@
                     android:layout_gravity="center_horizontal"
                     android:ems="10"
                     android:hint="@string/prompt_waistline"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

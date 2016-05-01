@@ -33,12 +33,21 @@ public class ProfileTest {
     public void setUp() {
         String mTestEmail = "ProfileTest_DONTREMOVE@test.com";
         String mTestPass = "password";
+        try{
+            onView(withText("OK"))
+                    .perform(click());
+        } catch (Exception e){
+        }
         try {
             openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
             onView(withText("Logout"))
                     .perform(click());
         } catch (Exception e) {
             //do nothing, not logged in
+        }
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
         }
         onView(withId(R.id.email))
                 .perform(typeText(mTestEmail));
@@ -49,6 +58,11 @@ public class ProfileTest {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
+        }
+        try{
+            onView(withText("OK"))
+                    .perform(click());
+        } catch (Exception e){
         }
         onView(withId(R.id.profileAvatar))
                 .perform(click());
