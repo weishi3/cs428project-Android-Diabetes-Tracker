@@ -38,11 +38,11 @@ public class monitorSettingTest {
 
     @Test
     public void monitorTest1(){
-        onView(withId(R.id.cw))
+        onView(withId(R.id.select_weight))
                 .perform(click(), closeSoftKeyboard());
-        onView(withId(R.id.checkBox1))
+        onView(withId(R.id.blood_sugar_check_box))
                 .perform(click(), closeSoftKeyboard());
-        onView(withId(R.id.checkBox2))
+        onView(withId(R.id.blood_pressure_check_box))
                 .perform(click(), closeSoftKeyboard());
         onView(withId(R.id.period))
                 .perform(replaceText("1"), closeSoftKeyboard());
