@@ -1,0 +1,183 @@
+<resources>
+    <string name="app_name">Diabetes Tracker</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="prompt_age">Age</string>
+    <string name="prompt_waistline">Waistline(cm)</string>
+    <string name="prompt_BMI">BMI(kg/square meter)</string>
+    <string name="prompt_family_history">Family History of Diabetes?</string>
+    <string name="prompt_gender">Gender</string>
+    <string name="prompt_blood_pressure">Blood Pressure</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_register">Register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="on_success_registration">Successfully registered</string>
+
+
+    <!-- Strings related to registration -->
+    <string name="registration_page_name">Registration</string>
+    <string name="error_not_match_password">Confirm password does not match the password.</string>
+
+    <!-- Strings related to reset password -->
+    <string name="reset_password_page_name">Reset Password</string>
+    <string name="prompt_new_password_sent">Password has been sent to your email</string>
+    <string name="error_fail_to_sent_reset_pw_email">Sorry, we are unable to process your request.</string>
+    <!-- Qi's Firebase -->
+    <string name="firebase_url">https://brilliant-fire-9755.firebaseio.com/</string>
+    <string name="welcome">Welcome</string>
+    <string name="action_logout">Logout</string>
+    <string name="forget_password_link">Forget Password?</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="reset_password_button_prompt">Reset password</string>
+
+    <!-- Home page strings -->
+    <string name="home_page_title">Home</string>
+    <string name="diagnosis_card_title">Diagnosis</string>
+    <string name="diagnosis_card_preview_text">recommendation</string>
+
+    <!-- Strings related to the Profile and Edit acitivities -->
+    <string name="error_age">Invalid age.</string>
+    <string name="error_waistline">Invalid waistline.</string>
+    <string name="error_gender">Invalid gender.</string>
+    <string name="error_num_format">Invalid number format.</string>
+    <string name="profile_no_data">N/A</string>
+
+    <!-- Diagnosis Page string -->
+    <string name="diagnosis_page_name">Diagnosis Page</string>
+
+    <!-- Edit Profile Page string -->
+    <string name="edit_profile_page_name">Edit Profile</string>
+
+    <!-- Profile Page string -->
+    <string name="profile_page_name">Profile Page</string>
+    <string name="title_activity_set_monitor_plan">SetMonitorPlan</string>
+    <string name="title_activity_step_counter">StepCounterActivity</string>
+
+    <!--Diets food string-->
+
+    <!--Low diet-->
+    <string name="DietLow0">Rice Noodles</string>
+    <string name="DietLow1">Sweet Corn</string>
+    <string name="DietLow2">Lentils</string>
+    <string name="DietLow3">Beans</string>
+    <string name="DietLow4">Yogurt</string>
+    <string name="DietLow5">Greek Yogurt</string>
+    <string name="DietLow6">Plums</string>
+    <string name="DietLow7">Oranges</string>
+    <!--stats-->
+    <string name="DietLow0gi">GI:40</string>
+    <string name="DietLow0cal">Calories per 100g:109</string>
+    <string name="DietLow1gi">GI:47</string>
+    <string name="DietLow1cal">Calories per 100g:86</string>
+    <string name="DietLow2gi">GI:21</string>
+    <string name="DietLow2cal">Calories per 100g:116</string>
+    <string name="DietLow3gi">GI:30</string>
+    <string name="DietLow3cal">Calories per 100g:347</string>
+    <string name="DietLow4gi">GI:19</string>
+    <string name="DietLow4cal">Calories per 100g:59</string>
+    <string name="DietLow5gi">GI:19</string>
+    <string name="DietLow5cal">Calories per 100g:59</string>
+    <string name="DietLow6gi">GI:24</string>
+    <string name="DietLow6cal">Calories per 100g:46</string>
+    <string name="DietLow7gi">GI:40</string>
+    <string name="DietLow7cal">Calories per 100g:47</string>
+    <!--Medium diet-->
+    <string name="DietMedium0">Rice, brown</string>
+    <string name="DietMedium1">Fruit cocktail</string>
+    <string name="DietMedium2">Apricots</string>
+    <string name="DietMedium3">Pizza, cheese</string>
+    <string name="DietMedium4">shortbread</string>
+    <string name="DietMedium5">Beetroot</string>
+    <string name="DietMedium6">Barley,flakes</string>
+    <string name="DietMedium7">Taco Shell</string>
+    <!--stats-->
+    <string name="DietMedium0gi">GI:55</string>
+    <string name="DietMedium0cal">Calories per 100g:111</string>
+    <string name="DietMedium1gi">GI:55</string>
+    <string name="DietMedium1cal">Calories per 100g:50</string>
+    <string name="DietMedium2gi">GI:57</string>
+    <string name="DietMedium2cal">Calories per 100g:48</string>
+    <string name="DietMedium3gi">GI:60</string>
+    <string name="DietMedium3cal">Calories per 100g:257</string>
+    <string name="DietMedium4gi">GI:64</string>
+    <string name="DietMedium4cal">Calories per 100g:502</string>
+    <string name="DietMedium5gi">GI:64</string>
+    <string name="DietMedium5cal">Calories per 100g:43</string>
+    <string name="DietMedium6gi">GI:66</string>
+    <string name="DietMedium6cal">Calories per 100g:354</string>
+    <string name="DietMedium7gi">GI:68</string>
+    <string name="DietMedium7cal">Calories per 100g:150</string>
+
+    <!--High diet-->
+    <string name="DietHigh0">Pita Bread</string>
+    <string name="DietHigh1">Melba Toast</string>
+    <string name="DietHigh2">Bulgar</string>
+    <string name="DietHigh3">Couscous</string>
+    <string name="DietHigh4">Mango</string>
+    <string name="DietHigh5">Pineapple</string>
+    <string name="DietHigh6">Fava Beans</string>
+    <string name="DietHigh7">Puffed Rice</string>
+    <!--stats-->
+
+    <string name="DietHigh0gi">GI:58</string>
+    <string name="DietHigh0cal">Calories per 100g:275</string>
+    <string name="DietHigh1gi">GI:71</string>
+    <string name="DietHigh1cal">Calories per 100g:390</string>
+    <string name="DietHigh2gi">GI:71</string>
+    <string name="DietHigh2cal">Calories per 100g:378</string>
+    <string name="DietHigh3gi">GI:65</string>
+    <string name="DietHigh3cal">Calories per 100g:112</string>
+    <string name="DietHigh4gi">GI:56</string>
+    <string name="DietHigh4cal">Calories per 100g:60</string>
+    <string name="DietHigh5gi">GI:66</string>
+    <string name="DietHigh5cal">Calories per 100g:50</string>
+    <string name="DietHigh6gi">GI:80</string>
+    <string name="DietHigh6cal">Calories per 100g:88</string>
+    <string name="DietHigh7gi">GI:90</string>
+    <string name="DietHigh7cal">Calories per 100g:402</string>
+    <!-- User Page string -->
+
+    <!-- Tutorial related strings -->
+    <string name="tutorial_profile_avatar_title">Profile</string>
+    <string name="tutorial_profile_avatar_content">Click for more</string>
+    <string name="tutorial_diagnosis_title">Diagnosis Preview</string>
+    <string name="tutorial_diagnosis_content">Click for more</string>
+    <string name="tutorial_calories_card_view_title">Calories Consumed Today</string>
+    <string name="tutorial_calories_card_view_content"></string>
+    <string name="tutorial_calories_add_food_title">Log food</string>
+    <string name="tutorial_calories_add_food_content">Click to log food</string>
+    <string name="tutorial_calories_step_title">Exercise Mode</string>
+    <string name="tutorial_calories_step_content">Click to open the step counter</string>
+    <string name="tutorial_calories_see_history_title">Calories History</string>
+    <string name="tutorial_calories_see_history_content">Show Calories History Chart</string>
+    <string name="tutorial_indicator_card_view_title">Indicator Card</string>
+    <string name="tutorial_indicator_card_view_content">Click for more</string>
+    <string name="tutorial_indicator_settings_title">Indicator Settings</string>
+    <string name="tutorial_indicator_settings_content">Click to tune your settings</string>
+    <string name="tutorial_indicator_add_title">Add Indcator</string>
+    <string name="tutorial_indicator_add_content"></string>
+    <string name="tutorial_indicator_history_title">Indicator History</string>
+    <string name="tutorial_indicator_history_content">Show Indicator History Chart</string>
+    <string name="prompt_food_empty">item_name_not_entered</string>
+    <string name="food_log_date_format">yyyy/MM/dd</string>
+    <string name="sugar_unit">grams</string>
+    <string name="calories_unit">Calories</string>
+    <string name="title_activity_save_diet">SaveDietActivity</string>
+    <string name="food_item_storage_endpoint">foodStats/</string>
+    <string name="calories_chart_calories_legend">Total Calories</string>
+    <string name="calories_chart_title">Daily Calories Report</string>
+    <string name="step_counter_unavailable_prompt">Counter sensor not available!</string>
+    <string name="account_used_add_food_test">addfood@test.com</string>
+
+
+</resources>

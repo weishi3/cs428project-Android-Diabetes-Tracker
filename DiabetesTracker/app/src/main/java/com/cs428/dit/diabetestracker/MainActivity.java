@@ -1,0 +1,485 @@
+package com.cs428.dit.diabetestracker;
+
+import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.cs428.dit.diabetestracker.helpers.FoodItemLog;
+import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
+import com.cs428.dit.diabetestracker.helpers.Monitor;
+import com.cs428.dit.diabetestracker.helpers.MonitorPressure;
+import com.cs428.dit.diabetestracker.helpers.MonitorSetting;
+import com.cs428.dit.diabetestracker.helpers.SessionManager;
+import com.cs428.dit.diabetestracker.helpers.ShowcaseManager;
+import com.cs428.dit.diabetestracker.helpers.ShowcaseParam;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MAIN_ACTIVITY";
+    private SessionManager session;
+    private TextView mTextCalories;
+    private TextView units;
+    private TextView mTextBloodSugar;
+    public MonitorPressure monitorP;
+    public Monitor monitor;
+    public int countMo=-1;
+    public String toDisplay;
+    public ArrayList<String> toMonitor;
+    private ShowcaseManager showcaseManager;
+    public NotificationCompat.Builder mBuilder;
+    public  NotificationManager mNotificationManager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "on create");
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        session = new SessionManager(getApplicationContext());
+//        session = new SessionManager(this);
+        Log.d("ON_CREATE", (session.getUserDetails()+""));
+
+        ImageView profileAvatar = (ImageView) findViewById(R.id.profileAvatar);
+        CardView diagnosisCard = (CardView) findViewById(R.id.diagnosis_card_view);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        // Food part
+        ImageButton logFoodButton = (ImageButton) findViewById(R.id.button_log_food);
+        ImageButton caloriesHistoryButton = (ImageButton) findViewById(R.id.button_see_calories_history);
+        LinearLayout caloriesStatsLayout = (LinearLayout) findViewById(R.id.layout_calories_stats);
+        mTextCalories = (TextView) findViewById(R.id.total_calories_main);
+
+        // Indicator part
+        ImageButton logIndicatorButton = (ImageButton) findViewById(R.id.button_log_indicator);
+        ImageButton monitorPlanButton = (ImageButton) findViewById(R.id.button_monitor_plan);
+        ImageButton indicatorHistoryButton = (ImageButton) findViewById(R.id.button_see_indicator_history);
+        LinearLayout indicatorLayout = (LinearLayout) findViewById(R.id.layout_indicator_stats);
+        mTextBloodSugar = (TextView) findViewById(R.id.total_indicator_main);
+
+        //step counter
+        ImageButton walkStepButton= (ImageButton)findViewById(R.id.button_step_counter);
+        walkStepButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent stepCounterIntent=new Intent(getApplicationContext(),StepCounterActivity.class);
+                startActivity(stepCounterIntent);
+            }
+        });
+
+        //Go to profile page when the user click the avatar
+        profileAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profile = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(profile);
+            }
+        });
+
+        //Go to diagnosis page when the user click the card
+        diagnosisCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent diagnosis = new Intent(getApplicationContext(), DiagnosisActivity.class);
+                startActivity(diagnosis);
+            }
+        });
+
+        //Go to add food item page
+        logFoodButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent logFoodIntent = new Intent(getApplicationContext(), AddFoodItemActivity.class);
+                startActivity(logFoodIntent);
+            }
+        });
+
+        //Go to food calories history page
+        caloriesHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent caloriesHistoryIntent = new Intent(getApplicationContext(), SeeCaloriesActivity.class);
+                startActivity(caloriesHistoryIntent);
+            }
+        });
+
+        //Go to food log page
+        //This is the calories card view on click
+        caloriesStatsLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent foodLogIntent = new Intent(getApplicationContext(), FoodLogActivity.class);
+                startActivity(foodLogIntent);
+            }
+        });
+
+        //Go to add indicator page
+        logIndicatorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent logIndicatorIntent = new Intent(getApplicationContext(), AddIndicatorActivity.class);
+                startActivity(logIndicatorIntent);
+            }
+        });
+
+        monitorPlanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent monitorPlanIntent = new Intent(getApplicationContext(), SetMonitorPlan.class);
+                startActivity(monitorPlanIntent);
+            }
+        });
+
+        //Go to indicator history page
+        indicatorHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent indicatorHistoryIntent = new Intent(getApplicationContext(), SeeIndicatorActivity.class);
+                startActivity(indicatorHistoryIntent);
+            }
+        });
+
+        indicatorLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent indicatorLogIntent = new Intent(getApplicationContext(), IndicatorLogActivity.class);
+                startActivity(indicatorLogIntent);
+            }
+        });
+
+        // Show tutorial
+        showTutorial();
+
+
+    }
+
+    /**
+     * Show tutorial on views
+     * TODO: Fix login keyboard blocking the tutorial
+     */
+    private void showTutorial() {
+        showcaseManager = new ShowcaseManager();
+        ShowcaseView.Builder showcaseView = null;
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.profileAvatar, getString(R.string.tutorial_profile_avatar_title), getString(R.string.tutorial_profile_avatar_content), 0, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.diagnosis_card_view, getString(R.string.tutorial_diagnosis_title), getString(R.string.tutorial_diagnosis_content), 1, showcaseView));
+
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.calories_card_view, getString(R.string.tutorial_calories_card_view_title), getString(R.string.tutorial_calories_card_view_content), 2, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_step_counter, getString(R.string.tutorial_calories_step_title), getString(R.string.tutorial_calories_step_content), 3, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_log_food, getString(R.string.tutorial_calories_add_food_title), getString(R.string.tutorial_calories_add_food_content), 4, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_see_calories_history, getString(R.string.tutorial_calories_see_history_title), getString(R.string.tutorial_calories_see_history_content), 5, showcaseView));
+
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.indicator_card_view, getString(R.string.tutorial_indicator_card_view_title), getString(R.string.tutorial_indicator_card_view_content), 6, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_monitor_plan, getString(R.string.tutorial_indicator_settings_title), getString(R.string.tutorial_indicator_settings_content), 7, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_log_indicator, getString(R.string.tutorial_indicator_add_title), getString(R.string.tutorial_indicator_add_content), 8, showcaseView));
+        showcaseManager.addNextShowcaseParam(new ShowcaseParam(this, R.id.button_see_indicator_history, getString(R.string.tutorial_indicator_history_title), getString(R.string.tutorial_indicator_history_content), 9, showcaseView));
+
+        showcaseManager.buildAllShowcases();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+         mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_add_black_24dp)
+                        .setContentTitle(" A KIND REMINDER FROM Diabetes Tracker.")
+                        .setAutoCancel(true)
+                        .setContentText("Input your health indicator today!");
+// Creates an explicit intent for an Activity in your app
+        Intent resultIntent = new Intent(this, AddIndicatorActivity.class);
+
+// The stack builder object will contain an artificial back stack for the
+// started Activity.
+// This ensures that navigating backward from the Activity leads out of
+// your application to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+// Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(AddIndicatorActivity.class);
+// Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+// mId allows you to update the notification later on.
+        mNotificationManager.notify(111, mBuilder.build());
+
+
+
+
+
+
+
+        String baseURL = getString(R.string.firebase_url);
+        Log.d("USER_EMAIL", session.getUserDetails().toString());
+        String userStatsURL = "foodStats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL) + "").replace('.', '!');
+        userStatsURL = baseURL + userStatsURL;
+        Firebase statsRef = new Firebase(userStatsURL);
+        statsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+                final String day = dateformat.format(new Date());
+                double tCal = 0.0;
+
+                for (DataSnapshot foodItemLogSnapshot : dataSnapshot.getChildren()) {
+                    FoodItemLog oneLog = foodItemLogSnapshot.getValue(FoodItemLog.class);
+                    if (day.equals(oneLog.getDate())) {
+                        tCal += (oneLog.getFood().getKilocalorie());
+                    }
+                }
+
+                if (tCal < 0.0) {
+                    tCal = 0.0;
+                }
+
+                mTextCalories.setText(tCal + "");
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+
+
+
+
+
+        String baseURL3 = getString(R.string.firebase_url);
+        String userMonitorSettingURL = "monitorsetting/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.', '!');
+        userMonitorSettingURL = baseURL3 + userMonitorSettingURL;
+        Firebase monitorSettingRef = new Firebase(userMonitorSettingURL);
+        monitorSettingRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                MonitorSetting sets = dataSnapshot.getValue(MonitorSetting.class);
+                if (sets==null) {
+                    Firebase mRef = new Firebase(getString(R.string.firebase_url));
+                    String userSettingURL = "monitorsetting/" + session.getUserDetails().get(SessionManager.KEY_EMAIL);
+                    userSettingURL = userSettingURL.replace('.', '!');
+                    ArrayList<String> temp= new ArrayList<String>();
+                    temp.add("bloodSugar");
+                    MonitorSetting ms = new MonitorSetting(3, "bloodSugar", temp);
+                    mRef = mRef.child(userSettingURL);
+                    mRef.setValue(ms);
+                    countMo = 3;
+                    toDisplay = "bloodSugar";
+                    toMonitor = temp;
+
+
+                }else {
+
+
+                    countMo = sets.numDaysMonitor;
+                    toDisplay = sets.indicatorType;
+                    toMonitor = sets.warningMessage;
+                }
+                // Indicator
+                String baseURL2 = getString(R.string.firebase_url);
+
+
+                //add by weishi
+                //what would be shown on card?
+                //dialog
+                monitor = new Monitor(3);
+                monitorP = new MonitorPressure(3);
+                String userIndicatorURL = "userstats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL) + "").replace('.', '!');
+                userIndicatorURL = baseURL2 + userIndicatorURL;
+                Firebase indicatorRef = new Firebase(userIndicatorURL);
+                indicatorRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                        final String day = dateformat.format(new Date());
+
+                        //may not necessary to be blood sugar
+                        double bloodSugar = 0.0;
+
+
+                        System.out.println(toDisplay);
+                        if (countMo != -1) {
+                            monitor.setCount(countMo);
+                            monitorP.count = countMo;
+                        }
+                        units = (TextView) findViewById(R.id.unit);
+
+                        if (toDisplay == null) toDisplay = "bloodSugar";
+                        if (toDisplay.equals("bloodSugar")) {
+
+                            units.setText("mmol/L");
+                            for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
+
+                                IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
+                                if (day.equals(oneLog.getDate())) {
+
+                                    bloodSugar = (oneLog.getIndicator().getBloodSugar());
+
+                                }
+
+                                monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
+                                monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
+                            }
+                        }
+
+                        if (toDisplay.equals("bloodPressure")) {
+                            units.setText("mmHg");
+                            //
+                            for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
+
+                                IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
+                                if (day.equals(oneLog.getDate())) {
+
+                                    bloodSugar = (oneLog.getIndicator().getBloodPressure());
+
+                                }
+
+                                monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
+                                monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
+                            }
+                        }
+
+                        if (toDisplay.equals("weight")) {
+                            units.setText("kg");
+                            //
+                            for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
+                                IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
+                                if (day.equals(oneLog.getDate())) {
+                                    bloodSugar = (oneLog.getIndicator().getWeight());
+
+                                }
+
+                                monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
+                                monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
+                            }
+                        }
+                        monitorP.detectWarning();
+                        monitor.detectWarning();
+                        String toOutput = "";
+                        boolean need = false;
+                        if (toMonitor == null) toMonitor = new ArrayList<String>();
+                        if (toMonitor.contains("bloodSugar") && monitor.getWarning()) {
+                            toOutput += "Blood Sugar Stats";
+                            need = true;
+
+                        }
+
+                        if (toMonitor.contains("bloodPressure") && monitorP.warning) {
+                            if (toOutput == "") toOutput += "Blood Pressure Stats";
+                            else toOutput += " and Blood Pressure Stats";
+                            need = true;
+                        }
+
+                        // need to modify warning message!
+                        if (need) {
+                            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                            alertDialog.setTitle("A KIND REMINDER");
+                            alertDialog.setMessage("Your " + toOutput + " may indicate that you are in a bad health condition!");
+                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+
+                            alertDialog.setIcon(R.drawable.cross);
+                            if (!isFinishing()) {
+                                alertDialog.show();
+                            }
+                        }
+
+                        //
+
+
+                        //
+
+                        if (bloodSugar < 0.0) {
+                            bloodSugar = 0.0;
+                        }
+
+                        mTextBloodSugar.setText(bloodSugar + "");
+
+                        if (bloodSugar!=0.0)
+                            mNotificationManager.cancel(111);
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+
+                    }
+
+
+                });
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+
+
+        });
+
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //handle logout
+        if (id == R.id.action_logout) {
+            session.logoutUser();
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}
