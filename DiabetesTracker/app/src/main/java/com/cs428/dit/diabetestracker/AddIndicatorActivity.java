@@ -116,8 +116,6 @@ public class AddIndicatorActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
 

@@ -1,11 +1,9 @@
 package com.cs428.dit.diabetestracker;
 
-import android.content.Intent;
+
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View.OnClickListener;
 
 import com.cs428.dit.diabetestracker.helpers.IndicatorItemLog;
@@ -19,21 +17,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
-
-
-import java.util.Arrays;
-import java.util.HashMap;
-
-import android.os.Bundle;
 import android.view.View;
-import android.webkit.WebIconDatabase;
 import android.widget.Button;
-
-import com.cs428.dit.diabetestracker.helpers.SessionManager;
-
-
-import com.github.mikephil.charting.data.*;
-
 
 import java.util.ArrayList;
 
