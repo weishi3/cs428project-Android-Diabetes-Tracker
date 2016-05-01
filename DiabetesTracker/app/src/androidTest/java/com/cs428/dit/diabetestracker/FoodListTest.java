@@ -1,17 +1,12 @@
 package com.cs428.dit.diabetestracker;
 
 import com.cs428.dit.diabetestracker.helpers.FoodList;
-import com.cs428.dit.diabetestracker.helpers.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
-import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
@@ -20,9 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Date;
-
-import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static junit.framework.Assert.assertEquals;
@@ -42,8 +34,8 @@ public class FoodListTest {
     }
 
     @Rule
-    public ActivityTestRule<SaveLowGIDietActivity> saveDietActivityRule =
-            new ActivityTestRule<>(SaveLowGIDietActivity.class);
+    public ActivityTestRule<SaveLowGIActivity> saveDietActivityRule =
+            new ActivityTestRule<>(SaveLowGIActivity.class);
 
     private void testFoodList(boolean riceNoodles, boolean lentils, boolean sweetCorn, boolean beans, boolean yogurt, boolean greekYogurt,
                               boolean oranges, boolean plums){

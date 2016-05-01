@@ -1,7 +1,6 @@
 package com.cs428.dit.diabetestracker;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -53,8 +52,6 @@ public class DiagnosisActivity extends AppCompatActivity {
         //mEditText = (EditText) findViewById(R.id.)
         mButton = (Button) findViewById(R.id.button);
 
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
-
         // preparing list data
         prepareListData();
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +97,6 @@ public class DiagnosisActivity extends AppCompatActivity {
                 if (userMap.containsKey("PCOS") && userMap.get("PCOS") != null)
                     PCOS = (boolean) userMap.get("PCOS");
 
-
                 setU(u, sedentary, ExerciseT, HDL_C, TG, weightB, GDM, diagnosedD, psychotropic, CCVD, PCOS);
 
                 String score = u.getScore();
@@ -128,49 +124,21 @@ public class DiagnosisActivity extends AppCompatActivity {
                 textView.setText("The score is: " + score);
                 return textView;
             }
-
-
         });
 
+        popDataIntoExpandableList();
+    }
+
+    private void popDataIntoExpandableList() {
+        expListView = (ExpandableListView) findViewById(R.id.lvExp);
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-
-        // setting list adapter
         expListView.setAdapter(listAdapter);
-        // Listview Group click listener
-        expListView.setOnGroupClickListener(new OnGroupClickListener() {
 
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
+        setUpGroupListener();
+        setUpChildListener();
+    }
 
-                return false;
-            }
-        });
-
-        // Listview Group expanded listener
-        expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Listview Group collasped listener
-        expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        final Context x = this;
-        // Listview on child click listener
+    private void setUpChildListener() {
         expListView.setOnChildClickListener(new OnChildClickListener() {
 
             @Override
@@ -191,17 +159,46 @@ public class DiagnosisActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                 }
-
-
                 return false;
             }
         });
     }
 
+    private void setUpGroupListener() {
+        expListView.setOnGroupClickListener(new OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+
+                return false;
+            }
+        });
+
+        expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        listDataHeader.get(groupPosition) + " Expanded",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        listDataHeader.get(groupPosition) + " Collapsed",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
 
     public void setU(User u, boolean sedentary, int exerciseT, Double HDL_C, Double TG, int weightB, boolean GDM, boolean diagnosedD, boolean psychotropic, boolean CCVD, boolean PCOS) {
         u.setSedentaryJob(sedentary);
-
         u.setExerciseT(exerciseT);
         u.setDiagnosedD(diagnosedD);
         u.setGDM(GDM);
@@ -224,19 +221,14 @@ public class DiagnosisActivity extends AppCompatActivity {
         return new User(BMI, waistline, age, bloodPressure, familyHistory, gender);
     }
 
-
-    /*
-     * Preparing the list data
-     */
     private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
+        prepareListDataHeader();
+        prepareListItemData();
+    }
+
+    private void prepareListItemData() {
         listDataChild = new HashMap<String, List<String>>();
 
-        // Adding child data
-        listDataHeader.add(diagnosisTitle);
-        listDataHeader.add(foodSug);
-
-        // Adding child data
         List<String> suggestions = suggestionContents;
         if (suggestions == null) {
             suggestions = new ArrayList<String>();
@@ -249,9 +241,14 @@ public class DiagnosisActivity extends AppCompatActivity {
         suggestedDiets.add("mediumGI");
         suggestedDiets.add("highGI");
 
-        listDataChild.put(listDataHeader.get(0), suggestions); // Header, Child data
+        listDataChild.put(listDataHeader.get(0), suggestions);
         listDataChild.put(listDataHeader.get(1), suggestedDiets);
     }
 
+    private void prepareListDataHeader() {
+        listDataHeader = new ArrayList<String>();
 
+        listDataHeader.add(diagnosisTitle);
+        listDataHeader.add(foodSug);
+    }
 }

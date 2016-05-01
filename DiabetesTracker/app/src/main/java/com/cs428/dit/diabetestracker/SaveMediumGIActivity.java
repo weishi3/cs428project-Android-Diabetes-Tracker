@@ -8,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+
 import com.cs428.dit.diabetestracker.helpers.FoodList;
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
 import com.firebase.client.Firebase;
+
 import java.util.HashMap;
 
 public class SaveMediumGIActivity extends AppCompatActivity {
@@ -25,7 +27,7 @@ public class SaveMediumGIActivity extends AppCompatActivity {
     private boolean greekYogurt = false;
     private boolean plums = false;
     private boolean oranges = false;
-    private Context ac;
+    private Context applicationContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +36,8 @@ public class SaveMediumGIActivity extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
         Firebase.setAndroidContext(this);
         userDetails = session.getUserDetails();
-        ac = this;
-        intializeAllButton();
+        applicationContext = this;
+        initializeAllButton();
         Button submitBtn = (Button) findViewById(R.id.submitBtn);
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
@@ -44,7 +46,7 @@ public class SaveMediumGIActivity extends AppCompatActivity {
                 updateAllButtonInfo();
                 String foodList = getFoodList();
                 String userEmail = userDetails.get("email").toString().replace('.', '!');
-                FoodList.add(ac, userEmail, foodList);
+                FoodList.add(applicationContext, userEmail, foodList);
 
                 Intent dietLow = new Intent(getApplicationContext(), DietLow.class);
                 startActivity(dietLow);
@@ -94,12 +96,12 @@ public class SaveMediumGIActivity extends AppCompatActivity {
         oranges = updateButtonInfo(R.id.orangesTrue);
     }
 
-    private boolean updateButtonInfo(int buttonId){
+    private boolean updateButtonInfo(int buttonId) {
         RadioButton buttonTrue = (RadioButton) findViewById(buttonId);
         return buttonTrue.isChecked();
     }
 
-    private void intializeAllButton() {
+    private void initializeAllButton() {
         setButton(R.id.riceNoodlesTrue);
         setButton(R.id.sweetCornTrue);
         setButton(R.id.lentilsTrue);
