@@ -148,8 +148,9 @@ public class SessionManager {
         editor.commit();
     }
 
+//    Helper functions to set a specific value using the data in userDetails
     /**
-     * Helper functions to set a specific value using the data in userDetails
+     * sets a decimal number value
      * @param userDetails map containing the user's information
      * @param key the parameter we are updating
      */
@@ -161,6 +162,12 @@ public class SessionManager {
             editor.remove(key);
         }
     }
+
+    /**
+     * sets a boolean number value
+     * @param userDetails map containing the user's information
+     * @param key the parameter we are updating
+     */
     private void setBoolean(Map<String, Object> userDetails, String key){
         Object temp = userDetails.get(key);
         if( temp != null ){
@@ -169,7 +176,13 @@ public class SessionManager {
             editor.remove(key);
         }
     }
-    //int objects are stored as longs in Firebase
+    /**
+     * sets an integer value, this will be used only when we get
+     * the int from firebase, as it is stored there as a long but
+     * stored in our app as an int
+     * @param userDetails map containing the user's information
+     * @param key the parameter we are updating
+     */
     private void setLongInt(Map<String, Object> userDetails, String key){
         Object temp = userDetails.get(key);
         if( temp != null) {
@@ -178,6 +191,11 @@ public class SessionManager {
             editor.remove(key);
         }
     }
+    /**
+     * sets an integer value
+     * @param userDetails map containing the user's information
+     * @param key the parameter we are updating
+     */
     private void setInt(Map<String, Object> userDetails, String key){
         Object temp = userDetails.get(key);
         if (temp != null) {

@@ -25,7 +25,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  */
 public class ProfileTest {
 
-
+    /*
+        Logs the user out and logs in as our test user,
+        then navigates to the profile page
+     */
     @Before
     public void setUp() {
         String mTestEmail = "ProfileTest_DONTREMOVE@test.com";
@@ -55,12 +58,19 @@ public class ProfileTest {
     public ActivityTestRule<LoginActivity> activityTestRule =
             new ActivityTestRule<>(LoginActivity.class);
 
+    /*
+        Verifies that we start on the profile page and that
+        we can see the edit button
+     */
     @Test
     public void showButtonTest() {
         onView(withId(R.id.editBtn))
                 .check(matches(isDisplayed()));
     }
 
+    /*
+        Checks that we can see user information on the profile page
+     */
     @Test
     public void checkAge() {
         onView(withId(R.id.age))
@@ -68,6 +78,9 @@ public class ProfileTest {
 
     }
 
+    /*
+        Changes one parameter and verifies the result
+     */
     @Test
     public void changeAge() {
         onView(withId(R.id.editBtn))
@@ -90,6 +103,9 @@ public class ProfileTest {
                 .check(matches(withText("25")));
     }
 
+    /*
+        Changes all the parameters and verifies results
+     */
     @Test
     public void changeUserData() {
         onView(withId(R.id.editBtn))
@@ -174,6 +190,9 @@ public class ProfileTest {
 
     }
 
+    /*
+        Sets a few parameters to null and verifies results
+     */
     @Test
     public void setNullValues() {
         onView(withId(R.id.editBtn))
@@ -210,6 +229,11 @@ public class ProfileTest {
                 .check(matches(withText("N/A")));
     }
 
+    /*
+        Attempts to submit invalid inputs and verifies the error messages
+        and that the changes were not submitted
+
+     */
     @Test
     public void invalidInputs() {
         onView(withId(R.id.editBtn))
@@ -291,6 +315,10 @@ public class ProfileTest {
         onView(withId(R.id.TG))
                 .check(matches(ErrorMatcher.withError(errorText)));
     }
+    /*
+        Attempts to submit invalid inputs then fixes them and
+        verifies the changes go through
+     */
     @Test
     public void fixInvalidInputs() {
         onView(withId(R.id.editBtn))
