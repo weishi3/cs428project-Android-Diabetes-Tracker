@@ -82,7 +82,7 @@ public class RegistrationActivityTest {
     }
     /*
         Performs a valid registration with the strings from setUp,
-        verifies that the user was created in our database,
+        verifies that the user was created in firebase,
         and checks that the inputs match on the user's profile page
      */
     @Test
