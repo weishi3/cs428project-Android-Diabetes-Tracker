@@ -22,6 +22,11 @@ public class EditProfileActivity extends AppCompatActivity {
     private HashMap<String, Boolean> isNull = new HashMap<String, Boolean>();
     private View focusView;
     private boolean cancel;
+
+    /**
+     * Method that is called when this activity is created (when this screen is pulled up)
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +143,14 @@ public class EditProfileActivity extends AppCompatActivity {
         }
         view.setText( text.toString() );
     }
+
+    /**
+     * Sets the current value of the button group
+     * @param key the name of the value in the database
+     * @param idTrue id of the true button
+     * @param idFalse id of the false button
+     * @param idPNTA id of the "Prefer not to Answer" button
+     */
     private void setButton(String key, int idTrue, int idFalse, int idPNTA) {
         Boolean value = (Boolean)userDetails.get(key);
         if( value == null ){
@@ -154,6 +167,13 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Updates the value in the database and SessionManager
+     * @param key the name of the value
+     * @param isNull whether or not the value is null
+     * @param value the value
+     * @param user the Firebase pointing to this user
+     */
     private void updateValue(String key, boolean isNull, Object value, Firebase user){
         Firebase thisValue = user.child(key);
         if (isNull) {
@@ -165,10 +185,21 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Empty method required for radio button use
+     * @param view the button on the screen
+     */
     public void onRadioButtonClicked(View view) {
 
     }
 
+    /**
+     * Gets the value of a boolean value from a radio button
+     * @param key the name of the value
+     * @param id_t id of the true button
+     * @param id_f id of the false button
+     * @return the parsed value
+     */
     private boolean getBoolean(String key, int id_t, int id_f){
         isNull.put(key, true);
         RadioButton t = (RadioButton) findViewById(id_t);
@@ -187,6 +218,15 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Attempts to parse an int value from a text field
+     * @param view_id the id of the field on the screen
+     * @param canBeNull whether or not this field is optional
+     * @param key the name of the field in the database
+     * @param rest int_restriction used to restrict the value of the int
+     * @param error the error corresponding to the failing the int_restriction
+     * @return the parsed int
+     */
     private int setIntCancel(int view_id, boolean canBeNull, String key, Restriction.int_restriction rest, String error) {
         TextView view = (TextView) findViewById(view_id);
         int retval;
@@ -215,8 +255,14 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    * returns parsed value
+    /**
+     * Attempts to parse a dbl from a text field
+     * @param view_id the id of the field on the screen
+     * @param canBeNull whether or not the field is optional
+     * @param key the name of the field in the database
+     * @param rest the dbl_restriction used to restrict the value of the dbl
+     * @param error the error corresponding to failng the dbl_restriction
+     * @return the parse value
      */
     private double setDblCancel(int view_id, boolean canBeNull, String key, Restriction.dbl_restriction rest, String error) {
         double retval;
@@ -246,6 +292,10 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Initializes the optional fields in the isNull Hashmap denoting that they are initially not
+     * null.
+     */
     private void initializeIsNull(){
         isNull.put("sedentary", false);
         isNull.put("exercise", false);

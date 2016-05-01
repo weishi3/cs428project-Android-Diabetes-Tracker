@@ -35,7 +35,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-public class monitorSettingTest {
+public class MonitorSettingTest {
 
     public static final int SLEEPTIME = 2500;
     static String fbURL;

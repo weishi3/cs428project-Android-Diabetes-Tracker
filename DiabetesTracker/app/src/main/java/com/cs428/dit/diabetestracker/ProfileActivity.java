@@ -16,6 +16,9 @@ public class ProfileActivity extends AppCompatActivity {
     private SessionManager session;
     private HashMap<String, Object> userDetails;
 
+    /*
+    * Method that is called when this activity is created (when this screen is pulled up)
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
