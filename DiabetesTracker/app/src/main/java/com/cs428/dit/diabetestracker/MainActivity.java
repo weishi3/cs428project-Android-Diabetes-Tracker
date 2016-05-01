@@ -44,6 +44,13 @@ import java.util.Date;
  */
 
 public class MainActivity extends AppCompatActivity {
+    /*
+     * Textview mTextColories, units, mTextBloodSugar: The text appears on the card view
+     * Session: The session object which stores all the user information
+     * ShowcaseManager: The tutorial object
+     * notificationManager: the notification on top for the monitor plan
+     * alertDialog: the alert window for monitor plan
+     */
     private static final String TAG = "MAIN_ACTIVITY";
     private SessionManager session;
     private TextView mTextCalories;
@@ -151,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Set monitor plan
         monitorPlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Go to indicator log page
         indicatorLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Show tutorial
         showTutorial();
-
 
     }
 
@@ -217,8 +225,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-         mBuilder =
-                new NotificationCompat.Builder(this)
+         mBuilder = new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_add_black_24dp)
                         .setContentTitle(" A KIND REMINDER FROM Diabetes Tracker.")
                         .setAutoCancel(true)
