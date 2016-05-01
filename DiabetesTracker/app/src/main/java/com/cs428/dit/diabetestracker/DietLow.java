@@ -27,6 +27,9 @@ public class DietLow extends AppCompatActivity {
     private Button saveButton;
     private Button checkButton;
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

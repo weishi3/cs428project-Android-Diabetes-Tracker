@@ -19,7 +19,7 @@ import com.firebase.client.Firebase;
 import java.util.ArrayList;
 
 /*
- * This activity is to 
+ * This activity is to
  */
 public class SetMonitorPlan extends AppCompatActivity {
 

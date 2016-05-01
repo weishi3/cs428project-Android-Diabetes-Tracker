@@ -80,7 +80,6 @@ public class ShowcaseManager {
         int margin = ((Number) (showcaseParam.getMainActivity().getResources().getDisplayMetrics().density * 16)).intValue();
         lps.setMargins(margin, margin, margin, margin);
 
-
         showcaseParam.setShowcaseView(new ShowcaseView.Builder(showcaseParam.getMainActivity())
                 .withMaterialShowcase()
                 .setStyle(R.style.ShowcaseViewStyle)
@@ -94,28 +93,21 @@ public class ShowcaseManager {
                     public void onShowcaseViewHide(ShowcaseView showcaseView) {
 
                     }
-
                     @Override
                     public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
                         // When this showcaseView is dismissed, show the next showcase
                         showNext();
                     }
-
                     @Override
                     public void onShowcaseViewShow(ShowcaseView showcaseView) {
 
                     }
-
                     @Override
                     public void onShowcaseViewTouchBlocked(MotionEvent motionEvent) {
 
                     }
                 }));
         ShowcaseView sv = showcaseParam.getShowcaseView().build();
-
-
-        sv.setButtonPosition(lps);
-
-
+        sv.setButtonPosition(lps); // Move OK button to the bottom left
     }
 }
