@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private ShowcaseManager showcaseManager;
     public NotificationCompat.Builder mBuilder;
     public  NotificationManager mNotificationManager;
+    public AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -329,6 +330,8 @@ public class MainActivity extends AppCompatActivity {
                 indicatorRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (alertDialog!=null)
+                          alertDialog.dismiss();
 
                         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                         final String day = dateformat.format(new Date());
@@ -412,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // need to modify warning message!
                         if (need) {
-                            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                            alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                             alertDialog.setTitle("A KIND REMINDER");
                             alertDialog.setMessage("Your " + toOutput + " may indicate that you are in a bad health condition!");
                             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -421,6 +424,7 @@ public class MainActivity extends AppCompatActivity {
                             });
 
                             alertDialog.setIcon(R.drawable.cross);
+
                             if (!isFinishing()) {
                                 alertDialog.show();
                             }

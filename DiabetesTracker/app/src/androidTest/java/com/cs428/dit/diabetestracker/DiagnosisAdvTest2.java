@@ -83,7 +83,7 @@ public class DiagnosisAdvTest2 {
 
 
     @Test
-    public void monitorTest1(){
+    public void diagnosisADV2(){
 
 
 
