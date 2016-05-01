@@ -142,7 +142,7 @@
             android:label="@string/title_activity_step_counter"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SaveLowGIDietActivity"
+            android:name=".SaveLowGIActivity"
             android:label="Save low GI Diet">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

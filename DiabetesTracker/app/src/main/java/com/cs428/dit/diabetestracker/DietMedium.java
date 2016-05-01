@@ -1,6 +1,5 @@
 package com.cs428.dit.diabetestracker;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,24 +16,22 @@ import java.util.List;
 
 public class DietMedium extends AppCompatActivity {
 
-    ExpandableListAdapter1 listAdapter;
+    ExpandableListAdapterWithImages listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
     HashMap<String, Drawable> listImageChild;
     Intent intent;
-    private Button mButton;
+    private Button saveButton;
+    private Button checkButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet_low);
 
-
-        mButton = (Button) findViewById(R.id.saveBtn);
-        final Context x = this;
-
-        mButton.setOnClickListener(new View.OnClickListener() {
+        saveButton = (Button) findViewById(R.id.saveBtn);
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent saveDiet = new Intent(getApplicationContext(), SaveMediumGIActivity.class);
@@ -42,20 +39,25 @@ public class DietMedium extends AppCompatActivity {
             }
         });
 
+        checkButton = (Button) findViewById(R.id.checkBtn);
+        checkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent checkSavedDiet = new Intent(getApplicationContext(), CheckSavedDietActivity.class);
+                startActivity(checkSavedDiet);
+            }
+        });
 
-        // get the listview
-        expListView = (ExpandableListView) findViewById(R.id.lvExp2);
-
-        // preparing list data
         prepareListData();
 
-        listAdapter = new ExpandableListAdapter1(this, listDataHeader, listDataChild, listImageChild);
+        popDataIntoExpandableList();
+    }
 
-        // setting list adapter
+    private void popDataIntoExpandableList() {
+        expListView = (ExpandableListView) findViewById(R.id.lvExp2);
+        listAdapter = new ExpandableListAdapterWithImages(this, listDataHeader, listDataChild, listImageChild);
         expListView.setAdapter(listAdapter);
 
-
-        // Listview on child click listener
         expListView.setOnChildClickListener(new OnChildClickListener() {
 
             @Override
@@ -73,14 +75,47 @@ public class DietMedium extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
     private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
+        prepareListHeaderData();
+        prepareListItemData();
+        prepareImageListData();
+    }
+
+    private void prepareListItemData() {
         listDataChild = new HashMap<String, List<String>>();
-        listImageChild = new HashMap<String, Drawable>();
-        // Adding child data
+
+        List<String> riceBrown = new ArrayList<String>();
+        riceBrown.add("GI:55\nCalories per 100g:111");
+        List<String> fruitCocktail = new ArrayList<String>();
+        fruitCocktail.add("GI:55\nCalories per 100g:50");
+        List<String> apricots = new ArrayList<String>();
+        apricots.add("GI:57\nCalories per 100g:48");
+        List<String> pizzaCheese = new ArrayList<String>();
+        pizzaCheese.add("GI:60\nCalories per 100g:257");
+        List<String> shortBread = new ArrayList<String>();
+        shortBread.add("GI:64\nCalories per 100g:502");
+        List<String> beetroot = new ArrayList<String>();
+        beetroot.add("GI:64\nCalories per 100g:43");
+        List<String> barleyFlakes = new ArrayList<String>();
+        barleyFlakes.add("GI:66\nCalories per 100g:354");
+        List<String> tacoShell = new ArrayList<String>();
+        tacoShell.add("GI:68\nCalories per 100g:150");
+
+        listDataChild.put(listDataHeader.get(0), riceBrown); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), fruitCocktail);
+        listDataChild.put(listDataHeader.get(2), apricots);
+        listDataChild.put(listDataHeader.get(3), pizzaCheese);
+        listDataChild.put(listDataHeader.get(4), shortBread);
+        listDataChild.put(listDataHeader.get(5), beetroot);
+        listDataChild.put(listDataHeader.get(6), barleyFlakes);
+        listDataChild.put(listDataHeader.get(7), tacoShell);
+    }
+
+    private void prepareListHeaderData() {
+        listDataHeader = new ArrayList<String>();
+
         listDataHeader.add("Rice,brown");
         listDataHeader.add("Fruit cocktail");
         listDataHeader.add("Apricots");
@@ -89,42 +124,10 @@ public class DietMedium extends AppCompatActivity {
         listDataHeader.add("Beetroot");
         listDataHeader.add("Barley,flakes");
         listDataHeader.add("Taco Shell");
+    }
 
-        // Adding child data
-        List<String> ricebrown = new ArrayList<String>();
-        ricebrown.add("GI:55");
-        ricebrown.add("Calories per 100g:111");
-        List<String> fruitcocktail = new ArrayList<String>();
-        fruitcocktail.add("GI:55");
-        fruitcocktail.add("Calories per 100g:50");
-        List<String> apricots = new ArrayList<String>();
-        apricots.add("GI:57");
-        apricots.add("Calories per 100g:48");
-        List<String> pizzacheese = new ArrayList<String>();
-        pizzacheese.add("GI:60");
-        pizzacheese.add("Calories per 100g:257");
-        List<String> shortbread = new ArrayList<String>();
-        shortbread.add("GI:64");
-        shortbread.add("Calories per 100g:502");
-        List<String> beetroot = new ArrayList<String>();
-        beetroot.add("GI:64");
-        beetroot.add("Calories per 100g:43");
-        List<String> barleyflakes = new ArrayList<String>();
-        barleyflakes.add("GI:66");
-        barleyflakes.add("Calories per 100g:354");
-        List<String> tacoshell = new ArrayList<String>();
-        tacoshell.add("GI:68");
-        tacoshell.add("Calories per 100g:150");
-
-
-        listDataChild.put(listDataHeader.get(0), ricebrown); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), fruitcocktail);
-        listDataChild.put(listDataHeader.get(2), apricots);
-        listDataChild.put(listDataHeader.get(3), pizzacheese);
-        listDataChild.put(listDataHeader.get(4), shortbread);
-        listDataChild.put(listDataHeader.get(5), beetroot);
-        listDataChild.put(listDataHeader.get(6), barleyflakes);
-        listDataChild.put(listDataHeader.get(7), tacoshell);
+    private void prepareImageListData() {
+        listImageChild = new HashMap<String, Drawable>();
 
         listImageChild.put(listDataHeader.get(0), getResources().getDrawable(R.drawable.ricebrown));
         listImageChild.put(listDataHeader.get(1), getResources().getDrawable(R.drawable.fruitcocktail));
@@ -135,6 +138,4 @@ public class DietMedium extends AppCompatActivity {
         listImageChild.put(listDataHeader.get(6), getResources().getDrawable(R.drawable.barleyflakes));
         listImageChild.put(listDataHeader.get(7), getResources().getDrawable(R.drawable.tacoshell));
     }
-
-
 }

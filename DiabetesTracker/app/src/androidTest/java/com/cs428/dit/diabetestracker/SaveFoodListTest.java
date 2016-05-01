@@ -16,8 +16,8 @@ import static android.support.test.espresso.action.ViewActions.click;
 
 public class SaveFoodListTest {
     @Rule
-    public ActivityTestRule<SaveLowGIDietActivity> activityTestRule =
-            new ActivityTestRule<>(SaveLowGIDietActivity.class);
+    public ActivityTestRule<SaveLowGIActivity> activityTestRule =
+            new ActivityTestRule<>(SaveLowGIActivity.class);
 
     @Test
     public void SaveFoodListPageTest() {

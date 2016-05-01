@@ -15,7 +15,7 @@ import com.firebase.client.Firebase;
 
 import java.util.HashMap;
 
-public class SaveHighGIActivity extends AppCompatActivity {
+public class SaveLowGIActivity extends AppCompatActivity {
     private SessionManager session;
     private HashMap<String, Object> userDetails;
 

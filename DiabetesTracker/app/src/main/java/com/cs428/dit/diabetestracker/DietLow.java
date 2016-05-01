@@ -1,6 +1,5 @@
 package com.cs428.dit.diabetestracker;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +17,7 @@ import java.util.List;
 
 public class DietLow extends AppCompatActivity {
 
-    ExpandableListAdapter1 listAdapter;
+    ExpandableListAdapterWithImages listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
@@ -27,27 +26,21 @@ public class DietLow extends AppCompatActivity {
     private Button saveButton;
     private Button checkButton;
 
-    /**
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet_low);
 
-
         saveButton = (Button) findViewById(R.id.saveBtn);
-        checkButton = (Button) findViewById(R.id.checkBtn);
-        final Context x = this;
-
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent saveDiet = new Intent(getApplicationContext(), SaveLowGIDietActivity.class);
+                Intent saveDiet = new Intent(getApplicationContext(), SaveLowGIActivity.class);
                 startActivity(saveDiet);
             }
         });
 
+        checkButton = (Button) findViewById(R.id.checkBtn);
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,20 +49,15 @@ public class DietLow extends AppCompatActivity {
             }
         });
 
-
-        // get the listview
-        expListView = (ExpandableListView) findViewById(R.id.lvExp2);
-
-        // preparing list data
         prepareListData();
 
-        listAdapter = new ExpandableListAdapter1(this, listDataHeader, listDataChild, listImageChild);
+        popDataIntoExpandableList();
+    }
 
-        // setting list adapter
+    private void popDataIntoExpandableList() {
+        expListView = (ExpandableListView) findViewById(R.id.lvExp2);
+        listAdapter = new ExpandableListAdapterWithImages(this, listDataHeader, listDataChild, listImageChild);
         expListView.setAdapter(listAdapter);
-
-
-        // Listview on child click listener
         expListView.setOnChildClickListener(new OnChildClickListener() {
 
             @Override
@@ -87,7 +75,6 @@ public class DietLow extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
     private void prepareListData() {
@@ -112,29 +99,29 @@ public class DietLow extends AppCompatActivity {
     private void prepareListItemData() {
         listDataChild = new HashMap<String, List<String>>();
 
-        List<String> ricenoodles = new ArrayList<String>();
-        ricenoodles.add("GI:40\nCalories per 100g:109");
-        List<String> sweetcorn = new ArrayList<String>();
-        sweetcorn.add("GI:47\nCalories per 100g:86");
+        List<String> riceNoodles = new ArrayList<String>();
+        riceNoodles.add("GI:40\nCalories per 100g:109");
+        List<String> sweetCorn = new ArrayList<String>();
+        sweetCorn.add("GI:47\nCalories per 100g:86");
         List<String> lentils = new ArrayList<String>();
         lentils.add("GI:21\nCalories per 100g:116");
         List<String> beans = new ArrayList<String>();
         beans.add("GI:30\nCalories per 100g:347");
         List<String> yogurt = new ArrayList<String>();
         yogurt.add("GI:19\nCalories per 100g:59");
-        List<String> greekyogurt = new ArrayList<String>();
-        greekyogurt.add("GI:19\nCalories per 100g:59");
+        List<String> greekYorgurt = new ArrayList<String>();
+        greekYorgurt.add("GI:19\nCalories per 100g:59");
         List<String> plums = new ArrayList<String>();
         plums.add("GI:24\nCalories per 100g:46");
         List<String> oranges = new ArrayList<String>();
         oranges.add("GI:40\nCalories per 100g:47");
 
-        listDataChild.put(listDataHeader.get(0), ricenoodles); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), sweetcorn);
+        listDataChild.put(listDataHeader.get(0), riceNoodles); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), sweetCorn);
         listDataChild.put(listDataHeader.get(2), lentils);
         listDataChild.put(listDataHeader.get(3), beans);
         listDataChild.put(listDataHeader.get(4), yogurt);
-        listDataChild.put(listDataHeader.get(5), greekyogurt);
+        listDataChild.put(listDataHeader.get(5), greekYorgurt);
         listDataChild.put(listDataHeader.get(6), plums);
         listDataChild.put(listDataHeader.get(7), oranges);
     }
