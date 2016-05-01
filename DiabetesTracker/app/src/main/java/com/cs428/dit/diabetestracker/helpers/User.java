@@ -82,8 +82,8 @@ public class User {
 
 
     //the following are indicators for blood fat
-    private Double HDL_C=0.92;
-    private Double TG = 2.21;
+    private float HDL_C=(float)0.92;
+    private float TG = (float)2.21;
 
 
     //end of optionals
@@ -158,19 +158,19 @@ public class User {
         this.weightB = weightB;
     }
 
-    public Double getHDL_C() {
+    public float getHDL_C() {
         return HDL_C;
     }
 
-    public void setHDL_C(Double HDL_C) {
+    public void setHDL_C(float HDL_C) {
         this.HDL_C = HDL_C;
     }
 
-    public Double getTG() {
+    public float getTG() {
         return TG;
     }
 
-    public void setTG(Double TG) {
+    public void setTG(float TG) {
         this.TG = TG;
     }
 
@@ -232,8 +232,8 @@ public class User {
 
 
         if (score > 25) sugD= "Your health condition STATS in your profile indicates that you probably have higher risk of getting diabetes than average people. Try to avoid consuming HIGH-GI food listed below.";
-        if (score > 30) sugD="Your health condition STATS in your profile indicates that You have pretty high risk of getting diabetes. LOW_GI food is your good friend, take body examination regularly and consult a doctor";
-        if (score<=25 && score > 15)  sugD="Your health condition STATS in your profile shows you are currently in a good stage. Though take a healthy lifestyle and MEDIUM-GI and LOW-GI food is a good reference. ";
+        if (score > 30) sugD="Your health condition STATS in your profile indicates that You have pretty high risk of getting diabetes. LOW_GI food is your good friend, take body examination regularly and consult a doctor.";
+        if (score<=25 && score > 15)  sugD="Your health condition STATS in your profile shows you are currently in a good stage. Though take a healthy lifestyle and MEDIUM-GI and LOW-GI food is a good reference.";
         if (score <= 15 ) sugD="Based on your profile, It looks you are far from getting diabetes! Though a good lifestyle is important and MEDIUM-GI and LOW-GI food is helpful in the long run.";
         return sugD;
     }
@@ -243,13 +243,13 @@ public class User {
         if (CCVD) suggestions.add("Chronic cerebrovascular disease is a notable killer, especially for middle-aged and elder people with diabetes.");
         if (isElder) suggestions.add("Since you are elder than 40, you've got a higher risk of diabetes and cardiovascular disease. Take physical examination more often!");
         if ((sedentaryJob && exerciseT <60) || (!sedentaryJob && exerciseT<30) ) suggestions.add("Your lifestyle can be classified as sedentary, do more exercise!");
-        if (weightB>=4 ) suggestions.add("Giant infant symptom means you have higher risk of getting diabetes than average people in the future.");
+        if (weightB>=9 ) suggestions.add("Giant infant symptom means you have higher risk of getting diabetes than average people in the future.");
         if (GDM) suggestions.add("Since your mother have gestational diabetes mellitus, you would bear more threats of getting diabetes.");
         if (HDL_C<=0.91 && TG>=2.22) suggestions.add("You blood fat looks high, which may be a signal or complication of diabetes.");
         if (diagnosedD) suggestions.add("Diabetes is mostly a life-length disease, so keep checking your health condition and monitor blood sugar level.");
         if ( suggestions.size()>=4) suggestionsSummary="You would probably need to consult a doctor for more detailed information with following points.";
         if (suggestions.size()==0) suggestionsSummary="You looks perfectly fine based on your optional description in profile!";
-        if (suggestions.size()<4 && suggestions.size()>0) suggestionsSummary="We have several helpful information based on your optional description in profile";
+        if (suggestions.size()<4 && suggestions.size()>0) suggestionsSummary="We have several helpful information based on your optional description in profile.";
         return suggestions;
     }
 

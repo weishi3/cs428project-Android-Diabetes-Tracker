@@ -23,9 +23,10 @@ public class DiagnosisInfoTest {
 
         u.setDiagnosedD(true);
         u.setGDM(true);
-        u.setWeightB(5);
-        u.setHDL_C(0.88);
-        u.setTG(2.3);
+        u.setWeightB(9);
+        u.setHDL_C((float)0.88);
+        u.setTG((float)2.3);
+
 
         List<String> sug = u.generateSuggestion();
         assertEquals(u.isElder(), false);
@@ -58,9 +59,9 @@ public class DiagnosisInfoTest {
 
         u.setDiagnosedD(false);
         u.setGDM(true);
-        u.setWeightB(5);
-        u.setHDL_C(0.88);
-        u.setTG(2.3);
+        u.setWeightB(9);
+        u.setHDL_C((float)0.88);
+        u.setTG((float)2.3);
 
         List<String> sug = u.generateSuggestion();
         assertEquals(u.isElder(), false);
@@ -72,7 +73,7 @@ public class DiagnosisInfoTest {
         assertTrue(!sug.contains("Diabetes is mostly a life-length disease, so keep checking your health condition and monitor blood sugar level."));
 
         String sum=u.getSuggestionsSummary();
-        assertTrue(sum.equals("We have several helpful information based on your optional description in profile"));
+        assertTrue(sum.equals("We have several helpful information based on your optional description in profile."));
 
 
         String sugD=u.generateSuggestionD();

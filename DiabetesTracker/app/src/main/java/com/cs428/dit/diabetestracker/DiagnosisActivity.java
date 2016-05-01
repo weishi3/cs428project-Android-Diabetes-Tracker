@@ -61,8 +61,8 @@ public class DiagnosisActivity extends AppCompatActivity {
 
                 boolean sedentary = false;
                 int ExerciseT = 80;
-                Double HDL_C = 0.92;
-                Double TG = 2.21;
+                float HDL_C = (float)0.9;
+                float TG = (float)2.21;
                 int weightB = 3;
                 boolean GDM = false;
                 boolean diagnosedD = false;
@@ -80,9 +80,9 @@ public class DiagnosisActivity extends AppCompatActivity {
                 if (userMap.containsKey("exerciseT") && userMap.get("exerciseT") != null)
                     ExerciseT = (int) userMap.get("exerciseT");
                 if (userMap.containsKey("HDL_C") && userMap.get("HDL_C") != null)
-                    HDL_C = (double) userMap.get("HDL_C");
+                    HDL_C = (float) userMap.get("HDL_C");
                 if (userMap.containsKey("TG") && userMap.get("TG") != null)
-                    TG = (double) userMap.get("TG");
+                    TG = (float) userMap.get("TG");
                 if (userMap.containsKey("weightB") && userMap.get("weightB") != null)
                     weightB = (int) userMap.get("weightB");
                 if (userMap.containsKey("GDM") && userMap.get("GDM") != null)
@@ -197,7 +197,7 @@ public class DiagnosisActivity extends AppCompatActivity {
         });
     }
 
-    public void setU(User u, boolean sedentary, int exerciseT, Double HDL_C, Double TG, int weightB, boolean GDM, boolean diagnosedD, boolean psychotropic, boolean CCVD, boolean PCOS) {
+    public void setU(User u, boolean sedentary, int exerciseT, float HDL_C, float TG, int weightB, boolean GDM, boolean diagnosedD, boolean psychotropic, boolean CCVD, boolean PCOS) {
         u.setSedentaryJob(sedentary);
         u.setExerciseT(exerciseT);
         u.setDiagnosedD(diagnosedD);

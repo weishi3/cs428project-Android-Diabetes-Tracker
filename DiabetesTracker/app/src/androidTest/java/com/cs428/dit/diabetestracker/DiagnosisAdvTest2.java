@@ -24,15 +24,14 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AllOf.allOf;
 
+
 /**
- * Created by water on 4/27/16.
+ * Created by water on 5/1/16.
  */
-public class DiagnosisAdvTest {
-
-
+public class DiagnosisAdvTest2 {
     public static final int SLEEPTIME = 2500;
     static String fbURL;
-    private static String mTestEmail = "test@testtest.com";
+    private static String mTestEmail = "test@test.com";
     private static String mPassword = "testtest";
     private static boolean signedInWithTestAccount = false;
     @Rule
@@ -109,13 +108,32 @@ public class DiagnosisAdvTest {
         onView(withId(R.id.button))
                 .perform(click(), closeSoftKeyboard());
 
-        onView(withText("The score is: 6"))
+        onView(withText("The score is: 44"))
                 .check(matches(isDisplayed()));
-        onView(withText("You looks perfectly fine based on your optional description in profile!"))
+        onView(withText("You would probably need to consult a doctor for more detailed information with following points."))
                 .check(matches(isDisplayed()));
-        onView(withText("Based on your profile, It looks you are far from getting diabetes! Though a good lifestyle is important and MEDIUM-GI and LOW-GI food is helpful in the long run."))
+        onView(withText("Your health condition STATS in your profile indicates that You have pretty high risk of getting diabetes. LOW_GI food is your good friend, take body examination regularly and consult a doctor."))
                 .check(matches(isDisplayed()));
+
+
+        onView(allOf(withText("You would probably need to consult a doctor for more detailed information with following points."))).perform(click());
+        onView(withText("Your lifestyle can be classified as sedentary, do more exercise!"))
+                .check(matches(isDisplayed()));
+        onView(withText("Giant infant symptom means you have higher risk of getting diabetes than average people in the future."))
+                .check(matches(isDisplayed()));
+
+        onView(withText("Your lifestyle can be classified as sedentary, do more exercise!"))
+                .check(matches(isDisplayed()));
+
+        onView(withText("Chronic cerebrovascular disease is a notable killer, especially for middle-aged and elder people with diabetes."))
+                .check(matches(isDisplayed()));
+
+        onView(withText("Since you are elder than 40, you've got a higher risk of diabetes and cardiovascular disease. Take physical examination more often!"))
+                .check(matches(isDisplayed()));
+
 
 
     }
+
+
 }
