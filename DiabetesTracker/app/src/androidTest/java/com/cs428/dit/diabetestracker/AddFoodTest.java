@@ -49,7 +49,6 @@ public class AddFoodTest {
         if (!signedInWithTestAccount) {
             try {
                 openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-                String x = InstrumentationRegistry.getTargetContext().getString(R.string.account_used_add_food_test);
                 onView(withText(InstrumentationRegistry.getTargetContext().getString(R.string.action_logout)))
                         .perform(click());
             } catch (Exception e) {

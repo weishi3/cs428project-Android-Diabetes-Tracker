@@ -120,6 +120,10 @@ public class SeeCaloriesActivity extends AppCompatActivity {
             return entries;
         }
 
+        /**
+         *
+         * @return CaloriesChartDate it contains a list of dates and a list of calories values.
+         */
         public CaloriesChartData invoke() {
             Object[] keys = mappedKeys.keySet().toArray();
             keysStr = Arrays.copyOf(keys, keys.length, String[].class);

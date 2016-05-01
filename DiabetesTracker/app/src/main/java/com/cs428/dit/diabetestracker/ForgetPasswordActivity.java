@@ -12,6 +12,9 @@ import android.widget.Toast;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
+/**
+ * This is the forgot password page.
+ */
 public class ForgetPasswordActivity extends AppCompatActivity {
 
     @Override
@@ -26,7 +29,6 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email = mEmailView.getText().toString();
-
                 ref.resetPassword(email, new Firebase.ResultHandler() {
                     @Override
                     public void onSuccess() {
@@ -41,7 +43,6 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), getString(R.string.error_fail_to_sent_reset_pw_email), Toast.LENGTH_SHORT).show();
                     }
                 });
-
             }
         });
 

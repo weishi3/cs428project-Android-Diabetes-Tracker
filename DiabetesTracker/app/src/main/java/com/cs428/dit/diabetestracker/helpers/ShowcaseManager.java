@@ -42,7 +42,6 @@ public class ShowcaseManager {
      */
     public void showNext() {
         if (nextIndex < showcases.size()) {
-            //     showcases.get(nextIndex) != null
             showShowCaseView(showcases.get(nextIndex));
             nextIndex++;
         }

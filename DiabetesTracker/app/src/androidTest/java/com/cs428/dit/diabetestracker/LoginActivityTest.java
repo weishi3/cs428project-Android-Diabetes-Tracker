@@ -19,35 +19,35 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 // Tests for LoginActivity
 public class LoginActivityTest {
+    public static final int SLEEPTIME = 2500;
+    private String mCorrectEmail1 = "qizhang4@illinois.edu";
+    private String mCorrectPassword1 = "123456";
     // Preferred JUnit 4 mechanism of specifying the activity to be launched before each test
     @Rule
     public ActivityTestRule<LoginActivity> activityTestRule =
             new ActivityTestRule<>(LoginActivity.class);
-    private String mCorrectEmail1 = "qizhang4@illinois.edu";
-    private String mCorrectPassword1 = "123456";
-    
+
     @Before
     public void initialize() {
 
         try {
             openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Logout"))
+            onView(withText(InstrumentationRegistry.getTargetContext().getString(R.string.action_logout)))
                     .perform(click());
         } catch (Exception e) {
-            //do nothing, not logged in
+            // Do nothing, not logged in
         }
+
         try {
-            Thread.sleep(2500);
+            Thread.sleep(SLEEPTIME);
         } catch (InterruptedException e) {
         }
-
-
     }
 
     @Test
     public void signInButtonShownTest() {
-       onView(withId(R.id.email_sign_in_button))
-               .check(matches(isDisplayed()));
+        onView(withId(R.id.email_sign_in_button))
+                .check(matches(isDisplayed()));
 
     }
 
@@ -93,11 +93,11 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void correctLogin(){
+    public void correctLogin() {
         onView(withId(R.id.email))
-                .perform(typeText(mCorrectEmail1),closeSoftKeyboard());
+                .perform(typeText(mCorrectEmail1), closeSoftKeyboard());
         onView(withId(R.id.password))
-                .perform(typeText(mCorrectPassword1),closeSoftKeyboard());
+                .perform(typeText(mCorrectPassword1), closeSoftKeyboard());
         onView(withId(R.id.email_sign_in_button))
                 .perform(click());
         try {
@@ -105,7 +105,6 @@ public class LoginActivityTest {
         } catch (InterruptedException e) {
         }
 
-        String errorText = "Login attempt successful";
         onView(withId(R.id.diagnosis_card_view))
                 .check(matches(isDisplayed()));
 
