@@ -18,11 +18,12 @@ public class ShowcaseParam {
 
     /**
      * Constructor
+     *
      * @param mainActivity The activity on which the ShowcaseView shows
-     * @param id The View that needs a tooltip
+     * @param id           The View that needs a tooltip
      * @param contentTitle Tooltip title
-     * @param contentText Tooltip content
-     * @param shotId A unique ID for a ShowcaseView, use this ensure the ShowcaseView is shown once
+     * @param contentText  Tooltip content
+     * @param shotId       A unique ID for a ShowcaseView, use this ensure the ShowcaseView is shown once
      * @param showcaseView The ShowcaseView
      */
     public ShowcaseParam(Activity mainActivity, int id, String contentTitle, String contentText, int shotId, ShowcaseView.Builder showcaseView) {
@@ -35,7 +36,6 @@ public class ShowcaseParam {
     }
 
     /**
-     *
      * @return Activity This returns the Activity on which the tooltip is shown
      */
     public Activity getMainActivity() {
@@ -44,6 +44,7 @@ public class ShowcaseParam {
 
     /**
      * Return View ID
+     *
      * @return int The view ID
      */
     public int getId() {
@@ -51,7 +52,6 @@ public class ShowcaseParam {
     }
 
     /**
-     *
      * @return String Tooltip title
      */
     public String getContentTitle() {
@@ -59,7 +59,6 @@ public class ShowcaseParam {
     }
 
     /**
-     *
      * @return String Tooltip content
      */
     public String getContentText() {
@@ -67,7 +66,6 @@ public class ShowcaseParam {
     }
 
     /**
-     *
      * @return int A unique ID for the ShowcaseView
      */
     public int getShotId() {
@@ -75,7 +73,6 @@ public class ShowcaseParam {
     }
 
     /**
-     *
      * @return ShowcaseView.Builder A class used to show ShowcaseView
      */
     public ShowcaseView.Builder getShowcaseView() {
@@ -83,7 +80,6 @@ public class ShowcaseParam {
     }
 
     /**
-     *
      * @param showcaseView The ShowcaseView to set to
      */
     public void setShowcaseView(ShowcaseView.Builder showcaseView) {

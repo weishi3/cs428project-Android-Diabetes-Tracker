@@ -26,6 +26,7 @@ import java.util.HashMap;
 
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebIconDatabase;
 import android.widget.Button;
 
 import com.cs428.dit.diabetestracker.helpers.SessionManager;
@@ -36,31 +37,46 @@ import com.github.mikephil.charting.data.*;
 
 import java.util.ArrayList;
 
+/*
+ * This activity allows user to see the indicator history in a graph version
+ * Use will be able to click the button and view the corresponding graph
+ */
 public class SeeIndicatorActivity extends AppCompatActivity {
 
-
-    LineChart weightChart,bloodSugarChart,bloodPressureChart;
-
-    LineDataSet weightDateset,bloodSugarDataset,bloodPressureDateset;
+    /*
+     * session: The session object which contains the data in firebase
+     * weightChart: The chart which shows the weight history
+     * bloodSugarChart: The chart which shows the blood sugar history
+     * bloodPressureChart: The chart which shows the blood pressure history
+     * weightDataset: The dataset contains the user's weight history data
+     * bloodSugarDataset: The dataset contains the user's blood sugar history data
+     * bloodPressureDataset: The dataset contains the user's blood pressure history data
+     * Weight_button: The button which shows the weight graph when clicked
+     * BloodSugar_button: The button which shows the blood sugar graph when clicked
+     * BloodPressure_button: The button which shows the blood sugar graph when clicked
+     */
     private SessionManager session;
-
-
-
-
+    LineChart weightChart, bloodSugarChart, bloodPressureChart;
+    LineDataSet weightDataset, bloodSugarDataset, bloodPressureDataset;
+    Button Weight_button, BloodSugar_button, BloodPressure_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_see_indicator);
-        bloodPressureChart = (LineChart) findViewById(R.id.blood_pressure);
         session = new SessionManager(this);
-        bloodSugarChart = (LineChart) findViewById(R.id.blood_sugar);
+        setContentView(R.layout.activity_see_indicator);
         weightChart = (LineChart) findViewById(R.id.weight);
-
+        bloodSugarChart = (LineChart) findViewById(R.id.blood_sugar);
+        bloodPressureChart = (LineChart) findViewById(R.id.blood_pressure);
+        Weight_button = (Button) findViewById(R.id.Weight_button);
+        BloodSugar_button = (Button) findViewById(R.id.BloodSugar_button);
+        BloodPressure_button = (Button) findViewById(R.id.BloodPressure_button);
     }
 
-
-
+    /*
+     * This function will process data from firebase and
+     * get all the corresponding data related to the user
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -68,12 +84,7 @@ public class SeeIndicatorActivity extends AppCompatActivity {
         String userStatsURL = "userstats/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
         userStatsURL = baseURL + userStatsURL;
         Firebase statsRef = new Firebase(userStatsURL);
-
-
-
-
         // creating list of entry
-
         statsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -82,105 +93,84 @@ public class SeeIndicatorActivity extends AppCompatActivity {
                 ArrayList<Entry> weight = new ArrayList<>();
                 ArrayList<Entry> bloodSugar = new ArrayList<>();
                 ArrayList<Entry> bloodPressure = new ArrayList<>();
-
                 for (DataSnapshot IndicatorItemLogSnapshot : dataSnapshot.getChildren()) {
                     IndicatorItemLog oneLog = IndicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
                     labels.add(oneLog.getDate());
-
                     bloodSugar.add(new Entry((float) oneLog.getIndicator().getBloodSugar(), count));
                     bloodPressure.add(new Entry((float) oneLog.getIndicator().getBloodPressure(), count));
                     weight.add(new Entry((float) oneLog.getIndicator().getWeight(), count));
                     count = count + 1;
-
-
                 }
                 weightchart(labels, weight);
-
-
                 bloodSugarchart(labels, bloodSugar);
-                //weightChart.setDescription("Indicator Chart");  // set the description
-
-                // set the data and list of lables into chart
-                //weightChart.setDescription("Indicator Chart");  // set the description
                 bloodPressurechart(labels, bloodPressure);
-                //weightChart.setDescription("Indicator Chart");  // set the description
-
-
             }
-
-
             @Override
             public void onCancelled(FirebaseError firebaseError) {
 
             }
         });
-        final Button button2 = (Button) findViewById(R.id.Button06);
-        final Button button1 = (Button) findViewById(R.id.Button05);
-        final Button button = (Button) findViewById(R.id.Button04);
 
-        button.setOnClickListener(new OnClickListener() {
+        /*
+         * Setting corresponding onclick listener for
+         * weight button, blood sugar button and blood pressure button
+         */
+        Weight_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                button.setBackgroundColor(Color.CYAN);
-                button1.setBackgroundColor(Color.LTGRAY);
-                button2.setBackgroundColor(Color.LTGRAY);
-
-                weightChart.setVisibility(View.INVISIBLE);
-                bloodSugarChart.setVisibility(View.INVISIBLE);
-                bloodPressureChart.setVisibility(View.INVISIBLE);
-
+                Weight_button.setBackgroundColor(Color.CYAN);
+                BloodSugar_button.setBackgroundColor(Color.LTGRAY);
+                BloodPressure_button.setBackgroundColor(Color.LTGRAY);
+                setInvisibility();
                 weightChart.setVisibility(View.VISIBLE);
-
-
 
             }
         });
 
-
-
-        button1.setOnClickListener(new OnClickListener() {
+        BloodSugar_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                button1.setBackgroundColor(Color.CYAN);
-                button.setBackgroundColor(Color.LTGRAY);
-                button2.setBackgroundColor(Color.LTGRAY);
-                weightChart.setVisibility(View.INVISIBLE);
-                bloodSugarChart.setVisibility(View.INVISIBLE);
-                bloodPressureChart.setVisibility(View.INVISIBLE);
-
-
+                BloodSugar_button.setBackgroundColor(Color.CYAN);
+                Weight_button.setBackgroundColor(Color.LTGRAY);
+                BloodPressure_button.setBackgroundColor(Color.LTGRAY);
+                setInvisibility();
                 bloodSugarChart.setVisibility(View.VISIBLE);
             }
         });
 
-
-        button2.setOnClickListener(new OnClickListener() {
+        BloodPressure_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                button2.setBackgroundColor(Color.CYAN);
-                button1.setBackgroundColor(Color.LTGRAY);
-                button.setBackgroundColor(Color.LTGRAY);
-                weightChart.setVisibility(View.INVISIBLE);
-                bloodSugarChart.setVisibility(View.INVISIBLE);
-                bloodPressureChart.setVisibility(View.INVISIBLE);
-
-
-
+                BloodPressure_button.setBackgroundColor(Color.CYAN);
+                BloodSugar_button.setBackgroundColor(Color.LTGRAY);
+                Weight_button.setBackgroundColor(Color.LTGRAY);
+                setInvisibility();
                 bloodPressureChart.setVisibility(View.VISIBLE);
-
-
             }
         });
     }
 
-    public void bloodPressurechart(ArrayList<String> labels, ArrayList<Entry> bloodPressure) {
-        bloodPressureDateset = new LineDataSet(bloodPressure, "bloodPressure");
-        bloodPressureDateset.setDrawCubic(true);
-        bloodPressureDateset.setColor(ColorTemplate.COLORFUL_COLORS[0]);
-        LineData bloodPressureData = new LineData(labels, bloodPressureDateset);
+    /*
+     * Set all the charts to be invisible
+     */
+    public void setInvisibility() {
+        weightChart.setVisibility(View.INVISIBLE);
+        bloodSugarChart.setVisibility(View.INVISIBLE);
+        bloodPressureChart.setVisibility(View.INVISIBLE);
+    }
 
-        bloodPressureChart.setData(bloodPressureData); // set the data and list of lables into chart
+    /*
+     * Create the line chart based on the dataset for
+     * weight, blood sugar and blood pressure
+     */
+
+    public void bloodPressurechart(ArrayList<String> labels, ArrayList<Entry> bloodPressure) {
+        bloodPressureDataset = new LineDataSet(bloodPressure, "bloodPressure");
+        bloodPressureDataset.setDrawCubic(true);
+        bloodPressureDataset.setColor(ColorTemplate.COLORFUL_COLORS[0]);
+        LineData bloodPressureData = new LineData(labels, bloodPressureDataset);
+        // set the data and list of lables into chart
+        bloodPressureChart.setData(bloodPressureData);
         bloodPressureChart.setVisibility(View.INVISIBLE);
     }
 
@@ -189,21 +179,19 @@ public class SeeIndicatorActivity extends AppCompatActivity {
         bloodSugarDataset.setDrawCubic(true);
         bloodSugarDataset.setColor(ColorTemplate.COLORFUL_COLORS[2]);
         LineData bloodSugarData = new LineData(labels, bloodSugarDataset);
-
-        bloodSugarChart.setData(bloodSugarData); // set the data and list of lables into chart
+        // set the data and list of lables into chart
+        bloodSugarChart.setData(bloodSugarData);
         bloodSugarChart.setVisibility(View.INVISIBLE);
     }
 
     public void weightchart(ArrayList<String> labels, ArrayList<Entry> weight) {
-        weightDateset = new LineDataSet(weight, "weight");
-        weightDateset.setDrawCubic(true);
-        weightDateset.setColor(ColorTemplate.COLORFUL_COLORS[3]);
-
-        LineData weightData = new LineData(labels, weightDateset);
-
+        weightDataset = new LineDataSet(weight, "weight");
+        weightDataset.setDrawCubic(true);
+        weightDataset.setColor(ColorTemplate.COLORFUL_COLORS[3]);
+        LineData weightData = new LineData(labels, weightDataset);
+        // set the data and list of lables into chart
         weightChart.setData(weightData);
         weightChart.setVisibility(View.INVISIBLE);
     }
-
 
 }
