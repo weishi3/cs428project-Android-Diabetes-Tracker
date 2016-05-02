@@ -2,8 +2,14 @@ package com.cs428.dit.diabetestracker.helpers;
 
 /**
  * Created by Yuchen on 3/11/16.
+ * This class stores an indicator object and the date
+ * when the user input his/her indicator data
  */
 public class IndicatorItemLog {
+    /*
+     * date: the date when the user input the data
+     * indicator: the indicator object which contains weight, blood sugar and blood pressure
+     */
     public String date;
     public Indicator indicator;
 

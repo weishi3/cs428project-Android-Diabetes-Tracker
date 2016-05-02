@@ -11,7 +11,11 @@ import java.util.List;
  * It would generate suggestions based on the running of first-time diagnosis based on profile
  */
 public class User {
-
+    /*
+     * BMI, waistline, age, blood pressure and gender: USER'S data.
+     * Family history: Does the user have diabetes in family history
+     * suggestions: the suggestion list that stores all the suggestions message
+     */
     private float BMI;
     private float waistline;
     private int age;
@@ -27,10 +31,7 @@ public class User {
 
     private String suggestionsSummary="";
 
-
     private boolean isElder=false;
-
-
 
     //start of optionals
     private boolean sedentaryJob =false;
@@ -79,20 +80,11 @@ public class User {
     // does user have psychotropic problems.
     private boolean psychotropic=false;
 
-
-
     //the following are indicators for blood fat
     private float HDL_C=(float)0.92;
     private float TG = (float)2.21;
 
-
-    //end of optionals
-
-
-
     private int score = 0;
-
-
 
     public User(float BMI, float waistline, int age, int bloodPressure, boolean gender, boolean familyHistory) {
         this.BMI = BMI;
@@ -222,14 +214,10 @@ public class User {
         this.gender = gender;
     }
 
-
-
-
-
-
-    //debug info : += =
+    /*
+     * generate suggestion string based on the user's score
+     */
     public String generateSuggestionD(){
-
 
         if (score > 25) sugD= "Your health condition STATS in your profile indicates that you probably have higher risk of getting diabetes than average people. Try to avoid consuming HIGH-GI food listed below.";
         if (score > 30) sugD="Your health condition STATS in your profile indicates that You have pretty high risk of getting diabetes. LOW_GI food is your good friend, take body examination regularly and consult a doctor.";
@@ -253,10 +241,19 @@ public class User {
         return suggestions;
     }
 
+    /*
+     * Functions below are to calculate the user score base on different
+     * personal information:
+     * age
+     * waistline
+     * gender
+     * blood pressure
+     * family history
+     * BMI
+     * score: the total score of user.
+     * Score > 25 means the user has probability of getting diabetes
+     */
 
-
-
-    //below are score parts
     public int getScoreBasedOnAge(){
         int score = 0;
         if(age <= 24){
