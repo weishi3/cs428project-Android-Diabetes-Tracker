@@ -42,8 +42,9 @@ public class RegistrationActivity extends AppCompatActivity {
     int pBloodPressure;
     boolean pGender;
 
-    /*
-    * Method called when this activity is created (This screen is pulled up)
+    /**
+     * Method called when this activity is created (This screen is pulled up)
+     * @param savedInstanceState used in parent constructor
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

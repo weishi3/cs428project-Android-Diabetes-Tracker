@@ -33,10 +33,10 @@ public class RegistrationActivityTest {
     //firebase reference to users
     Firebase users;
 
-    /*
-        Sets values for the strings we use in the test
-        and makes sure that we are logged out when
-        we start the test
+    /**
+     *   Sets values for the strings we use in the test
+     *   and makes sure that we are logged out when
+     *   we start the test
      */
     @Before
     public void setUp() {
@@ -70,9 +70,9 @@ public class RegistrationActivityTest {
     @Rule
     public ActivityTestRule<LoginActivity> activityTestRule =
             new ActivityTestRule<>(LoginActivity.class);
-    /*
-        Makes sure that we are on the login page and the
-        register button is shown
+    /**
+     *   Makes sure that we are on the login page and the
+     *   register button is shown
      */
     @Test
     public void registerButtonShownTest() {
@@ -80,10 +80,10 @@ public class RegistrationActivityTest {
                 .perform(scrollTo(), closeSoftKeyboard())
                 .check(matches(isDisplayed()));
     }
-    /*
-        Performs a valid registration with the strings from setUp,
-        verifies that the user was created in firebase,
-        and checks that the inputs match on the user's profile page
+    /**
+     *   Performs a valid registration with the strings from setUp,
+     *   verifies that the user was created in firebase,
+     *   and checks that the inputs match on the user's profile page
      */
     @Test
     public void validTest() {
@@ -161,9 +161,9 @@ public class RegistrationActivityTest {
         createdUser.removeValue();
     }
 
-    /*
-        Attempts a registration with incomplete/invalid information
-        and verifies that the registration doesn't go through
+    /**
+     *   Attempts a registration with incomplete/invalid information
+     *   and verifies that the registration doesn't go through
      */
     @Test
     public void invalidTest() {
