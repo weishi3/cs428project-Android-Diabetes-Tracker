@@ -13,9 +13,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 public class DietPageTest {
     @Rule
-    public ActivityTestRule<DietHigh> activityTestRule =
-            new ActivityTestRule<>(DietHigh.class);
+    public ActivityTestRule<DietHighGIActivity> activityTestRule =
+            new ActivityTestRule<>(DietHighGIActivity.class);
 
+    /**
+     * checks if the DietPage is displayed properly
+     */
     @Test
     public void DietPageTest() {
         onView(withId(R.id.lvExp2))

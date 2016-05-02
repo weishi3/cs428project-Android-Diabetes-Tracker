@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class DietMedium extends AppCompatActivity {
+public class DietMediumGIActivity extends AppCompatActivity {
 
     ExpandableListAdapterWithImages listAdapter;
     ExpandableListView expListView;
@@ -25,6 +25,11 @@ public class DietMedium extends AppCompatActivity {
     private Button saveButton;
     private Button checkButton;
 
+    /**
+     * The method is called when this activity is created,savedInstanceState is used to restore activity state when exited unexpectedly,not used here
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +39,7 @@ public class DietMedium extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent saveDiet = new Intent(getApplicationContext(), SaveMediumGIActivity.class);
+                Intent saveDiet = new Intent(getApplicationContext(), SaveMediumGIDietActivity.class);
                 startActivity(saveDiet);
             }
         });
@@ -53,6 +58,10 @@ public class DietMedium extends AppCompatActivity {
         popDataIntoExpandableList();
     }
 
+    /**
+     * Get the list from listDataHeader and listDataChild
+     * Get the expandable list view and set the listAdaptor for it based on the list retrieved from listDataHeader and listDataChild
+     */
     private void popDataIntoExpandableList() {
         expListView = (ExpandableListView) findViewById(R.id.lvExp2);
         listAdapter = new ExpandableListAdapterWithImages(this, listDataHeader, listDataChild, listImageChild);
@@ -77,12 +86,18 @@ public class DietMedium extends AppCompatActivity {
         });
     }
 
+    /**
+     * Call the other three data preparation functions,this function will ready up the data and allow popDataIntoExpandableList() to be called
+     */
     private void prepareListData() {
         prepareListHeaderData();
         prepareListItemData();
         prepareImageListData();
     }
 
+    /**
+     * Update listDataChild,a helper for prepareListData()
+     */
     private void prepareListItemData() {
         listDataChild = new HashMap<String, List<String>>();
 
@@ -113,6 +128,9 @@ public class DietMedium extends AppCompatActivity {
         listDataChild.put(listDataHeader.get(7), tacoShell);
     }
 
+    /**
+     * Update the listDataHeader,a helper for prepareListData()
+     */
     private void prepareListHeaderData() {
         listDataHeader = new ArrayList<String>();
 
@@ -126,6 +144,9 @@ public class DietMedium extends AppCompatActivity {
         listDataHeader.add("Taco Shell");
     }
 
+    /**
+     * update listImageChild,a helper for prepareListData()
+     */
     private void prepareImageListData() {
         listImageChild = new HashMap<String, Drawable>();
 

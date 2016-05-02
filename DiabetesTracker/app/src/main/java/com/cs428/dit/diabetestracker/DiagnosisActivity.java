@@ -61,8 +61,8 @@ public class DiagnosisActivity extends AppCompatActivity {
 
                 boolean sedentary = false;
                 int ExerciseT = 80;
-                float HDL_C = (float)0.9;
-                float TG = (float)2.21;
+                float HDL_C = (float) 0.9;
+                float TG = (float) 2.21;
                 int weightB = 3;
                 boolean GDM = false;
                 boolean diagnosedD = false;
@@ -147,15 +147,15 @@ public class DiagnosisActivity extends AppCompatActivity {
                 final String selected = (String) listAdapter.getChild(groupPosition, childPosition);
                 switch (selected) {
                     case "lowGI":
-                        Intent intent = new Intent(DiagnosisActivity.this, DietLow.class);
+                        Intent intent = new Intent(DiagnosisActivity.this, DietLowGIActivity.class);
                         startActivity(intent);
                         break;
                     case "mediumGI":
-                        intent = new Intent(DiagnosisActivity.this, DietMedium.class);
+                        intent = new Intent(DiagnosisActivity.this, DietMediumGIActivity.class);
                         startActivity(intent);
                         break;
                     case "highGI":
-                        intent = new Intent(DiagnosisActivity.this, DietHigh.class);
+                        intent = new Intent(DiagnosisActivity.this, DietHighGIActivity.class);
                         startActivity(intent);
                         break;
                 }

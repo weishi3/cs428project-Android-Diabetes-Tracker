@@ -75,21 +75,21 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".DietLow"
+            android:name=".DietLowGIActivity"
             android:label="Low GI Diet Page">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DiagnosisActivity" />
         </activity>
         <activity
-            android:name=".DietHigh"
+            android:name=".DietHighGIActivity"
             android:label="High GI Diet Page">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DiagnosisActivity" />
         </activity>
         <activity
-            android:name=".DietMedium"
+            android:name=".DietMediumGIActivity"
             android:label="Medium GI Diet Page">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -142,32 +142,32 @@
             android:label="@string/title_activity_step_counter"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SaveLowGIActivity"
+            android:name=".SaveLowGIDietActivity"
             android:label="Save low GI Diet">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DietLow" />
+                android:value=".DietLowGIActivity" />
         </activity>
         <activity
-            android:name=".SaveMediumGIActivity"
+            android:name=".SaveMediumGIDietActivity"
             android:label="Save medium GI Diet">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DietMedium" />
+                android:value=".DietMediumGIActivity" />
         </activity>
         <activity
-            android:name=".SaveHighGIActivity"
+            android:name=".SaveHighGIDietActivity"
             android:label="Save high GI Diet">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DietHigh" />
+                android:value=".DietHighGIActivity" />
         </activity>
         <activity
             android:name=".CheckSavedDietActivity"
             android:label="Check saved diet">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DietLow" />
+                android:value=".DietLowGIActivity" />
         </activity>
     </application>
 
