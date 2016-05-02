@@ -75,6 +75,10 @@ public class AddFoodTest {
         fbURL = "https://brilliant-fire-9755.firebaseio.com/foodStats/" + "addfood@test!com";
     }
 
+    /**
+     * Test adding food item with a valid food item.
+     * The food item has a name, a calories value, and a sugar value.
+     */
     @Test
     public void addFoodItemSuccessfulTest1() {
         Date date = new Date();
@@ -105,6 +109,10 @@ public class AddFoodTest {
         ref.removeValue();
     }
 
+    /**
+     * Test adding food item with a valid food item.
+     * The food item has a name, a calories value, and a sugar value.
+     */
     @Test
     public void addFoodItemSuccessfulTest2() {
         Date date = new Date();
@@ -135,6 +143,10 @@ public class AddFoodTest {
         ref.removeValue();
     }
 
+    /**
+     * Test adding food item with a valid food item.
+     * The food item has a name, a calories value, and a sugar value.
+     */
     @Test
     public void addFoodItemSuccessfulTest3() {
         Date date = new Date();
@@ -164,6 +176,11 @@ public class AddFoodTest {
         ref.removeValue();
     }
 
+    /**
+     * Test adding food item with a valid food item.
+     * The food item has a calories value, and a sugar value, but it has no name.
+     * So its name should be the default value.
+     */
     @Test
     public void addFoodItemEmptyFoodTest1() {
         Firebase ref = new Firebase(fbURL);
@@ -194,6 +211,11 @@ public class AddFoodTest {
         ref.removeValue();
     }
 
+    /**
+     * Test adding food item with a valid food item.
+     * The food item has a name and a calories value, but it has no sugar.
+     * So the sugar should be the default value 0.0
+     */
     @Test
     public void addFoodItemDefaultSugarTest() {
         Firebase ref = new Firebase(fbURL);
@@ -223,6 +245,11 @@ public class AddFoodTest {
         ref.removeValue();
     }
 
+    /**
+     * Test adding food item with a valid food item.
+     * The food item has a name, a sugar value, but no calories value.
+     * So the calories value should 0.0 by default
+     */
     @Test
     public void addFoodItemDefaultCaloriesTest() {
         Firebase ref = new Firebase(fbURL);
@@ -252,6 +279,12 @@ public class AddFoodTest {
         ref.removeValue();
     }
 
+    /**
+     * Test adding food item with a valid food item.
+     * The food item has a name, a calories value, and a sugar value.
+     * The calories is a mix of numbers and letters.
+     * This test case tests if the app can accept that.
+     */
     @Test
     public void addFoodItemCaloriesPureNumberTest() {
         Firebase ref = new Firebase(fbURL);
@@ -283,6 +316,11 @@ public class AddFoodTest {
         ref.removeValue();
     }
 
+    /**
+     * Test adding food item with a valid food item.
+     * The food item has a alphanumeric value.
+     * This test case tests if the app accepts the value.
+     */
     @Test
     public void addFoodItemSugarPureNumberTest() {
         Firebase ref = new Firebase(fbURL);

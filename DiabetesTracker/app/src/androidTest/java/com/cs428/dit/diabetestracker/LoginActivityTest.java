@@ -27,6 +27,9 @@ public class LoginActivityTest {
     public ActivityTestRule<LoginActivity> activityTestRule =
             new ActivityTestRule<>(LoginActivity.class);
 
+    /**
+     * Initialization. Ensure the user is logged out
+     */
     @Before
     public void initialize() {
 
@@ -44,6 +47,9 @@ public class LoginActivityTest {
         }
     }
 
+    /**
+     * Test if the sign in button is displayed
+     */
     @Test
     public void signInButtonShownTest() {
         onView(withId(R.id.email_sign_in_button))
@@ -51,12 +57,18 @@ public class LoginActivityTest {
 
     }
 
+    /**
+     * Test if the register button is displayed
+     */
     @Test
     public void registerButtonShownTest() {
         onView(withId(R.id.registerBtn))
                 .check(matches(isDisplayed()));
     }
 
+    /**
+     * Test with invalid email
+     */
     @Test
     public void invalidEmailTest1() {
         onView(withId(R.id.email))
@@ -68,6 +80,9 @@ public class LoginActivityTest {
                 .check(matches(ErrorMatcher.withError(errorText)));
     }
 
+    /**
+     * Test with invalid email
+     */
     @Test
     public void invalidEmailTest2() {
         onView(withId(R.id.email))
@@ -79,6 +94,9 @@ public class LoginActivityTest {
                 .check(matches(ErrorMatcher.withError(errorText)));
     }
 
+    /**
+     * Test with a short password
+     */
     @Test
     public void shortPasswordTest1() {
         onView(withId(R.id.email))
@@ -92,6 +110,9 @@ public class LoginActivityTest {
                 .check(matches(ErrorMatcher.withError(errorText)));
     }
 
+    /**
+     * Test with a correct login
+     */
     @Test
     public void correctLogin() {
         onView(withId(R.id.email))
@@ -101,7 +122,7 @@ public class LoginActivityTest {
         onView(withId(R.id.email_sign_in_button))
                 .perform(click());
         try {
-            Thread.sleep(2500);
+            Thread.sleep(SLEEPTIME);
         } catch (InterruptedException e) {
         }
 
@@ -109,7 +130,7 @@ public class LoginActivityTest {
                 .check(matches(isDisplayed()));
 
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText("Logout"))
+        onView(withText(InstrumentationRegistry.getTargetContext().getString(R.string.action_logout)))
                 .perform(click());
     }
 
