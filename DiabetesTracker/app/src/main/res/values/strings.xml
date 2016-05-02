@@ -178,6 +178,8 @@
     <string name="calories_chart_title">Daily Calories Report</string>
     <string name="step_counter_unavailable_prompt">Counter sensor not available!</string>
     <string name="account_used_add_food_test">addfood@test.com</string>
+    <string name="indicator_reminder_title">" A KIND REMINDER FROM Diabetes Tracker."</string>
+    <string name="indicator_reminder_text_body">Input your health indicator today!</string>
 
 
 </resources>

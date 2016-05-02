@@ -12,7 +12,6 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,12 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "on create");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         session = new SessionManager(getApplicationContext());
-//        session = new SessionManager(this);
-        Log.d("ON_CREATE", (session.getUserDetails()+""));
 
         ImageView profileAvatar = (ImageView) findViewById(R.id.profileAvatar);
         CardView diagnosisCard = (CardView) findViewById(R.id.diagnosis_card_view);
@@ -224,13 +220,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
         //initialize the notification for adding indicator here!
         mBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_add_black_24dp)
-                .setContentTitle(" A KIND REMINDER FROM Diabetes Tracker.")
+                .setContentTitle(getString(R.string.indicator_reminder_title))
                 .setAutoCancel(true)
-                .setContentText("Input your health indicator today!");
+                .setContentText(getString(R.string.indicator_reminder_text_body));
         Intent resultIntent = new Intent(this, AddIndicatorActivity.class);
 
         // The stack builder object will contain an artificial back stack for the
@@ -253,7 +248,6 @@ public class MainActivity extends AppCompatActivity {
 
         //set firebase url
         String baseURL = getString(R.string.firebase_url);
-        Log.d("USER_EMAIL", session.getUserDetails().toString());
         String userStatsURL = "foodStats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL) + "").replace('.', '!');
         userStatsURL = baseURL + userStatsURL;
         Firebase statsRef = new Firebase(userStatsURL);
@@ -446,16 +440,12 @@ public class MainActivity extends AppCompatActivity {
                         return toDisplayOnIndicatorCard;
                     }
 
-
                     @Override
                     public void onCancelled(FirebaseError firebaseError) {
 
                     }
                 });
             }
-
-
-
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
