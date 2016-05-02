@@ -15,7 +15,7 @@ import com.firebase.client.Firebase;
 
 import java.util.HashMap;
 
-public class SaveMediumGIActivity extends AppCompatActivity {
+public class SaveMediumGIDietActivity extends AppCompatActivity {
     private SessionManager session;
     private HashMap<String, Object> userDetails;
 
@@ -29,6 +29,10 @@ public class SaveMediumGIActivity extends AppCompatActivity {
     private boolean oranges = false;
     private Context applicationContext;
 
+    /**
+     * The method is called when this activity is created,savedInstanceState is used to restore activity state when exited unexpectedly,not used here
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +50,18 @@ public class SaveMediumGIActivity extends AppCompatActivity {
                 updateAllButtonInfo();
                 String foodList = getFoodList();
                 String userEmail = userDetails.get("email").toString().replace('.', '!');
-                FoodList.add(applicationContext, userEmail, foodList);
+                FoodList.saveFoodList(applicationContext, userEmail, foodList);
 
-                Intent dietLow = new Intent(getApplicationContext(), DietLow.class);
+                Intent dietLow = new Intent(getApplicationContext(), DietLowGIActivity.class);
                 startActivity(dietLow);
             }
         });
     }
 
+    /**
+     * Gets the list of food selected by the user through the radio buttons
+     * @return      a comma seperated string list of selected foods
+     */
     @NonNull
     private String getFoodList() {
         String foodList = "";
@@ -85,6 +93,9 @@ public class SaveMediumGIActivity extends AppCompatActivity {
         return foodList;
     }
 
+    /**
+     * Update the selection of food made by the user
+     */
     private void updateAllButtonInfo() {
         riceNoodles = updateButtonInfo(R.id.riceNoodlesTrue);
         sweetCorn = updateButtonInfo(R.id.sweetCornTrue);
@@ -96,11 +107,19 @@ public class SaveMediumGIActivity extends AppCompatActivity {
         oranges = updateButtonInfo(R.id.orangesTrue);
     }
 
+    /**
+     * Check wether a button is selected
+     * @param buttonId
+     * @return
+     */
     private boolean updateButtonInfo(int buttonId) {
         RadioButton buttonTrue = (RadioButton) findViewById(buttonId);
         return buttonTrue.isChecked();
     }
 
+    /**
+     * Sets all the food buttons to be selected by default
+     */
     private void initializeAllButton() {
         setButton(R.id.riceNoodlesTrue);
         setButton(R.id.sweetCornTrue);
@@ -112,6 +131,10 @@ public class SaveMediumGIActivity extends AppCompatActivity {
         setButton(R.id.orangesTrue);
     }
 
+    /**
+     * Set the selected attribute of the button with id idTrue to true
+     * @param idTrue    the id of the button being set
+     */
     private void setButton(int idTrue) {
         RadioButton t = (RadioButton) findViewById(idTrue);
         t.setChecked(true);

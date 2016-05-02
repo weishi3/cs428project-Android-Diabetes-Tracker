@@ -16,6 +16,9 @@ public class CheckFoodListTest {
     public ActivityTestRule<CheckSavedDietActivity> activityTestRule =
             new ActivityTestRule<>(CheckSavedDietActivity.class);
 
+    /**
+     * Checks wether the food list is displayed()
+     */
     @Test
     public void SaveFoodListPageTest() {
         onView(withId(R.id.lvExp))

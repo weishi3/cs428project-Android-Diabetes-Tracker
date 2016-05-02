@@ -16,6 +16,9 @@ public class DiagnosisActivityTest {
     public ActivityTestRule<DiagnosisActivity> activityTestRule =
             new ActivityTestRule<>(DiagnosisActivity.class);
 
+    /**
+     * Checks if the expandable list in the diagnosis page is displayed
+     */
     @Test
     public void expandableListTest() {
         onView(withId(R.id.lvExp))

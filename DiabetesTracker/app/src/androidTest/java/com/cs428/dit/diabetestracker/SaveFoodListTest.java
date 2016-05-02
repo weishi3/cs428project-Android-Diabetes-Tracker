@@ -16,9 +16,12 @@ import static android.support.test.espresso.action.ViewActions.click;
 
 public class SaveFoodListTest {
     @Rule
-    public ActivityTestRule<SaveLowGIActivity> activityTestRule =
-            new ActivityTestRule<>(SaveLowGIActivity.class);
+    public ActivityTestRule<SaveLowGIDietActivity> activityTestRule =
+            new ActivityTestRule<>(SaveLowGIDietActivity.class);
 
+    /**
+     * Checks if the header and food items are displayed
+     */
     @Test
     public void SaveFoodListPageTest() {
         onView(withId(R.id.topInfo))
@@ -27,6 +30,9 @@ public class SaveFoodListTest {
                 .check(matches(isDisplayed()));
     }
 
+    /**
+     * Checks if the food radio buttons are initially checked as selected
+     */
     @Test
     public void checkButtonTest() {
         onView(withId(R.id.riceNoodlesTrue))

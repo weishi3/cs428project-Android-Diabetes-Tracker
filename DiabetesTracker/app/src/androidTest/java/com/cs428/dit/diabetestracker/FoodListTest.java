@@ -27,6 +27,9 @@ public class FoodListTest {
     Firebase users;
     DataSnapshot usersSnapShot;
 
+    /**
+     * sets up a firebase connection used for testing
+     */
     @Before
     public void setUp() {
         Firebase base = new Firebase("https://brilliant-fire-9755.firebaseio.com");
@@ -34,37 +37,54 @@ public class FoodListTest {
     }
 
     @Rule
-    public ActivityTestRule<SaveLowGIActivity> saveDietActivityRule =
-            new ActivityTestRule<>(SaveLowGIActivity.class);
+    public ActivityTestRule<SaveLowGIDietActivity> saveDietActivityRule =
+            new ActivityTestRule<>(SaveLowGIDietActivity.class);
 
+    /**
+     * The parameterized test function,the boolean inputs specifies wether a specified food is added to the food list
+     * then the food list is saved to the firebase location with the preset firebase connection
+     * then we assert that the foodlist element is there then remove it
+     *
+     * @param riceNoodles
+     * @param lentils
+     * @param sweetCorn
+     * @param beans
+     * @param yogurt
+     * @param greekYogurt
+     * @param oranges
+     * @param plums
+     */
     private void testFoodList(boolean riceNoodles, boolean lentils, boolean sweetCorn, boolean beans, boolean yogurt, boolean greekYogurt,
-                              boolean oranges, boolean plums){
+                              boolean oranges, boolean plums) {
         String s = "";
-        if(riceNoodles) {
+        if (riceNoodles) {
             s += "riceNoodles";
         }
-        if(lentils) {
+        if (lentils) {
             s += "lentils";
         }
-        if(sweetCorn) {
+        if (sweetCorn) {
             s += "sweetCorn";
         }
-        if(beans) {
+        if (beans) {
             s += "beans";
         }
-        if(yogurt) {
+        if (yogurt) {
             s += "yogurt";
         }
-        if(greekYogurt) {
+        if (greekYogurt) {
             s += "greekYogurt";
         }
-        if(oranges) {
+        if (oranges) {
             s += "oranges";
         }
-        if(plums) {
+        if (plums) {
             s += "plums";
         }
-        FoodList.add(saveDietActivityRule.getActivity(), "yiyuli9@gmail!com", s);
+        FoodList.saveFoodList(saveDietActivityRule.getActivity(), "yiyuli9@gmail!com", s);
+        /**
+         * Adds a listener to read the data in the firebase location we write to
+         */
         users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -76,19 +96,19 @@ public class FoodListTest {
                 System.out.println("The read failed: " + firebaseError.getMessage());
             }
         });
-        assert(usersSnapShot.hasChild("foodlist"));
+        assert (usersSnapShot.hasChild("foodlist"));
         Firebase foodlist = users.child("foodlist");
         foodlist.removeValue();
     }
 
     @Test
-    public void FoodListTest1(){
+    public void FoodListTest1() {
         testFoodList(true, true, false, true, false, true, true, true);
     }
 
 
     @Test
-    public void FoodListTest2(){
+    public void FoodListTest2() {
         testFoodList(false, true, false, true, false, true, true, true);
     }
 
