@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextBloodSugar;
     public MonitorPressure monitorP;
     public Monitor monitor;
-    public int countMo=-1;
+    public int countPeriod =-1;
     public String toDisplay;
     public ArrayList<String> toMonitor;
     private ShowcaseManager showcaseManager;
@@ -295,16 +295,16 @@ public class MainActivity extends AppCompatActivity {
                     Firebase mRef = new Firebase(getString(R.string.firebase_url));
                     String userSettingURL = "monitorsetting/" + session.getUserDetails().get(SessionManager.KEY_EMAIL);
                     userSettingURL = userSettingURL.replace('.', '!');
-                    ArrayList<String> temp= new ArrayList<String>();
-                    temp.add("bloodSugar");
-                    MonitorSetting ms = new MonitorSetting(3, "bloodSugar", temp);
+                    ArrayList<String> tempToMonitor= new ArrayList<String>();
+                    tempToMonitor.add("bloodSugar");
+                    MonitorSetting thisSetting = new MonitorSetting(3, "bloodSugar", tempToMonitor);
                     mRef = mRef.child(userSettingURL);
-                    mRef.setValue(ms);
-                    countMo = 3;
+                    mRef.setValue(thisSetting);
+                    countPeriod = 3;
                     toDisplay = "bloodSugar";
-                    toMonitor = temp;
+                    toMonitor = tempToMonitor;
                 }else {
-                    countMo = sets.numDaysMonitor;
+                    countPeriod = sets.numDaysMonitor;
                     toDisplay = sets.indicatorType;
                     toMonitor = sets.warningMessage;
                 }
@@ -332,14 +332,16 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println(toDisplay);
 
                         //just for double check
-                        if (countMo > -1) {
-                            monitor.setCount(countMo);
-                            monitorP.count = countMo;
+                        if (countPeriod > -1) {
+                            monitor.setCount(countPeriod);
+                            monitorP.count = countPeriod;
                         }
                         units = (TextView) findViewById(R.id.unit);
 
                         //now check for what to display on the card view
                         if (toDisplay == null) toDisplay = "bloodSugar";
+
+                        
                         if (toDisplay.equals("bloodSugar")) {
                             units.setText("mmol/L");
                             for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
@@ -426,6 +428,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
+
+
+
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
