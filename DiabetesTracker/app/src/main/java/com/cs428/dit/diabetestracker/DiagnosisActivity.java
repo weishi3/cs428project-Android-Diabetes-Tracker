@@ -47,6 +47,18 @@ public class DiagnosisActivity extends AppCompatActivity {
     private LinearLayout mLayout;
     private Button diagnosisButton;
     private SessionManager session;
+    boolean sedentary = false;
+    int ExerciseT = 80;
+    float HDL_C = (float) 0.9;
+    float TG = (float) 2.21;
+    int weightB = 3;
+    boolean GDM = false;
+    boolean diagnosedD = false;
+    boolean psychotropic = false;
+    //Atherosclerotic CCVd: stands for chronic cerebrovascular disease
+    boolean CCVD = false;
+    //does a female user has PCOS? stands for Polycystic ovary syndrome
+    boolean PCOS = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,29 +67,14 @@ public class DiagnosisActivity extends AppCompatActivity {
         mLayout = (LinearLayout) findViewById(R.id.linearLayout);
         session = new SessionManager(getApplicationContext());
         userMap = session.getUserDetails();
-
         //mEditText = (EditText) findViewById(R.id.)
         diagnosisButton = (Button) findViewById(R.id.button);
-
         // preparing list data
         prepareListData();
         diagnosisButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 User u = createUser();
-
-                boolean sedentary = false;
-                int ExerciseT = 80;
-                float HDL_C = (float) 0.9;
-                float TG = (float) 2.21;
-                int weightB = 3;
-                boolean GDM = false;
-                boolean diagnosedD = false;
-                boolean psychotropic = false;
-                //Atherosclerotic CCVd: stands for chronic cerebrovascular disease
-                boolean CCVD = false;
-                //does a female user has PCOS? stands for Polycystic ovary syndrome
-                boolean PCOS = false;
                 // does user have psychotropic problems.
                 if (userMap.containsKey("sedentaryJob") && userMap.get("sedentaryJob") != null)
                     sedentary = (boolean) userMap.get("sedentaryJob");
@@ -97,20 +94,15 @@ public class DiagnosisActivity extends AppCompatActivity {
                     psychotropic = (boolean) userMap.get("psychotropic");
                 if (userMap.containsKey("CCVD") && userMap.get("CCVD") != null)
                     CCVD = (boolean) userMap.get("CCVD");
-
                 if (userMap.containsKey("PCOS") && userMap.get("PCOS") != null)
                     PCOS = (boolean) userMap.get("PCOS");
-
-                setU(u, sedentary, ExerciseT, HDL_C, TG, weightB, GDM, diagnosedD, psychotropic, CCVD, PCOS);
-
+                setUser(u, sedentary, ExerciseT, HDL_C, TG, weightB, GDM, diagnosedD, psychotropic, CCVD, PCOS);
                 String score = u.getScore();
                 foodSug = u.generateSuggestionD();
                 suggestionContents = u.generateSuggestion();
                 diagnosisTitle = u.getSuggestionsSummary();
-
                 mLayout.removeAllViews();
                 mLayout.addView(createNewTextView(score));
-
                 prepareListData();
                 expListView.deferNotifyDataSetChanged();
                 listAdapter = new ExpandableListAdapter(thisAct, listDataHeader, listDataChild);
@@ -212,7 +204,7 @@ public class DiagnosisActivity extends AppCompatActivity {
     /*
      * Set up user based on these information
      */
-    public void setU(User u, boolean sedentary, int exerciseT, float HDL_C, float TG, int weightB, boolean GDM, boolean diagnosedD, boolean psychotropic, boolean CCVD, boolean PCOS) {
+    public void setUser(User u, boolean sedentary, int exerciseT, float HDL_C, float TG, int weightB, boolean GDM, boolean diagnosedD, boolean psychotropic, boolean CCVD, boolean PCOS) {
         u.setSedentaryJob(sedentary);
         u.setExerciseT(exerciseT);
         u.setDiagnosedD(diagnosedD);
