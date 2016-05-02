@@ -225,11 +225,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-         mBuilder = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_add_black_24dp)
-                        .setContentTitle(" A KIND REMINDER FROM Diabetes Tracker.")
-                        .setAutoCancel(true)
-                        .setContentText("Input your health indicator today!");
+
+        //initialize the notification for adding indicator here!
+        mBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_add_black_24dp)
+                .setContentTitle(" A KIND REMINDER FROM Diabetes Tracker.")
+                .setAutoCancel(true)
+                .setContentText("Input your health indicator today!");
         Intent resultIntent = new Intent(this, AddIndicatorActivity.class);
 
         // The stack builder object will contain an artificial back stack for the
@@ -243,11 +245,14 @@ public class MainActivity extends AppCompatActivity {
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //initialize manager and set id
         mBuilder.setContentIntent(resultPendingIntent);
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         // mId allows you to update the notification later on.
         mNotificationManager.notify(111, mBuilder.build());
 
+        //set firebase url
         String baseURL = getString(R.string.firebase_url);
         Log.d("USER_EMAIL", session.getUserDetails().toString());
         String userStatsURL = "foodStats/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL) + "").replace('.', '!');
@@ -278,9 +283,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String baseURL3 = getString(R.string.firebase_url);
+        //set firebase url for monitor setting
         String userMonitorSettingURL = "monitorsetting/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.', '!');
-        userMonitorSettingURL = baseURL3 + userMonitorSettingURL;
+        userMonitorSettingURL = baseURL + userMonitorSettingURL;
         Firebase monitorSettingRef = new Firebase(userMonitorSettingURL);
         monitorSettingRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -303,9 +308,11 @@ public class MainActivity extends AppCompatActivity {
                     toDisplay = sets.indicatorType;
                     toMonitor = sets.warningMessage;
                 }
+
                 // Indicator
                 String baseURL2 = getString(R.string.firebase_url);
                 //add by weishi
+
                 //what would be shown on card?
                 //dialog
                 monitor = new Monitor(3);
@@ -317,17 +324,21 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (alertDialog!=null)
-                          alertDialog.dismiss();
+                            alertDialog.dismiss();
                         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                         final String day = dateformat.format(new Date());
                         //may not necessary to be blood sugar
                         double bloodSugar = 0.0;
                         System.out.println(toDisplay);
-                        if (countMo != -1) {
+
+                        //just for double check
+                        if (countMo > -1) {
                             monitor.setCount(countMo);
                             monitorP.count = countMo;
                         }
                         units = (TextView) findViewById(R.id.unit);
+
+                        //now check for what to display on the card view
                         if (toDisplay == null) toDisplay = "bloodSugar";
                         if (toDisplay.equals("bloodSugar")) {
                             units.setText("mmol/L");
@@ -366,6 +377,9 @@ public class MainActivity extends AppCompatActivity {
                         monitorP.detectWarning();
                         monitor.detectWarning();
                         String toOutput = "";
+
+
+                        //detect the condition when to display warnings
                         boolean need = false;
                         if (toMonitor == null) toMonitor = new ArrayList<String>();
                         if (toMonitor.contains("bloodSugar") && monitor.getWarning()) {
@@ -394,10 +408,15 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
 
+                        //just for double check for invalid value
+
                         if (bloodSugar < 0.0) {
                             bloodSugar = 0.0;
                         }
+
                         mTextBloodSugar.setText(bloodSugar + "");
+
+                        //cancel the notification when user has input indicator data today
                         if (bloodSugar!=0.0)
                             mNotificationManager.cancel(111);
                     }
