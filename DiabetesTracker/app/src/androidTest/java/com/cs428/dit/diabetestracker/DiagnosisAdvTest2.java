@@ -85,10 +85,6 @@ public class DiagnosisAdvTest2 {
     @Test
     public void diagnosisADV2(){
 
-
-
-
-
         // Go to add indicator page.
         onView(withId(R.id.diagnosis_preview))
                 .perform(scrollTo(), click());
