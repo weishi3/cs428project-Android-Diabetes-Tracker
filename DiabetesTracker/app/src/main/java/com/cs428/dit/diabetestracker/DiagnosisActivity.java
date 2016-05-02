@@ -45,7 +45,7 @@ public class DiagnosisActivity extends AppCompatActivity {
     private String foodSug = "Generally Suggested Diets";
     private String diagnosisTitle = "N/A Before Running Diagnosis!";
     private LinearLayout mLayout;
-    private Button mButton;
+    private Button diagnosisButton;
     private SessionManager session;
 
     @Override
@@ -57,11 +57,11 @@ public class DiagnosisActivity extends AppCompatActivity {
         userMap = session.getUserDetails();
 
         //mEditText = (EditText) findViewById(R.id.)
-        mButton = (Button) findViewById(R.id.button);
+        diagnosisButton = (Button) findViewById(R.id.button);
 
         // preparing list data
         prepareListData();
-        mButton.setOnClickListener(new View.OnClickListener() {
+        diagnosisButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 User u = createUser();
@@ -111,7 +111,6 @@ public class DiagnosisActivity extends AppCompatActivity {
                 mLayout.removeAllViews();
                 mLayout.addView(createNewTextView(score));
 
-
                 prepareListData();
                 expListView.deferNotifyDataSetChanged();
                 listAdapter = new ExpandableListAdapter(thisAct, listDataHeader, listDataChild);
@@ -133,6 +132,9 @@ public class DiagnosisActivity extends AppCompatActivity {
         popDataIntoExpandableList();
     }
 
+    /**
+     * construct expandableList object using the prepared data
+     */
     private void popDataIntoExpandableList() {
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
@@ -142,6 +144,9 @@ public class DiagnosisActivity extends AppCompatActivity {
         setUpChildListener();
     }
 
+    /**
+     * set up the listener for items
+     */
     private void setUpChildListener() {
         expListView.setOnChildClickListener(new OnChildClickListener() {
 
@@ -168,6 +173,9 @@ public class DiagnosisActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * set up the listener for headers
+     */
     private void setUpGroupListener() {
         expListView.setOnGroupClickListener(new OnGroupClickListener() {
 
@@ -231,11 +239,17 @@ public class DiagnosisActivity extends AppCompatActivity {
         return new User(BMI, waistline, age, bloodPressure, familyHistory, gender);
     }
 
+    /**
+     * prepare header and item data
+     */
     private void prepareListData() {
         prepareListDataHeader();
         prepareListItemData();
     }
 
+    /**
+     * prepare item data for each header
+     */
     private void prepareListItemData() {
         listDataChild = new HashMap<String, List<String>>();
 
@@ -255,6 +269,9 @@ public class DiagnosisActivity extends AppCompatActivity {
         listDataChild.put(listDataHeader.get(1), suggestedDiets);
     }
 
+    /**
+     * prepare the header data
+     */
     private void prepareListDataHeader() {
         listDataHeader = new ArrayList<String>();
 
