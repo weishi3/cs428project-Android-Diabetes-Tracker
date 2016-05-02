@@ -192,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Show tutorial on views
-     * TODO: Fix login keyboard blocking the tutorial
      */
     private void showTutorial() {
         showcaseManager = new ShowcaseManager();
@@ -328,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
                         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                         final String day = dateformat.format(new Date());
                         //may not necessary to be blood sugar
-                        double bloodSugar = 0.0;
+                        double toDisplayOnIndicatorCard = 0.0;
                         System.out.println(toDisplay);
 
                         //just for double check
@@ -341,60 +340,19 @@ public class MainActivity extends AppCompatActivity {
                         //now check for what to display on the card view
                         if (toDisplay == null) toDisplay = "bloodSugar";
 
-                        
-                        if (toDisplay.equals("bloodSugar")) {
-                            units.setText("mmol/L");
-                            for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
-                                IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
-                                if (day.equals(oneLog.getDate())) {
-                                    bloodSugar = (oneLog.getIndicator().getBloodSugar());
-                                }
-                                monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
-                                monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
-                            }
-                        }
-                        if (toDisplay.equals("bloodPressure")) {
-                            units.setText("mmHg");
-                            for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
-                                IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
-                                if (day.equals(oneLog.getDate())) {
-                                    bloodSugar = (oneLog.getIndicator().getBloodPressure());
-                                }
-                                monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
-                                monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
-                            }
-                        }
+                        //firebase stuffs
+                        toDisplayOnIndicatorCard = IndicatorCardController(dataSnapshot, day, toDisplayOnIndicatorCard);
 
-                        if (toDisplay.equals("weight")) {
-                            units.setText("kg");
-                            for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
-                                IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
-                                if (day.equals(oneLog.getDate())) {
-                                    bloodSugar = (oneLog.getIndicator().getWeight());
-                                }
-                                monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
-                                monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
-                            }
-                        }
                         monitorP.detectWarning();
                         monitor.detectWarning();
                         String toOutput = "";
 
 
                         //detect the condition when to display warnings
-                        boolean need = false;
-                        if (toMonitor == null) toMonitor = new ArrayList<String>();
-                        if (toMonitor.contains("bloodSugar") && monitor.getWarning()) {
-                            toOutput += "Blood Sugar Stats";
-                            need = true;
-                        }
-                        if (toMonitor.contains("bloodPressure") && monitorP.warning) {
-                            if (toOutput == "") toOutput += "Blood Pressure Stats";
-                            else toOutput += " and Blood Pressure Stats";
-                            need = true;
-                        }
 
-                        if (need) {
+                        toOutput = checkIfNeedToShowAlert(toOutput);
+
+                        if (!toOutput.equals("")) {
                             alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                             alertDialog.setTitle("A KIND REMINDER");
                             alertDialog.setMessage("Your " + toOutput + " may indicate that you are in a bad health condition!");
@@ -412,16 +370,83 @@ public class MainActivity extends AppCompatActivity {
 
                         //just for double check for invalid value
 
-                        if (bloodSugar < 0.0) {
-                            bloodSugar = 0.0;
+                        if (toDisplayOnIndicatorCard < 0.0) {
+                            toDisplayOnIndicatorCard = 0.0;
                         }
 
-                        mTextBloodSugar.setText(bloodSugar + "");
+                        mTextBloodSugar.setText(toDisplayOnIndicatorCard + "");
 
                         //cancel the notification when user has input indicator data today
-                        if (bloodSugar!=0.0)
+                        if (toDisplayOnIndicatorCard!=0.0)
                             mNotificationManager.cancel(111);
                     }
+
+
+                    /**
+                     * WE WOULD CHECK toOutput to determine whether to display alert
+                     * @param toOutput
+                     * @return
+                     */
+                    private String checkIfNeedToShowAlert(String toOutput) {
+                        if (toMonitor == null) toMonitor = new ArrayList<String>();
+                        if (toMonitor.contains("bloodSugar") && monitor.getWarning()) {
+                            toOutput += "Blood Sugar Stats";
+
+                        }
+                        if (toMonitor.contains("bloodPressure") && monitorP.warning) {
+                            if (toOutput == "") toOutput += "Blood Pressure Stats";
+                            else toOutput += " and Blood Pressure Stats";
+
+                        }
+                        return toOutput;
+                    }
+
+                    /**
+                     * set what is on the indicator card view
+                     * @param dataSnapshot what we get from firebase
+                     * @param day date
+                     * @param toDisplayOnIndicatorCard the string shown on indicator card view
+                     * @return
+                     */
+                    private double IndicatorCardController(DataSnapshot dataSnapshot, String day, double toDisplayOnIndicatorCard) {
+                        if (toDisplay.equals("bloodSugar")) {
+                            units.setText("mmol/L");
+                            for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
+                                IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
+                                if (day.equals(oneLog.getDate())) {
+                                    toDisplayOnIndicatorCard = (oneLog.getIndicator().getBloodSugar());
+                                }
+                                monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
+                                monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
+                            }
+                        }
+                        if (toDisplay.equals("bloodPressure")) {
+                            units.setText("mmHg");
+                            for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
+                                IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
+                                if (day.equals(oneLog.getDate())) {
+                                    toDisplayOnIndicatorCard = (oneLog.getIndicator().getBloodPressure());
+                                }
+                                monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
+                                monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
+                            }
+                        }
+
+                        if (toDisplay.equals("weight")) {
+                            units.setText("kg");
+                            for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
+                                IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
+                                if (day.equals(oneLog.getDate())) {
+                                    toDisplayOnIndicatorCard = (oneLog.getIndicator().getWeight());
+                                }
+                                monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
+                                monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
+                            }
+                        }
+                        return toDisplayOnIndicatorCard;
+                    }
+
+
                     @Override
                     public void onCancelled(FirebaseError firebaseError) {
 

@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f857baf6-d570-43dd-acd5-84d4665c85f9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DiabetesTracker/app/src/main/java/com/cs428/dit/diabetestracker/MainActivity.java" afterPath="$PROJECT_DIR$/DiabetesTracker/app/src/main/java/com/cs428/dit/diabetestracker/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DiabetesTracker/.idea/gradle.xml" afterPath="$PROJECT_DIR$/DiabetesTracker/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DiabetesTracker/.idea/misc.xml" afterPath="$PROJECT_DIR$/DiabetesTracker/.idea/misc.xml" />
     </list>
     <ignored path="cs428project.iws" />
     <ignored path=".idea/workspace.xml" />
