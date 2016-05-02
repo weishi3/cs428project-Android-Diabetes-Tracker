@@ -44,8 +44,6 @@ public class SetMonitorPlan extends AppCompatActivity {
         submitSetting = (Button) findViewById(R.id.submitSetting);
         session = new SessionManager(this);
 
-
-
         String baseURL = getString(R.string.firebase_url);
         String userStatsURL = "monitorsetting/" + session.getUserDetails().get(SessionManager.KEY_EMAIL).toString().replace('.', '!');
         userStatsURL = baseURL + userStatsURL;
@@ -60,25 +58,21 @@ public class SetMonitorPlan extends AppCompatActivity {
                 String displayType= oneSetting.getIndicatorType();
                 ArrayList<String> msg=oneSetting.getWarningMessage();
                 period.setText(Integer.toString(thisDays));
-                RadioButton cbs = (RadioButton) findViewById(R.id.select_blood_sugar);
-                RadioButton cbp = (RadioButton) findViewById(R.id.select_blood_pressure);
-                RadioButton cw = (RadioButton) findViewById(R.id.select_weight);
+                RadioButton select_blood_sugar = (RadioButton) findViewById(R.id.select_blood_sugar);
+                RadioButton select_blood_pressure = (RadioButton) findViewById(R.id.select_blood_pressure);
+                RadioButton select_weight = (RadioButton) findViewById(R.id.select_weight);
                 if (displayType.equals("weight"))
-                    cw.setChecked(true);
+                    select_weight.setChecked(true);
                 if (displayType.equals("bloodSugar"))
-                    cbs.setChecked(true);
+                    select_blood_sugar.setChecked(true);
                 if (displayType.equals("bloodPressure"))
-                    cbp.setChecked(true);
-                CheckBox c1 = (CheckBox) findViewById(R.id.blood_sugar_check_box);
-                CheckBox c2 = (CheckBox) findViewById(R.id.blood_pressure_check_box);
+                    select_blood_pressure.setChecked(true);
+                CheckBox blood_sugar_check_box = (CheckBox) findViewById(R.id.blood_sugar_check_box);
+                CheckBox blood_pressure_check_box = (CheckBox) findViewById(R.id.blood_pressure_check_box);
                 if (msg.contains("bloodSugar"))
-                    c1.setChecked(true);
+                    blood_sugar_check_box.setChecked(true);
                 if (msg.contains("bloodPressure"))
-                    c2.setChecked(true);
-
-
-
-
+                    blood_pressure_check_box.setChecked(true);
 
             }
             @Override
@@ -86,7 +80,6 @@ public class SetMonitorPlan extends AppCompatActivity {
 
             }
         });
-
 
         /*
          * Set the onclickerlistener for submit the setting

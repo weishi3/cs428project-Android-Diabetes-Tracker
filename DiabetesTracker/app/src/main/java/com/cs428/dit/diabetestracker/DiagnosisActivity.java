@@ -23,10 +23,17 @@ import com.cs428.dit.diabetestracker.helpers.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+/*
+ * This activity is for user to run diagnosis and see the user's health condition
+ * After user ran the diagnosis and saw the score, we provided the user with corresponding
+ * recommendations and food
+ */
 
 public class DiagnosisActivity extends AppCompatActivity {
 
-    //float BMI, float waistline, int age, int blood_pressure, boolean gender, boolean familyHistory
+    /*
+     * float BMI, float waistline, int age, int blood_pressure, boolean gender, boolean familyHistory
+     */
     final Activity thisAct = this;
     public HashMap<String, Object> userMap;
     // instances for expandable lists
@@ -61,20 +68,17 @@ public class DiagnosisActivity extends AppCompatActivity {
 
                 boolean sedentary = false;
                 int ExerciseT = 80;
-                float HDL_C = (float)0.9;
-                float TG = (float)2.21;
+                float HDL_C = (float) 0.9;
+                float TG = (float) 2.21;
                 int weightB = 3;
                 boolean GDM = false;
                 boolean diagnosedD = false;
                 boolean psychotropic = false;
                 //Atherosclerotic CCVd: stands for chronic cerebrovascular disease
                 boolean CCVD = false;
-
                 //does a female user has PCOS? stands for Polycystic ovary syndrome
                 boolean PCOS = false;
-
                 // does user have psychotropic problems.
-
                 if (userMap.containsKey("sedentaryJob") && userMap.get("sedentaryJob") != null)
                     sedentary = (boolean) userMap.get("sedentaryJob");
                 if (userMap.containsKey("exerciseT") && userMap.get("exerciseT") != null)
@@ -147,15 +151,15 @@ public class DiagnosisActivity extends AppCompatActivity {
                 final String selected = (String) listAdapter.getChild(groupPosition, childPosition);
                 switch (selected) {
                     case "lowGI":
-                        Intent intent = new Intent(DiagnosisActivity.this, DietLow.class);
+                        Intent intent = new Intent(DiagnosisActivity.this, DietLowGIActivity.class);
                         startActivity(intent);
                         break;
                     case "mediumGI":
-                        intent = new Intent(DiagnosisActivity.this, DietMedium.class);
+                        intent = new Intent(DiagnosisActivity.this, DietMediumGIActivity.class);
                         startActivity(intent);
                         break;
                     case "highGI":
-                        intent = new Intent(DiagnosisActivity.this, DietHigh.class);
+                        intent = new Intent(DiagnosisActivity.this, DietHighGIActivity.class);
                         startActivity(intent);
                         break;
                 }
@@ -197,6 +201,9 @@ public class DiagnosisActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * Set up user based on these information
+     */
     public void setU(User u, boolean sedentary, int exerciseT, float HDL_C, float TG, int weightB, boolean GDM, boolean diagnosedD, boolean psychotropic, boolean CCVD, boolean PCOS) {
         u.setSedentaryJob(sedentary);
         u.setExerciseT(exerciseT);
@@ -210,6 +217,9 @@ public class DiagnosisActivity extends AppCompatActivity {
         u.setPCOS(PCOS);
     }
 
+    /*
+     * Create a user based on the information in the userMap
+     */
     @NonNull
     public User createUser() {
         float BMI = (float) userMap.get("BMI");

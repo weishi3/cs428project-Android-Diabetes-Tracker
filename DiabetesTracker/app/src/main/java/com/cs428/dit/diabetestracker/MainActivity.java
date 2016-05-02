@@ -38,8 +38,19 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+/*
+ * This activity showes the main page and does all the navigation to different activities
+ * In this page, user will be able to view the calories and the indicator level in a card view
+ */
 
 public class MainActivity extends AppCompatActivity {
+    /*
+     * Textview mTextColories, units, mTextBloodSugar: The text appears on the card view
+     * Session: The session object which stores all the user information
+     * ShowcaseManager: The tutorial object
+     * notificationManager: the notification on top for the monitor plan
+     * alertDialog: the alert window for monitor plan
+     */
     private static final String TAG = "MAIN_ACTIVITY";
     private SessionManager session;
     private TextView mTextCalories;
@@ -147,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Set monitor plan
         monitorPlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Go to indicator log page
         indicatorLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Show tutorial
         showTutorial();
-
 
     }
 
@@ -213,40 +225,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-         mBuilder =
-                new NotificationCompat.Builder(this)
+         mBuilder = new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_add_black_24dp)
                         .setContentTitle(" A KIND REMINDER FROM Diabetes Tracker.")
                         .setAutoCancel(true)
                         .setContentText("Input your health indicator today!");
-// Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, AddIndicatorActivity.class);
 
-// The stack builder object will contain an artificial back stack for the
-// started Activity.
-// This ensures that navigating backward from the Activity leads out of
-// your application to the Home screen.
+        // The stack builder object will contain an artificial back stack for the
+        // started Activity.
+        // This ensures that navigating backward from the Activity leads out of
+        // your application to the Home screen.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-// Adds the back stack for the Intent (but not the Intent itself)
+        // Adds the back stack for the Intent (but not the Intent itself)
         stackBuilder.addParentStack(AddIndicatorActivity.class);
-// Adds the Intent that starts the Activity to the top of the stack
+        // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(resultPendingIntent);
-        mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-// mId allows you to update the notification later on.
+        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // mId allows you to update the notification later on.
         mNotificationManager.notify(111, mBuilder.build());
-
-
-
-
-
-
 
         String baseURL = getString(R.string.firebase_url);
         Log.d("USER_EMAIL", session.getUserDetails().toString());
@@ -267,24 +267,16 @@ public class MainActivity extends AppCompatActivity {
                         tCal += (oneLog.getFood().getKilocalorie());
                     }
                 }
-
                 if (tCal < 0.0) {
                     tCal = 0.0;
                 }
-
                 mTextCalories.setText(tCal + "");
             }
-
             @Override
             public void onCancelled(FirebaseError firebaseError) {
 
             }
         });
-
-
-
-
-
 
         String baseURL3 = getString(R.string.firebase_url);
         String userMonitorSettingURL = "monitorsetting/" + (session.getUserDetails().get(SessionManager.KEY_EMAIL)+"").replace('.', '!');
@@ -306,19 +298,13 @@ public class MainActivity extends AppCompatActivity {
                     countMo = 3;
                     toDisplay = "bloodSugar";
                     toMonitor = temp;
-
-
                 }else {
-
-
                     countMo = sets.numDaysMonitor;
                     toDisplay = sets.indicatorType;
                     toMonitor = sets.warningMessage;
                 }
                 // Indicator
                 String baseURL2 = getString(R.string.firebase_url);
-
-
                 //add by weishi
                 //what would be shown on card?
                 //dialog
@@ -332,51 +318,35 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (alertDialog!=null)
                           alertDialog.dismiss();
-
                         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                         final String day = dateformat.format(new Date());
-
                         //may not necessary to be blood sugar
                         double bloodSugar = 0.0;
-
-
                         System.out.println(toDisplay);
                         if (countMo != -1) {
                             monitor.setCount(countMo);
                             monitorP.count = countMo;
                         }
                         units = (TextView) findViewById(R.id.unit);
-
                         if (toDisplay == null) toDisplay = "bloodSugar";
                         if (toDisplay.equals("bloodSugar")) {
-
                             units.setText("mmol/L");
                             for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
-
                                 IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
                                 if (day.equals(oneLog.getDate())) {
-
                                     bloodSugar = (oneLog.getIndicator().getBloodSugar());
-
                                 }
-
                                 monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
                                 monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
                             }
                         }
-
                         if (toDisplay.equals("bloodPressure")) {
                             units.setText("mmHg");
-                            //
                             for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
-
                                 IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
                                 if (day.equals(oneLog.getDate())) {
-
                                     bloodSugar = (oneLog.getIndicator().getBloodPressure());
-
                                 }
-
                                 monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
                                 monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
                             }
@@ -384,14 +354,11 @@ public class MainActivity extends AppCompatActivity {
 
                         if (toDisplay.equals("weight")) {
                             units.setText("kg");
-                            //
                             for (DataSnapshot indicatorItemLogSnapshot : dataSnapshot.getChildren()) {
                                 IndicatorItemLog oneLog = indicatorItemLogSnapshot.getValue(IndicatorItemLog.class);
                                 if (day.equals(oneLog.getDate())) {
                                     bloodSugar = (oneLog.getIndicator().getWeight());
-
                                 }
-
                                 monitor.addBloodSugar(oneLog.getIndicator().getBloodSugar());
                                 monitorP.addBloodPressure(oneLog.getIndicator().getBloodPressure());
                             }
@@ -404,16 +371,13 @@ public class MainActivity extends AppCompatActivity {
                         if (toMonitor.contains("bloodSugar") && monitor.getWarning()) {
                             toOutput += "Blood Sugar Stats";
                             need = true;
-
                         }
-
                         if (toMonitor.contains("bloodPressure") && monitorP.warning) {
                             if (toOutput == "") toOutput += "Blood Pressure Stats";
                             else toOutput += " and Blood Pressure Stats";
                             need = true;
                         }
 
-                        // need to modify warning message!
                         if (need) {
                             alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                             alertDialog.setTitle("A KIND REMINDER");
@@ -430,44 +394,25 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
 
-                        //
-
-
-                        //
-
                         if (bloodSugar < 0.0) {
                             bloodSugar = 0.0;
                         }
-
                         mTextBloodSugar.setText(bloodSugar + "");
-
                         if (bloodSugar!=0.0)
                             mNotificationManager.cancel(111);
                     }
-
                     @Override
                     public void onCancelled(FirebaseError firebaseError) {
 
                     }
-
-
                 });
-
-
-
-
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
 
             }
-
-
         });
-
-
-
     }
 
     @Override
@@ -476,14 +421,12 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //handle logout
         if (id == R.id.action_logout) {
             session.logoutUser();
             finish();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

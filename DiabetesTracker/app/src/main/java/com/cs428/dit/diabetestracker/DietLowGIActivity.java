@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class DietLow extends AppCompatActivity {
+public class DietLowGIActivity extends AppCompatActivity {
 
     ExpandableListAdapterWithImages listAdapter;
     ExpandableListView expListView;
@@ -26,6 +26,11 @@ public class DietLow extends AppCompatActivity {
     private Button saveButton;
     private Button checkButton;
 
+    /**
+     * The method is called when this activity is created,savedInstanceState is used to restore activity state when exited unexpectedly,not used here
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +40,7 @@ public class DietLow extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent saveDiet = new Intent(getApplicationContext(), SaveLowGIActivity.class);
+                Intent saveDiet = new Intent(getApplicationContext(), SaveLowGIDietActivity.class);
                 startActivity(saveDiet);
             }
         });
@@ -54,6 +59,10 @@ public class DietLow extends AppCompatActivity {
         popDataIntoExpandableList();
     }
 
+    /**
+     * Get the list from listDataHeader and listDataChild
+     * Get the expandable list view and set the listAdaptor for it based on the list retrieved from listDataHeader and listDataChild
+     */
     private void popDataIntoExpandableList() {
         expListView = (ExpandableListView) findViewById(R.id.lvExp2);
         listAdapter = new ExpandableListAdapterWithImages(this, listDataHeader, listDataChild, listImageChild);
@@ -77,12 +86,18 @@ public class DietLow extends AppCompatActivity {
         });
     }
 
+    /**
+     * Call the other three data preparation functions,this function will ready up the data and allow popDataIntoExpandableList() to be called
+     */
     private void prepareListData() {
         prepareListHeaderData();
         prepareListItemData();
         prepareListImageData();
     }
 
+    /**
+     * Update the listDataHeader,a helper for prepareListData()
+     */
     private void prepareListHeaderData() {
         listDataHeader = new ArrayList<String>();
 
@@ -96,6 +111,9 @@ public class DietLow extends AppCompatActivity {
         listDataHeader.add("Oranges");
     }
 
+    /**
+     * Update listDataChild,a helper for prepareListData()
+     */
     private void prepareListItemData() {
         listDataChild = new HashMap<String, List<String>>();
 
@@ -126,6 +144,9 @@ public class DietLow extends AppCompatActivity {
         listDataChild.put(listDataHeader.get(7), oranges);
     }
 
+    /**
+     * update listImageChild,a helper for prepareListData()
+     */
     private void prepareListImageData() {
         listImageChild = new HashMap<String, Drawable>();
 

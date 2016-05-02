@@ -14,7 +14,7 @@ import java.util.List;
 
 import android.graphics.drawable.Drawable;
 
-public class DietHigh extends AppCompatActivity {
+public class DietHighGIActivity extends AppCompatActivity {
 
     ExpandableListAdapterWithImages listAdapter;
     ExpandableListView expListView;
@@ -25,6 +25,11 @@ public class DietHigh extends AppCompatActivity {
     private Button saveButton;
     private Button checkButton;
 
+    /**
+     * The method is called when this activity is created,savedInstanceState is used to restore activity state when exited unexpectedly,not used here
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +39,7 @@ public class DietHigh extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent saveDiet = new Intent(getApplicationContext(), SaveHighGIActivity.class);
+                Intent saveDiet = new Intent(getApplicationContext(), SaveHighGIDietActivity.class);
                 startActivity(saveDiet);
             }
         });
@@ -53,6 +58,10 @@ public class DietHigh extends AppCompatActivity {
         popDataIntoExpandableList();
     }
 
+    /**
+     * Get the list from listDataHeader and listDataChild
+     * Get the expandable list view and set the listAdaptor for it based on the list retrieved from listDataHeader and listDataChild
+     */
     private void popDataIntoExpandableList() {
         expListView = (ExpandableListView) findViewById(R.id.lvExp2);
         listAdapter = new ExpandableListAdapterWithImages(this, listDataHeader, listDataChild, listImageChild);
@@ -77,12 +86,18 @@ public class DietHigh extends AppCompatActivity {
         });
     }
 
+    /**
+     * Call the other three data preparation functions,this function will ready up the data and allow popDataIntoExpandableList() to be called
+     */
     private void prepareListData() {
         prepareListHeaderData();
         prepareListItemData();
         prepareListImageData();
     }
 
+    /**
+     * update listImageChild,a helper for prepareListData()
+     */
     private void prepareListImageData() {
         listImageChild = new HashMap<String, Drawable>();
 
@@ -96,6 +111,9 @@ public class DietHigh extends AppCompatActivity {
         listImageChild.put(listDataHeader.get(7), getResources().getDrawable(R.drawable.puffedrice));
     }
 
+    /**
+     * Update listDataChild,a helper for prepareListData()
+     */
     private void prepareListItemData() {
         listDataChild = new HashMap<String, List<String>>();
 
@@ -126,6 +144,9 @@ public class DietHigh extends AppCompatActivity {
         listDataChild.put(listDataHeader.get(7), puffedRice);
     }
 
+    /**
+     * Update the listDataHeader,a helper for prepareListData()
+     */
     private void prepareListHeaderData() {
         listDataHeader = new ArrayList<String>();
 
