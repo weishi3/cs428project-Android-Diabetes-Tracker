@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Diabetes Tracker</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="prompt_age">Age</string>
+    <string name="prompt_waistline">Waistline(cm)</string>
+    <string name="prompt_BMI">BMI(kg/square meter)</string>
+    <string name="prompt_family_history">Family History of Diabetes?</string>
+    <string name="prompt_gender">Gender</string>
+    <string name="prompt_blood_pressure">Blood Pressure</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_register">Register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="on_success_registration">Successfully registered</string>
+
+
+    <!-- Strings related to registration -->
+    <string name="registration_page_name">Registration</string>
+    <string name="error_not_match_password">Confirm password does not match the password.</string>
+
+    <!-- Strings related to reset password -->
+    <string name="reset_password_page_name">Reset Password</string>
+    <string name="prompt_new_password_sent">Password has been sent to your email</string>
+    <string name="error_fail_to_sent_reset_pw_email">Sorry, we are unable to process your request.</string>
+    <!-- Qi's Firebase -->
+    <string name="firebase_url">https://brilliant-fire-9755.firebaseio.com/</string>
+    <string name="welcome">Welcome</string>
+    <string name="action_logout">Logout</string>
+    <string name="forget_password_link">Forget Password?</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="reset_password_button_prompt">Reset password</string>
+
+    <!-- Home page strings -->
+    <string name="home_page_title">Home</string>
+    <string name="diagnosis_card_title">Diagnosis</string>
+    <string name="diagnosis_card_preview_text">recommendation</string>
+
+    <!-- Strings related to the Profile and Edit acitivities -->
+    <string name="error_age">Invalid age.</string>
+    <string name="error_waistline">Invalid waistline.</string>
+    <string name="error_gender">Invalid gender.</string>
+    <string name="error_num_format">Invalid number format.</string>
+    <string name="profile_no_data">N/A</string>
+
+    <!-- Diagnosis Page string -->
+    <string name="diagnosis_page_name">Diagnosis Page</string>
+
+    <!-- Edit Profile Page string -->
+    <string name="edit_profile_page_name">Edit Profile</string>
+
+    <!-- Profile Page string -->
+    <string name="profile_page_name">Profile Page</string>
+</resources>
